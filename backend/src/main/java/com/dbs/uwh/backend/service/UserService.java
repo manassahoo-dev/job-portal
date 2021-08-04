@@ -12,8 +12,24 @@ import com.dbs.uwh.backend.model.User;
 public class UserService {
 	@Autowired
 	private UserDao userDao;
-	
+
 	public List<User> findAll() {
 		return userDao.findAll();
+	}
+
+	public User findById(Long id) {
+		return userDao.findById(id).get();
+	}
+
+	public void deleteById(Long id) {
+		userDao.deleteById(id);
+	}
+
+	public User create(User user) {
+		return userDao.save(user);
+	}
+
+	public User update(User user) {
+		return userDao.save(user);
 	}
 }
