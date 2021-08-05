@@ -15,9 +15,6 @@ const AppHeader = () => {
                 <Menu.Item key="mail" icon={<MailOutlined />}>
                     <Link to="/">Home</Link>
                 </Menu.Item>
-                <Menu.Item key="app" icon={<AppstoreOutlined />}>
-                    Navigation Two
-                </Menu.Item>
                 <Menu.Item key="alipay">
                     <Link to="/admin/users">Users</Link>
                 </Menu.Item>
