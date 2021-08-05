@@ -14,13 +14,12 @@ import lombok.Setter;
 @Setter
 public class User extends BaseEntity {
 	@NotNull
-	private String emailId;
-	
-	private String mobileNumber;
-	private String password;
+	private String email;
+
+	private String mobile;
 	private String firstName;
 	private String lastName;
-	
+
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Role role;

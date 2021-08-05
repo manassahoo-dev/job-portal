@@ -7,5 +7,7 @@ import com.dbs.uwh.backend.model.User;
 
 @Repository
 public interface UserDao extends JpaRepository<User, Long> {
+	boolean existsUserByEmail(String emailId);
 
+	boolean existsUserByMobile(String mobileNumber);
 }

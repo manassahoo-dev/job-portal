@@ -21,10 +21,10 @@ import com.dbs.uwh.backend.util.RestPreconditions;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping
 	public List<User> findAll() {
 		return userService.findAll();
@@ -52,5 +52,10 @@ public class UserController {
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable("id") Long id) {
 		userService.deleteById(id);
+	}
+
+	@PostMapping(value = "/exists")
+	public boolean exists(@RequestBody User user) {
+		return userService.exists(user);
 	}
 }
