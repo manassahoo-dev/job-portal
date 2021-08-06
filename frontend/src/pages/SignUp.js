@@ -35,11 +35,13 @@ const tailFormItemLayout = {
 
 const SignUp = () => {
     const [form] = Form.useForm();
-
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
 
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
     const prefixSelector = (
         <Form.Item name="prefix" noStyle>
             <Select
@@ -61,6 +63,7 @@ const SignUp = () => {
                     form={form}
                     name="register"
                     onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
                     initialValues={{
                         residence: ['zhejiang', 'hangzhou', 'xihu'],
                         prefix: '86',
@@ -111,7 +114,7 @@ const SignUp = () => {
                             addonBefore={prefixSelector}
                             style={{
                                 width: '100%',
-                            }}
+                            }} maxLength={10}
                         />
                     </Form.Item>
 
@@ -138,7 +141,7 @@ const SignUp = () => {
                         <Row gutter={8}>
                             <Col span={12}>
                                 <Form.Item
-                                    name="captcha"
+                                    name="OTP"
                                     noStyle
                                     rules={[
                                         {
@@ -150,7 +153,7 @@ const SignUp = () => {
                                     <Input.Group size="middle">
                                         <Row gutter={8}>
                                             <Col span={6}>
-                                                <Input minLength={1} maxLength={1} placeholder="__" />
+                                                <Input type="number" minLength={1} maxLength={1} placeholder="__" />
                                             </Col>
                                             <Col span={6}>
                                                 <Input minLength={1} maxLength={1} placeholder="__" />
@@ -187,7 +190,7 @@ const SignUp = () => {
                         </Checkbox>
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" on>
                             Register
                         </Button>
                     </Form.Item>
