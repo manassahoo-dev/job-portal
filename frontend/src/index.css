@@ -1,15 +1,25 @@
 .card-center {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
 }
-.auth-card{
-    max-height: 600px;
-    margin: auto;
+.auth-card {
+  max-height: 600px;
+  margin: auto;
 }
-.ant-layout-footer{    
-    bottom: 0;
-    position: absolute;
-    width: 100%;
+.ant-layout-footer {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
