@@ -6,7 +6,7 @@ const { Header, Footer, Sider, Content } = Layout;
 
 const AppHeader = () => {
     const handleClick = e => {
-        console.log('click ', e);
+        // console.log('click ', e);
     };
 
     return (
