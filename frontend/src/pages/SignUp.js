@@ -1,6 +1,7 @@
 
 import { Button, Card, Checkbox, Col, Form, Input, Row, Select } from 'antd';
 import React from 'react';
+import LoginOrSignUp from '../components/LoginOrSignUp';
 const { Option } = Select;
 const formItemLayout = {
     labelCol: {
@@ -34,7 +35,14 @@ const tailFormItemLayout = {
 };
 
 const SignUp = () => {
-    const [form] = Form.useForm();
+    return (
+        <LoginOrSignUp type="Sign Up" />
+    );
+};
+export default SignUp;
+
+{/*
+       const [form] = Form.useForm();
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
@@ -54,9 +62,7 @@ const SignUp = () => {
             </Select>
         </Form.Item>
     );
-
-    return (
-        <div className="card-center">
+    <div className="card-center">
             <Card className="auth-card" title="Register With Us" bordered={true}>
                 <Form
                     {...formItemLayout}
@@ -196,7 +202,4 @@ const SignUp = () => {
                     </Form.Item>
                 </Form>
             </Card>
-        </div>
-    );
-};
-export default SignUp;
+                    </div>*/}
