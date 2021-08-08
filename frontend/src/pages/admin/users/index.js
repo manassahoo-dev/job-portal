@@ -1,17 +1,15 @@
-import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Drawer, Form, Input, message, Modal, Row, Space, Table, Tooltip, Typography } from 'antd';
-import { useEffect, useState } from 'react';
+import { EditOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Drawer, Form, Input, Row, Space, Table, Tooltip } from 'antd';
+import { useState } from 'react';
+import DeleteEntity from '../../../components/DeleteEntity';
+import ApiRequest from '../../../services/api';
 import UserService from "../../../services/user.service";
 
-const { confirm } = Modal;
-const { Title } = Typography;
-const { Meta } = Card;
-
 function UserList() {
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [form] = Form.useForm();
     const [formLayout, setFormLayout] = useState('vertical');
+
+    const { data, error, loading } = ApiRequest('GET', "/users");
 
     const columns = [
         {
@@ -34,9 +32,7 @@ function UserList() {
                     <Tooltip title="Edit">
                         <Button type="dashed" size="small" shape="circle" icon={<EditOutlined />} onClick={() => { form.setFieldsValue(record); showDrawer() }} />
                     </Tooltip>
-                    <Tooltip title="Delete">
-                        <Button danger size="small" shape="circle" icon={<DeleteOutlined />} onClick={() => showDeleteConfirm(record)} />
-                    </Tooltip>
+                    <DeleteEntity item={record} />
                 </Space>
             ),
         },
@@ -46,64 +42,13 @@ function UserList() {
     const showDrawer = () => {
         setVisible(true);
     };
+
     const onClose = () => {
         setVisible(false);
     };
 
-    useEffect(() => {
-        findAll();
-    }, [])
-
-    const findAll = () => {
-        UserService.findAll()
-            .then(response => {
-                setUsers(response.data);
-            })
-            .catch(e => {
-                console.table(e.response);
-                message.error(e.response.data.error);
-            }).then(function () {
-                setLoading(false);
-            });;
-    }
-
     const deleteUser = (id) => {
-        UserService.delete(id)
-            .then(response => {
-                message.success('Delete Successfull');
-            })
-            .catch(e => {
-                message.error(e.response.data.error);
-            }).then(function () {
-                // setLoading(false);
-            });;
-    }
-
-    const showDeleteConfirm = (user) => {
-        confirm({
-            title: <Card cover={<img src={user.image} />}>
-                <Meta
-                    title='Are you sure delete this user?'
-                    description={user.mobile}
-                />
-            </Card>,
-            icon: <ExclamationCircleOutlined />,
-            content: <Card cover={<img src={user.image} />}>
-                <Meta
-                    title={user.email}
-                    description={user.mobile}
-                />
-            </Card>,
-            okText: 'Yes',
-            okType: 'danger',
-            cancelText: 'No',
-            onOk() {
-                deleteUser(user.id);
-            },
-            onCancel() {
-                console.log('Cancel');
-            },
-        });
+        UserService.delete(id);
     }
 
     const onFinish = (values) => {
@@ -125,8 +70,8 @@ function UserList() {
                         <Button type="primary" style={{ float: 'right' }} onClick={() => { form.resetFields(); showDrawer() }}>Add User</Button>
                     </Col>
                     <Col span={24}>
-                        <Table loading={loading} columns={columns} pagination={users.length > 10}
-                            dataSource={users} size="small" rowKey="id"
+                        <Table loading={loading} columns={columns} pagination={data.length > 10}
+                            dataSource={data} size="small" rowKey="id"
                             bordered
                         />
                     </Col>
