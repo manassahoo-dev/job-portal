@@ -1,5 +1,5 @@
 body{
-  background-color: '#f0f2f5';
+  background-color: #f0f2f5;
 }
 .card-center {
   display: flex;
@@ -35,4 +35,9 @@ input[type="number"] {
 
 .text-center {
   text-align: center;
+}
+.otp-input{  
+  width: 100% !important;
+  margin: 1rem 0.5rem;
+  height: 3em;
 }

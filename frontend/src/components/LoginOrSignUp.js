@@ -58,8 +58,7 @@ function LoginOrSignUp(props) {
                     value={otp}
                     onChange={(e) => setOTPState(e)}
                     numInputs={4}
-                    separator={<span>-</span>}
-
+                    inputStyle="ant-input otp-input"
                 />
                 <Form.Item>
                     <Button block type="primary" htmlType="submit">

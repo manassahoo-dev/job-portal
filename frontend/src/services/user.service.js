@@ -1,20 +1,21 @@
 import axios from 'axios';
 
 class UserService {
+
     findAll() {
         return axios.get('/users');
     }
 
-    get(id) {
+    findById(id) {
         return axios.get(`/users/${id}`);
     }
 
-    create(data) {
-        return axios.post("/users", data);
+    create(user) {
+        return axios.post("/users", user);
     }
 
-    update(id, data) {
-        return axios.put(`/users/${id}`, data);
+    update(id, user) {
+        return axios.put(`/users/${id}`, user);
     }
 
     delete(id) {
@@ -25,9 +26,10 @@ class UserService {
         return axios.delete(`/users`);
     }
 
-    findByTitle(title) {
-        return axios.get(`/users?title=${title}`);
+    exists(user) {
+        return axios.post("/users/exists", user);
     }
+
 }
 
 export default new UserService();
