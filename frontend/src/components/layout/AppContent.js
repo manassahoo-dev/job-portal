@@ -7,7 +7,7 @@ const { Content } = Layout;
 
 const AppContent = () => {
     return (
-        <Content style={{ padding: '0 50px' }}>
+        <Content className="container">
             <Suspense fallback={<div color="primary" />}>
                 <Switch>
                     {routes.map((route, idx) => {
