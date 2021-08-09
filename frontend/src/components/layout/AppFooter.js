@@ -5,7 +5,7 @@ const { Footer } = Layout;
 const AppFooter = () => {
     return (
         <Footer>
-            Footer
+            © Copyright - United Way of Hyderabad 2021
         </Footer>
     )
 }
