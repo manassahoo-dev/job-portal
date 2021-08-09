@@ -2,8 +2,7 @@ import { EditOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Drawer, Form, Input, Row, Space, Table, Tooltip } from 'antd';
 import { useState } from 'react';
 import DeleteEntity from '../../../components/DeleteEntity';
-import ApiRequest from '../../../services/api';
-import UserService from "../../../services/user.service";
+import ApiRequest from '../../../services/ApiRequest';
 
 function UserList() {
     const [form] = Form.useForm();
@@ -15,7 +14,7 @@ function UserList() {
         {
             title: 'Name',
             dataIndex: 'name',
-            render: (text, record) => `${record.firstName} ${record.lastName}`,
+            render: (text, record) => <b>{`${record.firstName} ${record.lastName}`}</b>,
         }, {
             title: 'Email',
             dataIndex: 'email',
@@ -46,10 +45,6 @@ function UserList() {
     const onClose = () => {
         setVisible(false);
     };
-
-    const deleteUser = (id) => {
-        UserService.delete(id);
-    }
 
     const onFinish = (values) => {
         console.log('Success:', values);
