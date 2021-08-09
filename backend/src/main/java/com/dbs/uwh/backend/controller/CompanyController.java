@@ -18,8 +18,11 @@ import com.dbs.uwh.backend.model.Company;
 import com.dbs.uwh.backend.service.CompanyService;
 import com.dbs.uwh.backend.util.RestPreconditions;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/companies")
+@Api(tags = "Companies", value = "companies", description = "Companies API")
 public class CompanyController {
 
 	@Autowired
