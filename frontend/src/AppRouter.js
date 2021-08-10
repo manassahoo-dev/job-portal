@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Background from '../src/assets/bgimage.jpg';
 
 const DefaultLayout = React.lazy(() => import('./components/layout/AppLayout'))
 const Login = React.lazy(() => import('./pages/Login'))
@@ -13,7 +14,7 @@ const loading = (
 
 function AppRouter() {
   return (
-    <div data-testid="app-router">
+    <div data-testid="app-router" style={{ backgroundColor: 'lightgrey' }}>
       <BrowserRouter>
         <React.Suspense fallback={loading}>
           <Switch>
