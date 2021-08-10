@@ -6,14 +6,14 @@ import AppRouter from './AppRouter';
 function App(props) {
   return (
     <div>
-      <Layout className="layout">
-        <Content className="site-layout-background"
+      <div className="layout">
+        <div className="site-layout-background"
           style={{
             backgroundImage: "inherit"
           }}>
           <AppRouter />
-        </Content>
-      </Layout>
+        </div>
+      </div>
     </div>
   );
 }

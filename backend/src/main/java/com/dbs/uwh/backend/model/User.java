@@ -13,7 +13,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User extends BaseEntity {
-	@NotNull
 	private String email;
 
 	private String mobile;
