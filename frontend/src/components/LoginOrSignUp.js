@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import OtpInput from 'react-otp-input';
 import Login from '../pages/Login';
 import { hashHistory } from 'react-router';
-import userService from '../services/user.service';
+import userService from '../services/api.service';
 
 function LoginOrSignUp(props) {
 
