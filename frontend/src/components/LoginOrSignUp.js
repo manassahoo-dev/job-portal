@@ -3,12 +3,12 @@ import { Alert, Button, Card, Checkbox, Col, Form, Input, message, Row, Tabs } f
 import { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import OtpInput from 'react-otp-input';
-import Login from '../pages/Login';
-import { hashHistory } from 'react-router';
 import userService from '../services/api.service';
+import path from "../services/api";
 
 function LoginOrSignUp(props) {
 
+    const [form] = Form.useForm();
     const { type } = props;
     const { TabPane } = Tabs;
     const history = useHistory();
@@ -19,9 +19,7 @@ function LoginOrSignUp(props) {
     const [userExists, setUserExistsState] = useState(true);
 
     const onFinish = (values) => {
-        console.log(values);
         setUserDataState(values)
-        console.log(userData);
         isOtpSent ? login(otp) : isExists(values)
     };
 
@@ -30,26 +28,35 @@ function LoginOrSignUp(props) {
     };
 
     const login = (values) => {
-        console.log(userData, "After successfull Login", values);
+        const data = {
+            mobile: form.getFieldValue('mobile'),
+            email: form.getFieldValue('email')
+        }
         sessionStorage.setItem('user', JSON.stringify(userData));
-        history.push('/');
+        type === 'Login' ?
+            history.push('/') :
+            history.push({
+                pathname: '/register',
+                state: { Data: data }
+            });
     }
 
     const isExists = (values) => {
 
-        userService.exists(values)
+        userService.exists(path.users, values)
             .then(response => {
                 setOTPSentState(response.data);
                 setUserExistsState(response.data);
             })
             .catch(e => {
-                console.table(e.response);
+                // console.table(e.response);
                 message.error('Try again after some time');
             });
     }
 
     const simpleform = (
         <Form
+            form={form}
             name="basic"
             layout="vertical"
             initialValues={{ remember: true }}

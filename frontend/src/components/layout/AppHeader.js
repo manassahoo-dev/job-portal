@@ -55,7 +55,7 @@ const AppHeader = () => {
                         </span>
                     </>
                     :
-                    <span style={{ float: 'right' }}>
+                    <span>
                         <Button type='primary'>
                             <Link to="/login">Login</Link>
                         </Button>
