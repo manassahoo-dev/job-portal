@@ -1,13 +1,14 @@
 import { MailOutlined } from '@ant-design/icons';
-import { Button, Card, Checkbox, Col, Form, Input, Row, Tabs } from 'antd';
-import { useState } from 'react';
+import { Alert, Button, Card, Checkbox, Col, Form, Input, message, Row, Tabs } from 'antd';
+import { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import OtpInput from 'react-otp-input';
-import Login from '../pages/Login';
-import { hashHistory } from 'react-router';
+import userService from '../services/api.service';
+import path from "../services/api";
 
 function LoginOrSignUp(props) {
 
+    const [form] = Form.useForm();
     const { type } = props;
     const { TabPane } = Tabs;
     const history = useHistory();
@@ -15,11 +16,10 @@ function LoginOrSignUp(props) {
     const [isOtpSent, setOTPSentState] = useState(false);
     const [otp, setOTPState] = useState(false);
     const [userData, setUserDataState] = useState({});
+    const [userExists, setUserExistsState] = useState(true);
 
     const onFinish = (values) => {
-        console.log(values);
         setUserDataState(values)
-        console.log(userData);
         isOtpSent ? login(otp) : isExists(values)
     };
 
@@ -28,25 +28,35 @@ function LoginOrSignUp(props) {
     };
 
     const login = (values) => {
-        console.log(userData, "After successfull Login", values);
+        const data = {
+            mobile: form.getFieldValue('mobile'),
+            email: form.getFieldValue('email')
+        }
         sessionStorage.setItem('user', JSON.stringify(userData));
-        history.push('/');
+        type === 'Login' ?
+            history.push('/') :
+            history.push({
+                pathname: '/register',
+                state: { Data: data }
+            });
     }
 
     const isExists = (values) => {
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(values)
-        };
-        fetch('http://localhost:8080/users/exists', requestOptions)
-            .then(response => response.json())
-            .then(data => setOTPSentState(data));
+        userService.exists(path.users, values)
+            .then(response => {
+                setOTPSentState(response.data);
+                setUserExistsState(response.data);
+            })
+            .catch(e => {
+                // console.table(e.response);
+                message.error('Try again after some time');
+            });
     }
 
     const simpleform = (
         <Form
+            form={form}
             name="basic"
             layout="vertical"
             initialValues={{ remember: true }}
@@ -68,6 +78,9 @@ function LoginOrSignUp(props) {
 
             </>)
             : (<>
+                {!userExists &&
+                    <Alert message="Account does not exists" type="error" showIcon />
+                }
                 {tabState === 'Email' ?
                     <>
                         <Form.Item
@@ -96,9 +109,13 @@ function LoginOrSignUp(props) {
                     </Button>
                 </Form.Item>
                 {type === "Login" ?
-                    <h4><Link className="text-center" to="/signup">Sign Up</Link></h4>
+                    <Button type="link" block>
+                        <Link className="text-center" to="/signup">Sign Up</Link>
+                    </Button>
                     :
-                    <h4><Link to="/login" className="text-center">Login</Link></h4>
+                    <Button type="link" block>
+                        <Link to="/login" >Login</Link>
+                    </Button>
                 }
             </>
             )}
@@ -108,7 +125,7 @@ function LoginOrSignUp(props) {
     return (
         <div className="card-center">
             <Card className="auth-card" bordered={true} style={{ width: 500 }}>
-                <Tabs onChange={(e) => { setTabState(e); setOTPSentState(false) }}
+                <Tabs onChange={(e) => { setTabState(e); setOTPSentState(false); setUserExistsState(true) }}
                     defaultActiveKey="1" centered>
                     <TabPane tab="Email ID" key="Email">
                         {simpleform}

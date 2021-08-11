@@ -1,9 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Background from '../src/assets/bgimage.jpg';
 
 const DefaultLayout = React.lazy(() => import('./components/layout/AppLayout'))
 const Login = React.lazy(() => import('./pages/Login'))
 const SignUp = React.lazy(() => import('./pages/SignUp'))
+const Register = React.lazy(() => import('./pages/register'))
 
 const loading = (
   <div className="pt-3 text-center">
@@ -13,12 +15,13 @@ const loading = (
 
 function AppRouter() {
   return (
-    <div data-testid="app-router">
+    <div data-testid="app-router" style={{ backgroundColor: 'lightgrey' }}>
       <BrowserRouter>
         <React.Suspense fallback={loading}>
           <Switch>
             <Route exact path="/login" name="Login Page" render={(props) => <Login {...props} />} />
             <Route exact path="/signup" name="Signup Page" render={(props) => <SignUp {...props} />} />
+            <Route exact path="/register" name="Register Page" render={(props) => <Register {...props} />} />
             <Route path="/" name="Home" render={(props) => <DefaultLayout {...props} />} />
           </Switch>
         </React.Suspense>
