@@ -1,10 +1,10 @@
 import { MailOutlined } from '@ant-design/icons';
-import { Alert, Button, Card, Checkbox, Col, Form, Input, message, Row, Tabs } from 'antd';
-import { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Alert, Button, Card, Form, Input, message, Tabs } from 'antd';
+import { useState } from 'react';
 import OtpInput from 'react-otp-input';
-import userService from '../services/api.service';
+import { Link, useHistory } from 'react-router-dom';
 import path from "../services/api";
+import userService from '../services/api.service';
 
 function LoginOrSignUp(props) {
 

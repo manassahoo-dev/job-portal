@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Background from '../src/assets/bgimage.jpg';
 
 const DefaultLayout = React.lazy(() => import('./components/layout/AppLayout'))
 const Login = React.lazy(() => import('./pages/Login'))

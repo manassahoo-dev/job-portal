@@ -1,7 +1,7 @@
 import { DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Card, Modal, Tooltip, Typography } from 'antd';
-import ApiService from "../services/api.service";
+import { Button, Card, Modal, Tooltip } from 'antd';
 import api from '../services/api';
+import ApiService from "../services/api.service";
 
 const { confirm } = Modal;
 const { Meta } = Card;
@@ -10,14 +10,14 @@ function DeleteEntity({ item }) {
 
     const showDeleteConfirm = (user) => {
         confirm({
-            title: <Card cover={<img src={user.image} />}>
+            title: <Card cover={<img alt="user" src={user.image} />}>
                 <Meta
                     title='Are you sure delete this User?'
                     description={user.mobile}
                 />
             </Card>,
             icon: <ExclamationCircleOutlined />,
-            content: <Card cover={<img src={user.image} />}>
+            content: <Card cover={<img alt="user" src={user.image} />}>
                 <Meta
                     title={user.email}
                     description={user.mobile}

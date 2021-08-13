@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import React, { Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import routes from '../../routes'
+import { Route, Switch } from 'react-router-dom';
+import routes from '../../routes';
 
 const { Content } = Layout;
 

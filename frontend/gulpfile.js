@@ -26,3 +26,5 @@ gulp.task('less', function () {
         )
         .pipe(gulp.dest('./public'))
 })
+
+// npx gulp less

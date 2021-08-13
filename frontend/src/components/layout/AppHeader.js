@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import { Link } from "react-router-dom";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header } = Layout;
 
 const AppHeader = () => {
     const [isDarkMode, setIsDarkMode] = React.useState(true);
@@ -45,16 +45,16 @@ const AppHeader = () => {
         <Header>
             <div onClick={handleClick} selectedKeys={tabState} mode="horizontal" style={{ float: 'right' }}>
                 <Space size="large">
-                <Switch checked={isDarkMode} onChange={toggleTheme} />
-                {user ?
-                    <Dropdown overlay={menu} placement="bottomCenter">
-                        <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
-                    </Dropdown>
-                    :
-                    <Button type='primary'>
-                        <Link to="/login">Login</Link>
-                    </Button>
-                }
+                    <Switch checked={isDarkMode} onChange={toggleTheme} />
+                    {user ?
+                        <Dropdown overlay={menu} placement="bottomCenter">
+                            <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+                        </Dropdown>
+                        :
+                        <Button type='primary'>
+                            <Link to="/login">Login</Link>
+                        </Button>
+                    }
                 </Space>
             </div>
         </Header>
