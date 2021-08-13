@@ -9,6 +9,7 @@
     "antd": "^4.16.10",
     "axios": "^0.21.1",
     "react": "^17.0.2",
+    "react-css-theme-switcher": "^0.3.0",
     "react-dom": "^17.0.2",
     "react-otp-input": "^2.4.0",
     "react-router-dom": "^5.2.0",
@@ -39,5 +40,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.4",
+    "gulp": "^4.0.2",
+    "gulp-csso": "^4.0.1",
+    "gulp-debug": "^4.0.0",
+    "gulp-less": "^4.0.1",
+    "gulp-postcss": "^8.0.0",
+    "less-plugin-npm-import": "^2.1.0"
   }
 }

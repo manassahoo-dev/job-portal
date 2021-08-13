@@ -1,15 +1,20 @@
-import { LogoutOutlined, MailOutlined, UserOutlined, SettingOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Layout, Menu, message } from 'antd';
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Layout, Menu, Space, Switch } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
-import SubMenu from 'antd/lib/menu/SubMenu';
-import Icon from '@ant-design/icons';
+import React, { useState } from "react";
+import { useThemeSwitcher } from "react-css-theme-switcher";
 import { Link } from "react-router-dom";
-import { useState } from 'react';
 
 const { Header, Footer, Sider, Content } = Layout;
 
 const AppHeader = () => {
+    const [isDarkMode, setIsDarkMode] = React.useState(true);
+    const { switcher, currentTheme, status, themes } = useThemeSwitcher();
 
+    const toggleTheme = (isChecked) => {
+        setIsDarkMode(isChecked);
+        switcher({ theme: isChecked ? themes.dark : themes.light });
+    };
     const [tabState, setTabState] = useState('mail');
     const user = JSON.parse(sessionStorage.getItem('user'));
     const handleClick = e => {
@@ -37,24 +42,21 @@ const AppHeader = () => {
     );
 
     return (
-        <Header style={{ background: '#ffffff' }}>
-            <Menu onClick={handleClick} selectedKeys={tabState} mode="horizontal" style={{float: 'right'}}>
+        <Header>
+            <div onClick={handleClick} selectedKeys={tabState} mode="horizontal" style={{ float: 'right' }}>
+                <Space size="large">
+                <Switch checked={isDarkMode} onChange={toggleTheme} />
                 {user ?
-                    <>
-                        <span>
-                            <Dropdown overlay={menu} placement="bottomCenter">
-                                <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
-                            </Dropdown>
-                        </span>
-                    </>
+                    <Dropdown overlay={menu} placement="bottomCenter">
+                        <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+                    </Dropdown>
                     :
-                    <span>
-                        <Button type='primary'>
-                            <Link to="/login">Login</Link>
-                        </Button>
-                    </span>
+                    <Button type='primary'>
+                        <Link to="/login">Login</Link>
+                    </Button>
                 }
-            </Menu>
+                </Space>
+            </div>
         </Header>
     )
 }
