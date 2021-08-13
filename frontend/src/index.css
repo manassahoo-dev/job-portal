@@ -41,3 +41,8 @@ input[type="number"] {
   margin: 1rem 0.5rem;
   height: 3em;
 }
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}

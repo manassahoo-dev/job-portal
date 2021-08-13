@@ -28,7 +28,7 @@ const AppHeader = () => {
                 Profile
             </Menu.Item>
             <Menu.Item key="2" icon={<UserOutlined />}>
-                2nd menu item
+                Setting
             </Menu.Item>
             <Menu.Item key="3">
                 <Link to="/" onClick={logout}><LogoutOutlined /> Logout</Link>
@@ -37,15 +37,8 @@ const AppHeader = () => {
     );
 
     return (
-        <Header style={{ lineHeight: '65px', background: '#ffffff' }}>
-            <Menu onClick={handleClick} selectedKeys={tabState} mode="horizontal">
-                <Menu.Item key="mail" icon={<MailOutlined />}>
-                    <Link to="/">Home</Link>
-                </Menu.Item>
-                <Menu.Item key="alipay">
-                    <Link to="/admin/users">Users</Link>
-                </Menu.Item>
-
+        <Header style={{ background: '#ffffff' }}>
+            <Menu onClick={handleClick} selectedKeys={tabState} mode="horizontal" style={{float: 'right'}}>
                 {user ?
                     <>
                         <span>
