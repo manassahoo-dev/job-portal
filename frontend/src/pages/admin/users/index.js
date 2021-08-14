@@ -6,8 +6,6 @@ import ApiRequest from '../../../services/ApiRequest';
 
 function UserList() {
     const [form] = Form.useForm();
-    const [formLayout, setFormLayout] = useState('vertical');
-
     const { data, error, loading } = ApiRequest('GET', "/users");
 
     const columns = [
@@ -79,7 +77,7 @@ function UserList() {
                 visible={visible}
             >
                 <Form
-                    layout={formLayout}
+                    layout="vertical"
                     form={form}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}

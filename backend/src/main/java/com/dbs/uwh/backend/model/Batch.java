@@ -2,6 +2,7 @@ package com.dbs.uwh.backend.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,6 +18,7 @@ import lombok.Setter;
 public class Batch extends BaseEntity {
 
 	@NotNull
+	@Column(unique = true)
 	private String name;
 
 	@Temporal(TemporalType.DATE)
