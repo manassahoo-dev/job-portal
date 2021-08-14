@@ -112,7 +112,7 @@ const Register = (props) => {
     return (
         <>
             <div className="card-center">
-                <Card bordered={true} style={{ width: '50%', margin: 'auto' }}>
+                <Card bordered={true}>
                     {registerForm}
                 </Card>
             </div>
