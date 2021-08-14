@@ -68,7 +68,7 @@ function LoginOrSignUp(props) {
                     value={otp}
                     onChange={(e) => setOTPState(e)}
                     numInputs={4}
-                    inputStyle="ant-input otp-input"
+                        inputStyle="otp-input ant-input"
                 />
                 <Form.Item>
                     <Button block type="primary" htmlType="submit">
@@ -124,7 +124,7 @@ function LoginOrSignUp(props) {
 
     return (
         <div className="card-center">
-            <Card bordered={true} style={{ width: 500 }}>
+            <Card bordered={true}>
                 <Tabs onChange={(e) => { setTabState(e); setOTPSentState(false); setUserExistsState(true) }}
                     defaultActiveKey="1" centered>
                     <TabPane tab="Email ID" key="Email">

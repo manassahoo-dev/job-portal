@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const { Header } = Layout;
 
 const AppHeader = () => {
-    const [isDarkMode, setIsDarkMode] = React.useState(true);
+    const [isDarkMode, setIsDarkMode] = React.useState(false);
     const { switcher, currentTheme, status, themes } = useThemeSwitcher();
 
     const toggleTheme = (isChecked) => {
