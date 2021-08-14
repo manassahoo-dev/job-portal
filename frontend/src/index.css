@@ -8,7 +8,7 @@
   width: 500px;
   margin: auto;
 }
-.container{
+.container {
   padding: 25px 50px;
 }
 /* Chrome, Safari, Edge, Opera */
@@ -25,7 +25,7 @@ input[type="number"] {
 .text-center {
   text-align: center;
 }
-.otp-input{  
+.otp-input {
   width: 100% !important;
   margin: 1rem 0.5rem !important;
   height: 4em;
@@ -34,4 +34,11 @@ input[type="number"] {
   height: 32px;
   margin: 16px;
   background: #00b7ff;
+}
+::-webkit-scrollbar {
+  width: 2px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(155, 153, 153);
+  border-radius: 20px;
 }
