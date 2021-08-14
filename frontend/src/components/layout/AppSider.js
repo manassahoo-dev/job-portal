@@ -12,7 +12,7 @@ const AppLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
 
     const menuItems = [
-        { name: 'Home', icon: <HomeOutlined />, path: '/' },
+        { name: 'Home', icon: <HomeOutlined />, path: '/admin/dashboard' },
         { name: 'Student', icon: <UserOutlined />, path: '/admin/students' },
         { name: 'Batch', icon: <TeamOutlined />, path: '/admin/batches' },
         { name: 'Course', icon: <BookOutlined />, path: '/admin/courses' },
