@@ -4,7 +4,6 @@ import { PlusOutlined, InfoCircleOutlined, UserOutlined } from '@ant-design/icon
 import { Form } from 'antd';
 
 import Modal from "antd/lib/modal/Modal";
-import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import TextArea from "antd/lib/input/TextArea";
 import { Option } from "antd/lib/mentions";
 
