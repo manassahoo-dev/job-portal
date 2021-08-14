@@ -22,7 +22,7 @@ const AppLayout = () => {
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} >
             <div className="logo" />
-            <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+            <Menu defaultSelectedKeys={['1']} mode="inline">
                 {menuItems.map((item, index) =>
                     <Menu.Item key={item.name} icon={item.icon}>
                         <Link to={item.path}>{item.name}</Link>

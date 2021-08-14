@@ -1,8 +1,6 @@
-import { BackTop, Card, Carousel, Col, Row, Statistic, Tabs, Timeline, Typography } from 'antd';
-import { LikeOutlined, WomanOutlined, VerticalAlignTopOutlined, SettingOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
-import Avatar from 'antd/lib/avatar/avatar';
+import { LikeOutlined, WomanOutlined } from '@ant-design/icons';
+import { Card, Col, Row, Statistic, Tabs, Timeline, Typography } from 'antd';
 import { useState } from 'react';
-import { List } from 'antd/lib/form/Form';
 
 const { Title } = Typography;
 const gridStyle = {
@@ -24,7 +22,8 @@ function Home() {
     const statCardTitles = ['Student', 'Batch', 'Courses', 'Aptitude Tests'];
 
     const statsCard = (
-        <Card title={statCardTitle} style={{ width: 200, margin: 15 }}>
+        <Col>
+        <Card title={statCardTitle}>
             <Row gutter={16}>
                 <Col span={12}>
                     <Statistic title="Male" value={1128} prefix={<LikeOutlined />} />
@@ -34,6 +33,7 @@ function Home() {
                 </Col>
             </Row>
         </Card>
+        </Col>
     );
 
     const dataCard = (
@@ -51,7 +51,7 @@ function Home() {
     );
 
     const timeline = (
-        <Card style={{ width: 300, float: 'right' }}>
+        <Card>
             <Timeline mode='left'>
                 <Timeline.Item color="blue">New Student Join</Timeline.Item>
                 <Timeline.Item color="green">Upcoming Batch</Timeline.Item>
@@ -73,17 +73,17 @@ function Home() {
 
     return (
         <>
-            <Row>
+            <Row gutter={[16, 16]}>
                 {statsCard}
                 {statsCard}
                 {statsCard}
                 {statsCard}
             </Row>
 
-            <Row>
-                <Col span={20}>
+            <Row gutter={[16, 16]}>
+                <Col span={16}>
                     <div>
-                        <Card className="auth-card" bordered style={{ width: 650 }}>
+                        <Card bordered>
                             <h2>Ongoing Batches</h2>
                             <Tabs type="card">
                                 <TabPane tab="Batch 1- 10.30 AM" key="1">
@@ -99,7 +99,7 @@ function Home() {
                         </Card>
                     </div>
                 </Col>
-                <Col span={4}>
+                <Col span={8}>
                     {timeline}
                 </Col>
             </Row>
