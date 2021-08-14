@@ -1,7 +1,9 @@
-import { Layout } from 'antd';
+import { BackTop, Layout } from 'antd';
 import React, { Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import routes from '../../routes';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import routes from '../../routes'
+import { VerticalAlignTopOutlined } from '@ant-design/icons';
+
 
 const { Content } = Layout;
 
@@ -29,6 +31,9 @@ const AppContent = () => {
                     })}
                 </Switch>
             </Suspense>
+            <BackTop>
+                <VerticalAlignTopOutlined style={{ fontSize: '40px' }} theme="outlined" />
+            </BackTop>
         </Content>
     )
 }

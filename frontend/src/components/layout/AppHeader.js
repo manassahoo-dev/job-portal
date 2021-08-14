@@ -1,5 +1,6 @@
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Layout, Menu, Space, Switch } from 'antd';
+
+import { LogoutOutlined, MailOutlined, UserOutlined, SettingOutlined, BellFilled } from '@ant-design/icons';
+import { Badge, Button, Dropdown, Layout, Menu, message, Space, Switch } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import React, { useState } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
