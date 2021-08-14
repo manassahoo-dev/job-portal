@@ -14,7 +14,7 @@ const loading = (
 
 function AppRouter() {
   return (
-    <div data-testid="app-router" style={{ backgroundColor: '#fbfbfb' }}>
+    <div data-testid="app-router">
       <BrowserRouter>
         <React.Suspense fallback={loading}>
           <Switch>

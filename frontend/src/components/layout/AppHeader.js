@@ -19,7 +19,6 @@ const AppHeader = () => {
     const [tabState, setTabState] = useState('mail');
     const user = JSON.parse(sessionStorage.getItem('user'));
     const handleClick = e => {
-        console.log('click ', e, user);
         setTabState(e.key);
     };
     const logout = () => {
