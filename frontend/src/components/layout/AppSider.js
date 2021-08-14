@@ -1,9 +1,10 @@
 import {
-    HomeOutlined
+    BookOutlined, FileOutlined, HomeOutlined, TeamOutlined,
+    UserOutlined
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 const { Sider } = Layout;
 
 const AppLayout = () => {
@@ -11,12 +12,12 @@ const AppLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
 
     const menuItems = [
-        { name: 'Home', icon: <HomeOutlined /> },
-        { name: 'Student', icon: <HomeOutlined /> },
-        { name: 'Batch', icon: <HomeOutlined /> },
-        { name: 'Course', icon: <HomeOutlined /> },
-        { name: 'Job', icon: <HomeOutlined /> },
-        { name: 'Report', icon: <HomeOutlined /> },
+        { name: 'Home', icon: <HomeOutlined />, path: '/' },
+        { name: 'Student', icon: <UserOutlined />, path: '/admin/students' },
+        { name: 'Batch', icon: <TeamOutlined />, path: '/admin/batches' },
+        { name: 'Course', icon: <BookOutlined />, path: '/admin/courses' },
+        { name: 'Job', icon: <HomeOutlined />, path: '/admin/jobs' },
+        { name: 'Report', icon: <FileOutlined />, path: 'admin/reports' },
     ]
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} >
@@ -24,7 +25,7 @@ const AppLayout = () => {
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                 {menuItems.map((item, index) =>
                     <Menu.Item key={item.name} icon={item.icon}>
-                        {item.name}
+                        <Link to={item.path}>{item.name}</Link>
                     </Menu.Item>
                 )}
             </Menu>
@@ -33,4 +34,3 @@ const AppLayout = () => {
 }
 
 export default AppLayout
-

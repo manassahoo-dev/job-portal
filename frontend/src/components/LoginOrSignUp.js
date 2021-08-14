@@ -124,7 +124,7 @@ function LoginOrSignUp(props) {
 
     return (
         <div className="card-center">
-            <Card className="auth-card" bordered={true} style={{ width: 500 }}>
+            <Card bordered={true} style={{ width: 500 }}>
                 <Tabs onChange={(e) => { setTabState(e); setOTPSentState(false); setUserExistsState(true) }}
                     defaultActiveKey="1" centered>
                     <TabPane tab="Email ID" key="Email">
@@ -135,7 +135,7 @@ function LoginOrSignUp(props) {
                     </TabPane>
                 </Tabs>
             </Card>
-        </div>
+        </div >
     );
 }
 export default LoginOrSignUp;
