@@ -1,0 +1,11 @@
+package com.dbs.uwh.backend.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.dbs.uwh.backend.model.Student;
+
+@RestController
+@RequestMapping("/student")
+public class StudentController extends GenericRestController<Student, Long> {
+
+}
