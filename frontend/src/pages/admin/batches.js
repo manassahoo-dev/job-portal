@@ -1,6 +1,6 @@
+
 import {
-    Button, Card, Col, DatePicker, Form, Input, List,
-    Empty, message, PageHeader, Row, Space, Typography
+    Button, Card, Col, DatePicker, Form, Input, List, message, PageHeader, Row, Typography
 } from 'antd';
 import moment from 'moment';
 import { useState } from 'react';
@@ -82,9 +82,9 @@ function Batches() {
                                             itemLayout="horizontal"
                                             dataSource={data}
                                             renderItem={item => (
-                                                <List.Item>
+                                                <List.Item className="px-2" onClick={() => setBatch(item)}>
                                                     <List.Item.Meta
-                                                        title={<Button className="p-0" type="link" size="small" onClick={() => setBatch(item)}>{item.name}</Button>}
+                                                        title={<Button className="p-0" type="link" size="small" >{item.name}</Button>}
                                                         description={`${moment(item.startDate).format("Do MMM YY")} - ${moment(item.endDate).format("Do MMM YY")}`}
                                                     />
                                                 </List.Item>
