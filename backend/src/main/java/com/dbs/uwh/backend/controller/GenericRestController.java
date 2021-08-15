@@ -51,5 +51,10 @@ public abstract class GenericRestController<T extends BaseEntity, ID extends Ser
 	public void delete(@PathVariable("id") ID id) {
 		genericService.deleteById(id);
 	}
+	
+	@PostMapping(value = "/exists")
+	public boolean exists(@RequestBody T entity) {
+		return genericService.exists(entity);
+	}
 
 }

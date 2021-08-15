@@ -39,9 +39,10 @@ public abstract class GenericService<T extends BaseEntity, ID extends Serializab
 	public T update(T entity) {
 		return genericDao.save(entity);
 	}
-	
+
 	public boolean exists(T entity) {
-		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll().withIgnoreCase();
+		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll().withIgnorePaths("createdAt", "updatedAt")
+				.withIgnoreCase();
 		Example<T> example = Example.of(entity, exampleMatcher);
 		return genericDao.exists(example);
 	}
