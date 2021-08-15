@@ -43,11 +43,14 @@ input[type="number"] {
   background: rgb(201, 201, 201);
   border-radius: 20px;
 }
-.full-height{
+.vh60{
   height: 60vh;
-  overflow: scroll;
 }
 
 .ant-layout-footer {
     padding: 20px 40px !important;
+}
+
+.overflow-auto{
+  overflow: auto;
 }

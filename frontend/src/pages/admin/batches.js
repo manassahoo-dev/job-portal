@@ -57,7 +57,7 @@ function Batches() {
                             title="Unable to get Batch details"
                             subTitle={error.message}
                         /> :
-                            <div className="full-height">
+                            <div className="vh60 overflow-auto">
                                 {
                                     isAdd ?
                                         <Form
