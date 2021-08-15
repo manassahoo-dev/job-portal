@@ -98,11 +98,14 @@ function Batches() {
             </Col>
             <Col xs={24} sm={12} md={16}>
                 {batch &&
-                    <PageHeader
-                        className="p-0 mb-2"
-                        onBack={isAdd ? () => setIsAdd(false) : ""}
-                        title={batch.name}
-                    />
+                    <>
+                        <PageHeader
+                            className="p-0 mb-2"
+                            onBack={isAdd ? () => setIsAdd(false) : ""}
+                            title={batch.name}
+                        />
+                    {batch.courses.map((course, index) => <Card>{course.name}</Card>)}
+                    </>
                 }
             </Col>
         </Row>

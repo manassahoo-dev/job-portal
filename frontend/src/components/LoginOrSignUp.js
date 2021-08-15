@@ -1,11 +1,12 @@
 import { MailOutlined } from '@ant-design/icons';
-import { Alert, Button, Card, Form, Input, message, Tabs } from 'antd';
+import { Alert, Button, Card, Form, Input, message, Tabs, Typography } from 'antd';
 import { useState } from 'react';
 import OtpInput from 'react-otp-input';
 import { Link, useHistory } from 'react-router-dom';
 import path from "../services/api";
 import userService from '../services/api.service';
 
+const { Title, Text } = Typography;
 function LoginOrSignUp(props) {
 
     const [form] = Form.useForm();
@@ -64,11 +65,14 @@ function LoginOrSignUp(props) {
             onFinishFailed={onFinishFailed}
         >{isOtpSent ? (
             <>
+                <Title level={2} className="text-center m-0">Verification code</Title>
+                <p className="text-center">We have sent the verification code to your mobile</p>
                 <OtpInput
                     value={otp}
                     onChange={(e) => setOTPState(e)}
                     numInputs={4}
-                        inputStyle="otp-input ant-input"
+                    inputStyle="otp-input ant-input"
+                    containerStyle="justify-content-center"
                 />
                 <Form.Item>
                     <Button block type="primary" htmlType="submit">
@@ -109,13 +113,13 @@ function LoginOrSignUp(props) {
                     </Button>
                 </Form.Item>
                 {type === "Login" ?
-                    <Button type="link" block>
-                        <Link className="text-center" to="/signup">Sign Up</Link>
-                    </Button>
+                    <div className="text-center">
+                        Not registered yet? <Link className="text-center" to="/signup">Sign Up</Link>
+                    </div>
                     :
-                    <Button type="link" block>
-                        <Link to="/login" >Login</Link>
-                    </Button>
+                    <div className="text-center">
+                        Already have an account? <Link to="/login" >Login</Link>
+                    </div>
                 }
             </>
             )}
