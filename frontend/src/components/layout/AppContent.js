@@ -31,9 +31,7 @@ const AppContent = () => {
                     })}
                 </Switch>
             </Suspense>
-            <BackTop>
-                <VerticalAlignTopOutlined style={{ fontSize: '40px' }} theme="outlined" />
-            </BackTop>
+            <BackTop />
         </Content>
     )
 }

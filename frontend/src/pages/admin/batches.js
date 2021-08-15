@@ -1,4 +1,8 @@
-import { Button, Card, Col, DatePicker, Form, Input, message, Row, Space, Typography } from 'antd';
+import {
+    Button, Card, Col, DatePicker, Form, Input, List,
+    Empty, message, PageHeader, Row, Space, Typography
+} from 'antd';
+import moment from 'moment';
 import { useState } from 'react';
 import AppError from '../../components/utility/AppError';
 import AppSpin from '../../components/utility/AppSpin';
@@ -11,6 +15,7 @@ function Batches() {
 
     const [form] = Form.useForm();
     const [isAdd, setIsAdd] = useState(false);
+    const [batch, setBatch] = useState(null);
     const { data, error, loading } = ApiRequest('GET', api.batches, isAdd);
 
     const validateMessages = {
@@ -27,7 +32,7 @@ function Batches() {
                 setIsAdd(false);
             })
             .catch((error) => {
-                message.error(error.response.statusText);
+                message.error(error.response.message);
             });;
     };
 
@@ -36,16 +41,23 @@ function Batches() {
     };
 
     return (
-        <Row>
+        <Row gutter={[16, 16]}>
             <Col xs={24} sm={12} md={8}>
                 <AppSpin loading={loading}>
-                    <Card className="full-height">
-                        <Title level={4}>Batch</Title>
+                    <Card>
+                        <PageHeader
+                            className="p-0 mb-2"
+                            onBack={isAdd ? () => setIsAdd(false) : ""}
+                            title={isAdd ? "Add New Batch" : "Batch"}
+                            extra={!isAdd && [
+                                <Button type="primary" block onClick={() => setIsAdd(true)}>Add New Batch</Button>,
+                            ]}
+                        />
                         {error ? <AppError
                             title="Unable to get Batch details"
                             subTitle={error.message}
                         /> :
-                            <>
+                            <div className="full-height">
                                 {
                                     isAdd ?
                                         <Form
@@ -65,17 +77,33 @@ function Batches() {
                                             <Form.Item><Button type="primary" htmlType="submit" block>Add New Batch</Button></Form.Item>
                                         </Form>
                                         :
-                                        <>
-                                            <Button type="primary" block className="mb-4" onClick={() => setIsAdd(true)}>Add New Batch</Button>
-                                            <Space direction="vertical">
-                                                {data.map((item, index) => <Button type="link">{item.name}</Button>)}
-                                            </Space>
-                                        </>
+
+                                        <List
+                                            itemLayout="horizontal"
+                                            dataSource={data}
+                                            renderItem={item => (
+                                                <List.Item>
+                                                    <List.Item.Meta
+                                                        title={<Button className="p-0" type="link" size="small" onClick={() => setBatch(item)}>{item.name}</Button>}
+                                                        description={`${moment(item.startDate).format("Do MMM YY")} - ${moment(item.endDate).format("Do MMM YY")}`}
+                                                    />
+                                                </List.Item>
+                                            )}
+                                        />
                                 }
-                            </>
+                            </div>
                         }
                     </Card>
                 </AppSpin>
+            </Col>
+            <Col xs={24} sm={12} md={16}>
+                {batch &&
+                    <PageHeader
+                        className="p-0 mb-2"
+                        onBack={isAdd ? () => setIsAdd(false) : ""}
+                        title={batch.name}
+                    />
+                }
             </Col>
         </Row>
     );

@@ -1,12 +1,11 @@
-import { BackTop, Card, Carousel, Col, Row, Statistic, Table, Tabs, Timeline, Typography } from 'antd';
-import { LikeOutlined, WomanOutlined, SketchOutlined } from '@ant-design/icons';
-import Meta from 'antd/lib/card/Meta';
 import {
     BookOutlined, FileOutlined, HomeOutlined, TeamOutlined,
     UserOutlined
 } from '@ant-design/icons';
-import Title from 'antd/lib/typography/Title';
+import { Card, Col, Row, Statistic, Table, Tabs, Timeline } from 'antd';
+import Meta from 'antd/lib/card/Meta';
 import Text from 'antd/lib/typography/Text';
+import Title from 'antd/lib/typography/Title';
 import { useState } from 'react';
 
 const { TabPane } = Tabs;

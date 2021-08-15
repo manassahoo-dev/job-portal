@@ -3,10 +3,9 @@ package com.dbs.uwh.backend.exception;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.ConstraintViolation;
-
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +32,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex,
 			final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-		logger.info(ex.getClass().getName());
+		logger.error(ex.getClass().getName());
 		//
 		final List<String> errors = new ArrayList<String>();
 		for (final FieldError error : ex.getBindingResult().getFieldErrors()) {
@@ -49,7 +48,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleBindException(final BindException ex, final HttpHeaders headers,
 			final HttpStatus status, final WebRequest request) {
-		logger.info(ex.getClass().getName());
+		logger.error(ex.getClass().getName());
 		//
 		final List<String> errors = new ArrayList<String>();
 		for (final FieldError error : ex.getBindingResult().getFieldErrors()) {
@@ -65,7 +64,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleTypeMismatch(final TypeMismatchException ex, final HttpHeaders headers,
 			final HttpStatus status, final WebRequest request) {
-		logger.info(ex.getClass().getName());
+		logger.error(ex.getClass().getName());
 		//
 		final String error = ex.getValue() + " value for " + ex.getPropertyName() + " should be of type "
 				+ ex.getRequiredType();
@@ -77,7 +76,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMissingServletRequestPart(final MissingServletRequestPartException ex,
 			final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-		logger.info(ex.getClass().getName());
+		logger.error(ex.getClass().getName());
 		//
 		final String error = ex.getRequestPartName() + " part is missing";
 		final ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
@@ -88,7 +87,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleMissingServletRequestParameter(
 			final MissingServletRequestParameterException ex, final HttpHeaders headers, final HttpStatus status,
 			final WebRequest request) {
-		logger.info(ex.getClass().getName());
+		logger.error(ex.getClass().getName());
 		//
 		final String error = ex.getParameterName() + " parameter is missing";
 		final ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
@@ -100,7 +99,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler({ MethodArgumentTypeMismatchException.class })
 	public ResponseEntity<Object> handleMethodArgumentTypeMismatch(final MethodArgumentTypeMismatchException ex,
 			final WebRequest request) {
-		logger.info(ex.getClass().getName());
+		logger.error(ex.getClass().getName());
 		//
 		final String error = ex.getName() + " should be of type " + ex.getRequiredType().getName();
 
@@ -108,23 +107,29 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
 	}
 
+	@ExceptionHandler({ DataIntegrityViolationException.class })
+	public ResponseEntity<Object> handleDataIntegrityViolationException(final DataIntegrityViolationException ex, final WebRequest request) {
+		logger.error(ex.getClass().getName());
+		final String error = ex.getLocalizedMessage();
+
+		final ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Duplicate entry", error);
+		return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+	}
+
 	@ExceptionHandler({ ConstraintViolationException.class })
-	public ResponseEntity<Object> handleConstraintViolation(final ConstraintViolationException ex,
-			final WebRequest request) {
-		logger.info(ex.getClass().getName());
-		//
-		final String error = ex.getConstraintName() + " should be of type " + ex.getLocalizedMessage();
+	public ResponseEntity<Object> handleConstraintViolationException(final ConstraintViolationException ex, final WebRequest request) {
+		logger.error(ex.getClass().getName());
+		final String error = ex.getLocalizedMessage();
 
 		final ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
 		return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
 	}
-
 	// 404
 
 	@Override
 	protected ResponseEntity<Object> handleNoHandlerFoundException(final NoHandlerFoundException ex,
 			final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-		logger.info(ex.getClass().getName());
+		logger.error(ex.getClass().getName());
 		//
 		final String error = "No handler found for " + ex.getHttpMethod() + " " + ex.getRequestURL();
 
@@ -138,7 +143,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
 			final HttpRequestMethodNotSupportedException ex, final HttpHeaders headers, final HttpStatus status,
 			final WebRequest request) {
-		logger.info(ex.getClass().getName());
+		logger.error(ex.getClass().getName());
 		//
 		final StringBuilder builder = new StringBuilder();
 		builder.append(ex.getMethod());
@@ -155,7 +160,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(final HttpMediaTypeNotSupportedException ex,
 			final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-		logger.info(ex.getClass().getName());
+		logger.error(ex.getClass().getName());
 		//
 		final StringBuilder builder = new StringBuilder();
 		builder.append(ex.getContentType());
@@ -171,7 +176,7 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler({ Exception.class })
 	public ResponseEntity<Object> handleAll(final Exception ex, final WebRequest request) {
-		logger.info(ex.getClass().getName());
+		logger.error(ex.getClass().getName());
 		logger.error("error", ex);
 		//
 		final ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(),

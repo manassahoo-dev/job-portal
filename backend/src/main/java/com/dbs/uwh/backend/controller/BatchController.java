@@ -2,6 +2,8 @@ package com.dbs.uwh.backend.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,15 +42,15 @@ public class BatchController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Batch create(@RequestBody Batch company) {
-		return batchService.create(company);
+	public Batch create(@RequestBody @Valid Batch batch) {
+		return batchService.create(batch);
 	}
 
 	@PutMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public void update(@PathVariable("id") Long id, @RequestBody Batch company) {
-		RestPreconditions.checkNotNull(batchService.findById(company.getId()));
-		batchService.update(company);
+	public void update(@PathVariable("id") Long id, @RequestBody Batch batch) {
+		RestPreconditions.checkNotNull(batchService.findById(batch.getId()));
+		batchService.update(batch);
 	}
 
 	@DeleteMapping(value = "/{id}")
