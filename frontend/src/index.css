@@ -45,8 +45,8 @@ input[type="number"] {
   background: rgb(201, 201, 201);
   border-radius: 20px;
 }
-.vh60 {
-  height: 60vh;
+.vh65 {
+  height: 65vh;
 }
 
 .ant-layout-footer {

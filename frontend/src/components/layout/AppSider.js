@@ -16,8 +16,14 @@ const AppLayout = () => {
         { name: 'Student', icon: <UserOutlined />, path: '/admin/students' },
         { name: 'Batch', icon: <TeamOutlined />, path: '/admin/batches' },
         { name: 'Course', icon: <BookOutlined />, path: '/admin/courses' },
+        { name: 'Skill Test', icon: <BookOutlined />, path: '/admin/skill-test' },
+        { name: 'Counselling', icon: <BookOutlined />, path: '/admin/counselling' },
+        { name: 'Aptitude Test', icon: <BookOutlined />, path: '/admin/aptitude-test' },
+        { name: 'Volunteering', icon: <BookOutlined />, path: '/admin/volunteering' },
+        { name: 'Exam', icon: <BookOutlined />, path: '/admin/exams' },
         { name: 'Job', icon: <HomeOutlined />, path: '/admin/jobs' },
-        { name: 'Report', icon: <FileOutlined />, path: 'admin/reports' },
+        { name: 'Report', icon: <FileOutlined />, path: '/admin/reports' },
+        { name: 'Settings', icon: <BookOutlined />, path: '/admin/settings' },
     ]
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} >

@@ -14,22 +14,18 @@ const { Title, Text, Link } = Typography;
 function Batches() {
 
     const [form] = Form.useForm();
-    const [isAdd, setIsAdd] = useState(false);
+    const [isAddBatch, setIsAddBatch] = useState(false);
+    const [isAddOrEdit, setIsAddOrEdit] = useState(false);
     const [batch, setBatch] = useState(null);
-    const { data, error, loading } = ApiRequest('GET', api.batches, isAdd);
+    const { data, error, loading } = ApiRequest('GET', api.batches, isAddBatch);
 
     const validateMessages = {
         required: '${label} is required',
     };
     const onFinish = (values) => {
-        const data = {
-            ...values,
-            'startDate': values['startDate'].format('YYYY-MM-DD'),
-            'endDate': values['endDate'].format('YYYY-MM-DD')
-        };
-        ApiService.create(api.batches, data)
+        ApiService.create(api.batches, values)
             .then((response) => {
-                setIsAdd(false);
+                setIsAddBatch(false);
             })
             .catch((error) => {
                 message.error(error.response.message);
@@ -47,19 +43,19 @@ function Batches() {
                     <Card>
                         <PageHeader
                             className="p-0 mb-2"
-                            onBack={isAdd ? () => setIsAdd(false) : ""}
-                            title={isAdd ? "Add New Batch" : "Batch"}
-                            extra={!isAdd && [
-                                <Button type="primary" block onClick={() => setIsAdd(true)}>Add New Batch</Button>,
+                            onBack={isAddBatch ? () => setIsAddBatch(false) : ""}
+                            title={isAddBatch ? "Add New Batch" : "Batch"}
+                            extra={!isAddBatch && [
+                                <Button type="primary" block onClick={() => setIsAddBatch(true)}>Add New Batch</Button>,
                             ]}
                         />
                         {error ? <AppError
                             title="Unable to get Batch details"
                             subTitle={error.message}
                         /> :
-                            <div className="vh60 overflow-auto">
+                            <div className="vh65 overflow-auto">
                                 {
-                                    isAdd ?
+                                    isAddBatch ?
                                         <Form
                                             layout="vertical"
                                             form={form}
@@ -68,12 +64,6 @@ function Batches() {
                                             validateMessages={validateMessages}
                                         >
                                             <Form.Item label="Batch Name" name="name" rules={[{ required: true }]}><Input /></Form.Item>
-                                            <Form.Item name="startDate" label="Start Date" rules={[{ required: true }]} className="w-50 float-start">
-                                                <DatePicker className="w-100" />
-                                            </Form.Item>
-                                            <Form.Item name="endDate" label="End Date" rules={[{ required: true }]} className="w-50">
-                                                <DatePicker className="w-100" />
-                                            </Form.Item>
                                             <Form.Item><Button type="primary" htmlType="submit" block>Add New Batch</Button></Form.Item>
                                         </Form>
                                         :
@@ -101,10 +91,17 @@ function Batches() {
                     <>
                         <PageHeader
                             className="p-0 mb-2"
-                            onBack={isAdd ? () => setIsAdd(false) : ""}
+                            onBack={isAddBatch ? () => setIsAddBatch(false) : ""}
                             title={batch.name}
+                            extra={[
+                                <Button block onClick={() => setIsAddBatch(true)}>Add Batch Item</Button>,
+                            ]}
                         />
-                    {batch.courses.map((course, index) => <Card>{course.name}</Card>)}
+                        <Row>
+                            <Col xs={24} sm={12} md={8}>
+                                <Card title="Courses">{batch.courses.map((course, index) => <p>{course.name}</p>)}</Card>
+                            </Col>
+                        </Row>
                     </>
                 }
             </Col>
