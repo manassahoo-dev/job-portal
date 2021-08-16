@@ -1,6 +1,4 @@
-import { LoadingOutlined } from '@ant-design/icons';
-import { Result } from 'antd';
-import { Typography } from 'antd';
+import { Result, Typography } from 'antd';
 
 const { Title } = Typography;
 function AppError({ title, subTitle }) {

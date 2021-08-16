@@ -7,12 +7,14 @@ import api from "../../../services/api";
 import apiService from "../../../services/api.service";
 import ApiRequest from "../../../services/ApiRequest";
 import CourseDetails from "./courseDetails";
-
+import { PlusOutlined } from '@ant-design/icons';
+import AddNewCourseForm from "./AddNewCourseForm";
 
 function CourseCategory(params) {
 
     const [form] = Form.useForm();
     const [isAddCategory, setIsAddCategory] = useState(false);
+    const [isAddCourse, setIsAddCourse] = useState(false);
     const [Category, setCategory] = useState(null);
     const { data, error, loading } = ApiRequest('GET', api.categories, isAddCategory);
 
@@ -75,7 +77,7 @@ function CourseCategory(params) {
                                             itemLayout="horizontal"
                                             dataSource={data}
                                             renderItem={item => (
-                                                <List.Item className="px-2" onClick={() => setCategory(item)}>
+                                                <List.Item className="px-2" onClick={() => { setCategory(item); setIsAddCourse(false) }}>
                                                     <List.Item.Meta
                                                         title={<Button className="p-0" type="link" size="small" >{item.name}</Button>}
                                                         description={`Created At- ${moment(item.startDate).format("Do MMM YY")}`}
@@ -95,10 +97,22 @@ function CourseCategory(params) {
                     <>
                         <PageHeader
                             className="p-0 mb-2"
-                            onBack={isAddCategory ? () => setIsAddCategory(false) : ""}
                             title={Category.name}
+                            extra={!isAddCourse && [
+                                <Button type="primary" block onClick={() => setIsAddCourse(true)} icon={<PlusOutlined />}>Add New Course</Button>,
+                            ]}
                         />
-                        <CourseDetails course={Category} />
+                        <Row gutter={[16, 16]}>
+                            <Col xs={24} sm={24} md={16} lg={10} xl={10}>
+                                <CourseDetails Category={Category.name} />
+                            </Col>
+                            <Col xs={24} sm={24} md={16} lg={14} xl={14}>
+                                {isAddCourse &&
+                                    <AddNewCourseForm isAddCourse={isAddCourse} />
+                                }
+                            </Col>
+
+                        </Row>
                     </>
                 }
             </Col>
