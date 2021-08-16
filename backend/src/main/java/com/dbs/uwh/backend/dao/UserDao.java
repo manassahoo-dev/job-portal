@@ -1,13 +1,9 @@
 package com.dbs.uwh.backend.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.dbs.uwh.backend.model.User;
 
 @Repository
-public interface UserDao extends JpaRepository<User, Long> {
-	boolean existsUserByEmail(String emailId);
-
-	boolean existsUserByMobile(String mobileNumber);
+public interface UserDao extends GenericDao<User, Long> {
 }
