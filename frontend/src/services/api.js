@@ -1,4 +1,5 @@
 export default {
     users: '/users',
-    batches: '/batches'
+    batches: '/batches',
+    categories: '/categories'
 }

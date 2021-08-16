@@ -1,4 +1,4 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap-utilities.min.css');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap-utilities.min.css");
 .card-center {
   display: flex;
   flex-direction: column;
@@ -27,11 +27,11 @@ input[type="number"] {
 .text-center {
   text-align: center;
 }
-.otp-input {  
-    width: 3.5rem !important;
-    margin: 1rem 0.5rem !important;
-    height: 3.5rem;
-    font-weight: bold;
+.otp-input {
+  width: 3.5rem !important;
+  margin: 1rem 0.5rem !important;
+  height: 3.5rem;
+  font-weight: bold;
 }
 .logo {
   height: 32px;
@@ -45,14 +45,14 @@ input[type="number"] {
   background: rgb(201, 201, 201);
   border-radius: 20px;
 }
-.vh60{
+.vh60 {
   height: 60vh;
 }
 
 .ant-layout-footer {
-    padding: 20px 40px !important;
+  padding: 20px 40px !important;
 }
 
-.overflow-auto{
+.overflow-auto {
   overflow: auto;
 }
