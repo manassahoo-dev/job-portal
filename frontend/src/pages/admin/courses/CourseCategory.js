@@ -6,7 +6,7 @@ import AppSpin from "../../../components/utility/AppSpin";
 import api from "../../../services/api";
 import apiService from "../../../services/api.service";
 import ApiRequest from "../../../services/ApiRequest";
-import CourseDetails from "./courseDetails";
+import CourseDetails from "./CourseDetails";
 import { PlusOutlined } from '@ant-design/icons';
 import AddNewCourseForm from "./AddNewCourseForm";
 
@@ -17,6 +17,14 @@ function CourseCategory(params) {
     const [isAddCourse, setIsAddCourse] = useState(false);
     const [Category, setCategory] = useState(null);
     const { data, error, loading } = ApiRequest('GET', api.categories, isAddCategory);
+    const [formData, setFormData] = useState({
+        subCatName: '',
+        duration: '',
+        days: '',
+        description: '',
+        syllabus: ''
+    })
+    const [isEdit, setIsEdit] = useState(false)
 
     const validateMessages = {
         required: '${label} is required',
@@ -41,6 +49,19 @@ function CourseCategory(params) {
     const onFinishFailed = (errorInfo) => {
         console.error(errorInfo);
     };
+
+    const onEdit = (e) => {
+        console.log(e)
+        setFormData(e)
+        setIsEdit(true)
+        setIsAddCourse(true)
+    }
+
+    const manageStates = () => {
+        setIsAddCourse(false)
+        setIsEdit(false)
+    }
+
     return (
         <Row gutter={[16, 16]}>
             <Col xs={24} sm={12} md={8} lg={8} xl={8}>
@@ -104,11 +125,13 @@ function CourseCategory(params) {
                         />
                         <Row gutter={[16, 16]}>
                             <Col xs={24} sm={24} md={16} lg={10} xl={10}>
-                                <CourseDetails Category={Category.name} />
+                                <CourseDetails Category={Category.name}
+                                    onEdit={onEdit.bind(this)}
+                                />
                             </Col>
                             <Col xs={24} sm={24} md={16} lg={14} xl={14}>
                                 {isAddCourse &&
-                                    <AddNewCourseForm isAddCourse={isAddCourse} />
+                                    <AddNewCourseForm isAddCourse={isAddCourse} isEdit={isEdit} manageStates={manageStates.bind()} formData={formData} />
                                 }
                             </Col>
 

@@ -39,7 +39,8 @@ input[type="number"] {
   background: #00b7ff;
 }
 ::-webkit-scrollbar {
-  width: 2px;
+  width: 3px;
+  height: 3px;
 }
 ::-webkit-scrollbar-thumb {
   background: rgb(201, 201, 201);

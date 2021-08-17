@@ -4,25 +4,27 @@ import {
 import { Button, Card, Col, Form, Input, Row, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { Option } from "antd/lib/mentions";
-import { useState } from 'react';
 
 
 
-function AddNewCourseForm({ isAddCourse }) {
+function AddNewCourseForm(props) {
 
     const [form] = Form.useForm();
-    const [isAdd, setIsAdd] = useState(isAddCourse);
+    if (props.isEdit) {
+        form.setFieldsValue(props.formData)
+    }
     const validateMessages = {
         required: '${label} is required',
     };
     const onFinish = (values) => {
         console.log(values)
         form.resetFields();
+        props.manageStates()
     };
 
     const onCancel = () => {
         form.resetFields();
-        setIsAdd(false)
+        props.manageStates()
     }
 
     const onFinishFailed = (errorInfo) => {
@@ -30,7 +32,7 @@ function AddNewCourseForm({ isAddCourse }) {
     };
     return (
         <>
-            {isAdd &&
+            {props.isAddCourse &&
                 <Card hoverable>
                     <Form
                         layout="vertical"
@@ -39,14 +41,14 @@ function AddNewCourseForm({ isAddCourse }) {
                         onFinishFailed={onFinishFailed}
                         validateMessages={validateMessages}
                     >
-                        <Form.Item label="Enter Sub-Category Name" name='subCatName' required tooltip="This is a required field">
+                        <Form.Item label="Sub-Category Course Name" name='subCatName' rules={[{ required: true }]} tooltip="This is a required field">
                             <Input placeholder="Sub-Category Name" />
                         </Form.Item>
 
                         <Row gutter={[16, 16]}>
                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                <Form.Item label="Select Duration" name='duration'>
-                                    <Select defaultValue="15 Days">
+                                <Form.Item label="Duration" name='duration' rules={[{ required: true }]}>
+                                    <Select>
                                         <Option value="15 Days">15 Days</Option>
                                         <Option value="30 Days">30 Days</Option>
                                         <Option value="45 Days">45 Days</Option>
@@ -54,8 +56,8 @@ function AddNewCourseForm({ isAddCourse }) {
                                 </Form.Item>
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                <Form.Item label="Select Days" name='days'>
-                                    <Select defaultValue="Mon-Fri">
+                                <Form.Item label="Days" name='days' rules={[{ required: true }]}>
+                                    <Select>
                                         <Option value="Mon-Fri">Mon-Fri</Option>
                                         <Option value="Sat-Sun">Sat-Sun</Option>
                                     </Select>
@@ -63,7 +65,9 @@ function AddNewCourseForm({ isAddCourse }) {
                             </Col>
                         </Row>
                         <Form.Item
-                            label="Enter Short Description"
+                            label="Category Syllabus"
+                            name="syllabus"
+                            rules={[{ required: true }]}
                             tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
                         >
                             <TextArea
@@ -72,7 +76,8 @@ function AddNewCourseForm({ isAddCourse }) {
                             />
                         </Form.Item>
                         <Form.Item
-                            label="Enter Category Syllabus"
+                            label="Short Description"
+                            name="description"
                             tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
                         >
                             <TextArea
