@@ -79,7 +79,7 @@ function CourseCategory(params) {
                             title="Unable to get Category details"
                             subTitle={error.message}
                         /> :
-                            <div className="vh60 overflow-auto">
+                            <div className="vh65 overflow-auto">
                                 {
                                     isAddCategory ?
                                         <Form
