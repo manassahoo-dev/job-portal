@@ -1,14 +1,14 @@
 import { Button, Card, Col, Form, Input, List, message, PageHeader, Row } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
-import AppError from "../../../components/utility/AppError";
-import AppSpin from "../../../components/utility/AppSpin";
-import api from "../../../services/api";
-import apiService from "../../../services/api.service";
-import ApiRequest from "../../../services/ApiRequest";
-import CourseDetails from "./CourseDetails";
+import CourseDetails from "./courseDetails";
 import { PlusOutlined } from '@ant-design/icons';
-import AddNewCourseForm from "./AddNewCourseForm";
+import AddNewCourseForm from "./addNewCourseForm";
+import AppSpin from "../utility/AppSpin";
+import AppError from "../utility/AppError";
+import apiService from "../../services/api.service";
+import ApiRequest from "../../services/ApiRequest";
+import api from "../../services/api";
 
 function CourseCategory(params) {
 
