@@ -1,7 +1,6 @@
 package com.dbs.uwh.backend.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,12 +17,4 @@ public class BaseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
-
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
-	
-	public BaseEntity() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
 }
