@@ -6,13 +6,16 @@ import javax.persistence.Enumerated;
 
 import com.sun.istack.NotNull;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class User extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
+
 	private String email;
 
 	private String mobile;

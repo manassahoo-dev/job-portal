@@ -8,9 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @MappedSuperclass
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

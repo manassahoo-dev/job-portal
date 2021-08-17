@@ -5,13 +5,15 @@ import javax.persistence.Entity;
 
 import com.sun.istack.NotNull;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Answer extends BaseEntity {
+	private static final long serialVersionUID = 1L;
+
 	@NotNull
 	@Column(columnDefinition = "TEXT")
 	private String text;

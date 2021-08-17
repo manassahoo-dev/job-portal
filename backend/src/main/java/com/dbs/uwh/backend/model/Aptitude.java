@@ -1,24 +1,25 @@
 package com.dbs.uwh.backend.model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import com.sun.istack.NotNull;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Aptitude extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
+
 	@NotNull
 	private String name;
 
@@ -26,7 +27,6 @@ public class Aptitude extends BaseEntity {
 	private String description;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "APTITUDE_QUESTION", joinColumns = {
-			@JoinColumn(name = "APTITUDE_ID") }, inverseJoinColumns = { @JoinColumn(name = "QUESTION_ID") })
-	private Set<Question> questions = new HashSet<Question>(0);
+	@JoinColumn(name = "aptitude_id")
+	private Set<Question> questions;
 }

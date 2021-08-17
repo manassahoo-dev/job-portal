@@ -1,29 +1,32 @@
 package com.dbs.uwh.backend.model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import com.sun.istack.NotNull;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Category extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	@NotNull
 	private String name;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "CATEGORY_COURSE", joinColumns = { @JoinColumn(name = "CATEGORY_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "COURSE_ID") })
-	private Set<Course> courses = new HashSet<Course>(0);
+	@JoinColumn(name = "category_id")
+	private Set<Course> courses;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "category_id")
+	private Set<Aptitude> aptitudes;
 }
