@@ -1,21 +1,19 @@
-import { Button, Card, Col, Form, Input, List, message, PageHeader, Row } from "antd";
-import moment from "moment";
-import React, { useState } from "react";
-import CourseDetails from "./courseDetails";
 import { PlusOutlined } from '@ant-design/icons';
-import AddNewCourseForm from "./addNewCourseForm";
-import AppSpin from "../utility/AppSpin";
-import AppError from "../utility/AppError";
+import { Button, Col, Form, message, PageHeader, Row } from "antd";
+import React, { useState } from "react";
+import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ApiRequest from "../../services/ApiRequest";
-import api from "../../services/api";
+import CategoryList from '../category';
+import AddNewCourseForm from "./addNewCourseForm";
+import CourseDetails from "./courseDetails";
 
 function CourseCategory(params) {
 
     const [form] = Form.useForm();
     const [isAddCategory, setIsAddCategory] = useState(false);
     const [isAddCourse, setIsAddCourse] = useState(false);
-    const [Category, setCategory] = useState(null);
+    const [category, setCategory] = useState(null);
     const { data, error, loading } = ApiRequest('GET', api.categories, isAddCategory);
     const [formData, setFormData] = useState({
         subCatName: '',
@@ -65,67 +63,22 @@ function CourseCategory(params) {
     return (
         <Row gutter={[16, 16]}>
             <Col xs={24} sm={12} md={8} lg={8} xl={8}>
-                <AppSpin loading={loading}>
-                    <Card className='overflow-auto'>
-                        <PageHeader
-                            className="p-0 mb-2"
-                            onBack={isAddCategory ? () => setIsAddCategory(false) : ""}
-                            title={isAddCategory ? "Add New Category" : "Category"}
-                            extra={!isAddCategory && [
-                                <Button type="primary" block onClick={() => setIsAddCategory(true)}>Add New Category</Button>,
-                            ]}
-                        />
-                        {error ? <AppError
-                            title="Unable to get Category details"
-                            subTitle={error.message}
-                        /> :
-                            <div className="vh65 overflow-auto">
-                                {
-                                    isAddCategory ?
-                                        <Form
-                                            layout="vertical"
-                                            form={form}
-                                            onFinish={onFinish}
-                                            onFinishFailed={onFinishFailed}
-                                            validateMessages={validateMessages}
-                                        >
-                                            <Form.Item label="Category Name" name="name" rules={[{ required: true }]}><Input /></Form.Item>
-                                            <Form.Item><Button type="primary" htmlType="submit" block>Add New Category</Button></Form.Item>
-                                        </Form>
-                                        :
-
-                                        <List
-                                            itemLayout="horizontal"
-                                            dataSource={data}
-                                            renderItem={item => (
-                                                <List.Item className="px-2" onClick={() => { setCategory(item); setIsAddCourse(false) }}>
-                                                    <List.Item.Meta
-                                                        title={<Button className="p-0" type="link" size="small" >{item.name}</Button>}
-                                                        description={`Created At- ${moment(item.startDate).format("Do MMM YY")}`}
-                                                    />
-                                                </List.Item>
-                                            )}
-                                        />
-                                }
-                            </div>
-                        }
-                    </Card>
-                </AppSpin>
+                < CategoryList setCategory={setCategory} setIsAddCourse={setIsAddCourse}/>
             </Col>
 
             <Col xs={24} sm={12} md={16} lg={16} xl={16}>
-                {Category !== null &&
+                {category !== null &&
                     <>
                         <PageHeader
                             className="p-0 mb-2"
-                            title={Category.name}
+                            title={category.name}
                             extra={!isAddCourse && [
                                 <Button type="primary" block onClick={() => setIsAddCourse(true)} icon={<PlusOutlined />}>Add New Course</Button>,
                             ]}
                         />
                         <Row gutter={[16, 16]}>
                             <Col xs={24} sm={24} md={16} lg={10} xl={10}>
-                                <CourseDetails Category={Category.name}
+                                <CourseDetails category={category.name}
                                     onEdit={onEdit.bind(this)}
                                 />
                             </Col>

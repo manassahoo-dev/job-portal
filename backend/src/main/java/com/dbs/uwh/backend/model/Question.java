@@ -3,9 +3,11 @@ package com.dbs.uwh.backend.model;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.sun.istack.NotNull;
 
@@ -15,18 +17,18 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Category extends BaseEntity {
+public class Question extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	@NotNull
-	private String name;
+	@Column(columnDefinition = "TEXT")
+	private String text;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "category_id")
-	private Set<Course> courses;
+	@JoinColumn(name = "question_id")
+	private Set<Answer> answers;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "category_id")
-	private Set<Aptitude> aptitudes;
+	@OneToOne(cascade = CascadeType.ALL)
+	private Answer answer;
 }

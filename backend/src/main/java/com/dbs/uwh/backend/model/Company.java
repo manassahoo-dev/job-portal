@@ -4,17 +4,19 @@ import javax.persistence.Entity;
 
 import com.sun.istack.NotNull;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Company extends BaseEntity {
+
+	private static final long serialVersionUID = 1L;
 
 	@NotNull
 	private String name;
-	
+
 	private String address;
 	private String description;
 	private String website;

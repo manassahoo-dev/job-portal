@@ -7,7 +7,7 @@ import { duration } from 'moment';
 
 function CourseDetails(props) {
 
-    const categoryName = props.Category;
+    const categoryName = props.category;
     const formData = {
         subCatName: 'Nursing Training',
         duration: '30 Days',
