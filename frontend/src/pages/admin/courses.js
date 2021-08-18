@@ -1,8 +1,8 @@
-import CourseCategory from "../../components/courses/courseCategory"
+import CourseList from "../../components/course/List"
 
 function Courses() {
     return (
-        <CourseCategory />
+        <CourseList />
     )
 }
 export default Courses

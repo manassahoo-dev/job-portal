@@ -4,18 +4,17 @@ import {
 import { Button, Card, Col, Form, Input, Row, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { Option } from "antd/lib/mentions";
+import ValidationMessage from '../utility/ValidationMessage';
 
 
 
-function AddNewCourseForm(props) {
+function AddEditCourse(props) {
 
     const [form] = Form.useForm();
     if (props.isEdit) {
         form.setFieldsValue(props.formData)
     }
-    const validateMessages = {
-        required: '${label} is required',
-    };
+
     const onFinish = (values) => {
         console.log(values)
         form.resetFields();
@@ -39,7 +38,7 @@ function AddNewCourseForm(props) {
                         form={form}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        validateMessages={validateMessages}
+                        validateMessages={ValidationMessage}
                     >
                         <Form.Item label="Sub-Category Course Name" name='subCatName' rules={[{ required: true }]} tooltip="This is a required field">
                             <Input placeholder="Sub-Category Name" />
@@ -87,7 +86,7 @@ function AddNewCourseForm(props) {
                         </Form.Item>
                         <Row gutter={[16, 16]}>
                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                                <Form.Item><Button type="primary" htmlType="reset" block onClick={onCancel}>Cancel</Button></Form.Item>
+                                <Form.Item><Button type="default" htmlType="reset" block onClick={onCancel}>Cancel</Button></Form.Item>
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                                 <Form.Item><Button type="primary" htmlType="submit" block>Create</Button></Form.Item>
@@ -99,4 +98,4 @@ function AddNewCourseForm(props) {
         </>
     )
 }
-export default AddNewCourseForm;
+export default AddEditCourse;

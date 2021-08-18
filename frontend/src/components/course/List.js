@@ -1,20 +1,14 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Col, Form, message, PageHeader, Row } from "antd";
+import { Button, Col, PageHeader, Row } from "antd";
 import React, { useState } from "react";
-import api from "../../services/api";
-import apiService from "../../services/api.service";
-import ApiRequest from "../../services/ApiRequest";
 import CategoryList from '../category';
-import AddNewCourseForm from "./addNewCourseForm";
-import CourseDetails from "./courseDetails";
+import AddEditCourse from './AddEdit';
+import CourseDetails from "./Details";
 
-function CourseCategory(params) {
+function CourseList() {
 
-    const [form] = Form.useForm();
-    const [isAddCategory, setIsAddCategory] = useState(false);
     const [isAddCourse, setIsAddCourse] = useState(false);
     const [category, setCategory] = useState(null);
-    const { data, error, loading } = ApiRequest('GET', api.categories, isAddCategory);
     const [formData, setFormData] = useState({
         subCatName: '',
         duration: '',
@@ -23,30 +17,6 @@ function CourseCategory(params) {
         syllabus: ''
     })
     const [isEdit, setIsEdit] = useState(false)
-
-    const validateMessages = {
-        required: '${label} is required',
-    };
-    const onFinish = (values) => {
-        const today = new Date();
-        const data = {
-            ...values,
-            'createdAt': today,
-            'updatedAt': today
-        };
-        apiService.create(api.categories, data)
-            .then((response) => {
-                setIsAddCategory(false);
-            })
-            .catch((error) => {
-                message.error(error.response.message);
-            });;
-        form.resetFields();
-    };
-
-    const onFinishFailed = (errorInfo) => {
-        console.error(errorInfo);
-    };
 
     const onEdit = (e) => {
         console.log(e)
@@ -63,7 +33,7 @@ function CourseCategory(params) {
     return (
         <Row gutter={[16, 16]}>
             <Col xs={24} sm={12} md={8} lg={8} xl={8}>
-                < CategoryList setCategory={setCategory} setIsAddCourse={setIsAddCourse}/>
+                < CategoryList setCategory={setCategory} setIsAddCourse={setIsAddCourse} />
             </Col>
 
             <Col xs={24} sm={12} md={16} lg={16} xl={16}>
@@ -84,7 +54,7 @@ function CourseCategory(params) {
                             </Col>
                             <Col xs={24} sm={24} md={16} lg={14} xl={14}>
                                 {isAddCourse &&
-                                    <AddNewCourseForm isAddCourse={isAddCourse} isEdit={isEdit} manageStates={manageStates.bind()} formData={formData} />
+                                    <AddEditCourse isAddCourse={isAddCourse} isEdit={isEdit} manageStates={manageStates.bind()} formData={formData} />
                                 }
                             </Col>
 
@@ -95,4 +65,4 @@ function CourseCategory(params) {
         </Row>
     );
 }
-export default CourseCategory;
+export default CourseList;
