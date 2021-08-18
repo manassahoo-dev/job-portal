@@ -1,11 +1,12 @@
 
 import {
-    Button, Card, Col, DatePicker, Form, Input, List, message, PageHeader, Row, Typography
+    Button, Card, Col, Form, Input, List, message, PageHeader, Row, Typography
 } from 'antd';
 import moment from 'moment';
 import { useState } from 'react';
 import AppError from '../../components/utility/AppError';
 import AppSpin from '../../components/utility/AppSpin';
+import ValidationMessage from '../../components/utility/ValidationMessage';
 import api from '../../services/api';
 import ApiService from '../../services/api.service';
 import ApiRequest from '../../services/ApiRequest';
@@ -19,9 +20,6 @@ function Batches() {
     const [batch, setBatch] = useState(null);
     const { data, error, loading } = ApiRequest('GET', api.batches, isAddBatch);
 
-    const validateMessages = {
-        required: '${label} is required',
-    };
     const onFinish = (values) => {
         ApiService.create(api.batches, values)
             .then((response) => {
@@ -61,7 +59,7 @@ function Batches() {
                                             form={form}
                                             onFinish={onFinish}
                                             onFinishFailed={onFinishFailed}
-                                            validateMessages={validateMessages}
+                                            validateMessages={ValidationMessage}
                                         >
                                             <Form.Item label="Batch Name" name="name" rules={[{ required: true }]}><Input /></Form.Item>
                                             <Form.Item><Button type="primary" htmlType="submit" block>Add New Batch</Button></Form.Item>

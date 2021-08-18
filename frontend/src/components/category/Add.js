@@ -2,14 +2,11 @@ import { Button, Form, Input, message } from "antd";
 import React, { useState } from "react";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
+import ValidationMessage from "../utility/ValidationMessage";
 
 function CategoryAdd({ setIsAdd }) {
 
     const [form] = Form.useForm();
-
-    const validateMessages = {
-        required: '${label} is required',
-    };
 
     const onFinish = (values) => {
         apiService.create(api.categories, values)
@@ -32,7 +29,7 @@ function CategoryAdd({ setIsAdd }) {
             form={form}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
-            validateMessages={validateMessages}
+            validateMessages={ValidationMessage}
         >
             <Form.Item label="Category Name" name="name" rules={[{ required: true }]}><Input /></Form.Item>
             <Form.Item><Button type="primary" htmlType="submit" block>Add New Category</Button></Form.Item>
