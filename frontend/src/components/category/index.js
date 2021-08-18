@@ -7,7 +7,7 @@ import AppError from "../utility/AppError";
 import AppSpin from "../utility/AppSpin";
 import CategoryAdd from "./Add";
 
-function CategoryList({ setCategory, setIsAddCourse }) {
+function CategoryList({ setCategory, setIsAddItem }) {
 
     const [isAdd, setIsAdd] = useState(false);
     const { data, error, loading } = ApiRequest('GET', api.categories, isAdd);
@@ -37,7 +37,7 @@ function CategoryList({ setCategory, setIsAddCourse }) {
                                     itemLayout="horizontal"
                                     dataSource={data}
                                     renderItem={item => (
-                                        <List.Item className="px-2" onClick={() => { setCategory(item); setIsAddCourse(false) }}>
+                                        <List.Item className="px-2" onClick={() => { setCategory(item); setIsAddItem(false) }}>
                                             <List.Item.Meta
                                                 title={<Button className="p-0" type="link" size="small" >{item.name}</Button>}
                                                 description={`Created At- ${moment(item.startDate).format("Do MMM YY")}`}

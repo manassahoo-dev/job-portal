@@ -7,7 +7,7 @@ import CourseDetails from "./Details";
 
 function CourseList() {
 
-    const [isAddCourse, setIsAddCourse] = useState(false);
+    const [isAddItem, setIsAddItem] = useState(false);
     const [category, setCategory] = useState(null);
     const [formData, setFormData] = useState({
         subCatName: '',
@@ -22,18 +22,18 @@ function CourseList() {
         console.log(e)
         setFormData(e)
         setIsEdit(true)
-        setIsAddCourse(true)
+        setIsAddItem(true)
     }
 
     const manageStates = () => {
-        setIsAddCourse(false)
+        setIsAddItem(false)
         setIsEdit(false)
     }
 
     return (
         <Row gutter={[16, 16]}>
             <Col xs={24} sm={12} md={8} lg={8} xl={8}>
-                < CategoryList setCategory={setCategory} setIsAddCourse={setIsAddCourse} />
+                < CategoryList setCategory={setCategory} setIsAddItem={setIsAddItem} />
             </Col>
 
             <Col xs={24} sm={12} md={16} lg={16} xl={16}>
@@ -42,8 +42,8 @@ function CourseList() {
                         <PageHeader
                             className="p-0 mb-2"
                             title={category.name}
-                            extra={!isAddCourse && [
-                                <Button type="primary" block onClick={() => setIsAddCourse(true)} icon={<PlusOutlined />}>Add New Course</Button>,
+                            extra={!isAddItem && [
+                                <Button type="primary" block onClick={() => setIsAddItem(true)} icon={<PlusOutlined />}>Add New Course</Button>,
                             ]}
                         />
                         <Row gutter={[16, 16]}>
@@ -53,8 +53,8 @@ function CourseList() {
                                 />
                             </Col>
                             <Col xs={24} sm={24} md={16} lg={14} xl={14}>
-                                {isAddCourse &&
-                                    <AddEditCourse isAddCourse={isAddCourse} isEdit={isEdit} manageStates={manageStates.bind()} formData={formData} />
+                                {isAddItem &&
+                                    <AddEditCourse isAddItem={isAddItem} isEdit={isEdit} manageStates={manageStates.bind()} formData={formData} />
                                 }
                             </Col>
 
