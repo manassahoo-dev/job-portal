@@ -18,7 +18,7 @@ const AppLayout = () => {
         { name: 'Course', icon: <BookOutlined />, path: '/admin/courses' },
         { name: 'Skill Test', icon: <BookOutlined />, path: '/admin/skill-test' },
         { name: 'Counselling', icon: <BookOutlined />, path: '/admin/counselling' },
-        { name: 'Aptitude Test', icon: <BookOutlined />, path: '/admin/aptitude-test' },
+        { name: 'Aptitude Test', icon: <BookOutlined />, path: '/admin/aptitudes' },
         { name: 'Volunteering', icon: <BookOutlined />, path: '/admin/volunteering' },
         { name: 'Exam', icon: <BookOutlined />, path: '/admin/exams' },
         { name: 'Job', icon: <HomeOutlined />, path: '/admin/jobs' },
