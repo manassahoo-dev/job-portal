@@ -1,12 +1,8 @@
 package com.dbs.uwh.backend.model;
 
-import java.util.Set;
-
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.sun.istack.NotNull;
@@ -26,6 +22,6 @@ public class Counselling extends BaseEntity {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id")
-	private String category;
+	private Category category;
 
 }

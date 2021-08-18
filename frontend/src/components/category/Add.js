@@ -1,5 +1,5 @@
 import { Button, Form, Input, message } from "antd";
-import React, { useState } from "react";
+import React from "react";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ValidationMessage from "../utility/ValidationMessage";
@@ -11,12 +11,14 @@ function CategoryAdd({ setIsAdd }) {
     const onFinish = (values) => {
         apiService.create(api.categories, values)
             .then((response) => {
+                message.success('Category added successfully');
                 setIsAdd(false);
+                form.resetFields();
             })
             .catch((error) => {
-                message.error(error.response.message);
+                message.error(error.response.data.message);
             });;
-        form.resetFields();
+
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -26,6 +28,7 @@ function CategoryAdd({ setIsAdd }) {
     return (
         <Form
             layout="vertical"
+            className="vh65"
             form={form}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}

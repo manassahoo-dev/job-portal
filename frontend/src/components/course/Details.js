@@ -57,8 +57,9 @@ function CourseDetails(props) {
         <>
             <Card title={categoryName}
                 extra={
-                    <Dropdown.Button icon={<MoreOutlined />} overlay={menu}>
-                    </Dropdown.Button>
+                    <Dropdown overlay={menu} placement="bottomRight">
+                        <MoreOutlined />
+                    </Dropdown>
                 }
                 hoverable>
                 <Rate defaultValue={3} />

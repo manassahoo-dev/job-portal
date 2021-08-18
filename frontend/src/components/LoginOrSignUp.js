@@ -127,7 +127,7 @@ function LoginOrSignUp(props) {
     );
 
     return (
-        <div className="card-center">
+        <div className="card-center vh-100">
             <Card bordered={true}>
                 <Tabs onChange={(e) => { setTabState(e); setOTPSentState(false); setUserExistsState(true) }}
                     defaultActiveKey="1" centered>

@@ -111,7 +111,7 @@ const Register = (props) => {
 
     return (
         <>
-            <div className="card-center">
+            <div className="card-center vh-100">
                 <Card bordered={true}>
                     {registerForm}
                 </Card>
