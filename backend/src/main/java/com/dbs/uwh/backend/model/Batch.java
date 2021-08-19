@@ -37,4 +37,8 @@ public class Batch extends BaseEntity {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "batch_id")
 	private Set<Course> courses;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "batch_id")
+	private Set<Student> student;
 }
