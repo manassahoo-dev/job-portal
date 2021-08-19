@@ -28,7 +28,7 @@ function CategoryCard({ item, setCategory, setIsAddItem }) {
             <List.Item.Meta
                 onClick={() => { setCategory(item); setIsAddItem(false) }}
                 title={item.name}
-                description={`Created on ${moment(item.startDate).format("Do MMM YY")}`}
+                // description={`Created on ${moment(item.startDate).format("Do MMM YY")}`}
             />
         </List.Item>
     );
