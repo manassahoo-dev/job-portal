@@ -23,8 +23,13 @@ public class Student extends BaseEntity {
 	private String motherName;
 	private String course;
 	private String idProof;
+	private String studentType;
+	private int interview;
+	
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
+	
+	
 }
