@@ -1,27 +1,26 @@
+import { PlusOutlined } from "@ant-design/icons";
 import { Button, Card, Empty, List, PageHeader } from "antd";
-import moment from "moment";
 import React, { useState } from "react";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
 import AppError from "../utility/AppError";
 import AppSpin from "../utility/AppSpin";
 import CategoryAdd from "./Add";
-import { PlusOutlined } from "@ant-design/icons"
+import CategoryCard from "./Card";
 
 function CategoryList({ setCategory, setIsAddItem }) {
 
     const [isAdd, setIsAdd] = useState(false);
     const { data, error, loading } = ApiRequest('GET', api.categories, isAdd);
-
     return (
-        <AppSpin loading={loading}>
-            <Card className='overflow-auto'>
+        <AppSpin loading={loading} size="large" tip="Fetching categories...">
+            <Card className={loading ? 'vh65': 'overflow-auto'}>
                 <PageHeader
                     className="p-0 mb-2"
                     onBack={isAdd ? () => setIsAdd(false) : ""}
                     title={isAdd ? "Add New Category" : "Category"}
                     extra={!isAdd && [
-                        <Button type="primary" block onClick={() => setIsAdd(true)}>Add New Category</Button>,
+                        <Button type="primary" block icon={<PlusOutlined />} onClick={() => setIsAdd(true)}>Add</Button>,
                     ]}
                 />
 
@@ -40,23 +39,16 @@ function CategoryList({ setCategory, setIsAddItem }) {
                                         itemLayout="horizontal"
                                         dataSource={data}
                                         renderItem={item => (
-                                            <List.Item className="px-2" onClick={() => { setCategory(item); setIsAddItem(false) }}>
-                                                <List.Item.Meta
-                                                    title={<Button className="p-0" type="link" size="small" >{item.name}</Button>}
-                                                    description={`Created on ${moment(item.startDate).format("Do MMM YY")}`}
-                                                />
-                                            </List.Item>
+                                            <CategoryCard item={item} setCategory={setCategory} setIsAddItem={setIsAddItem} />
                                         )}
                                     /> :
                                     <Empty
-                                        className="vh65 card-center"
+                                        className={loading ? "d-none":"vh65 card-center"}
                                         description="No category found">
                                         <Button icon={<PlusOutlined />} onClick={() => setIsAdd(true)}>Add One</Button>
                                     </Empty>
                                 }
                             </>
-
-
                         }
                     </>
                 }

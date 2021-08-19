@@ -23,19 +23,6 @@ function Aptitudes() {
     const validateMessages = {
         required: '${label} is required',
     };
-    const onFinish = (values) => {
-        ApiService.create(api.aptitudes, values)
-            .then((response) => {
-                setIsAddItem(false);
-            })
-            .catch((error) => {
-                message.error(error.response.message);
-            });;
-    };
-
-    const onFinishFailed = (errorInfo) => {
-        console.error(errorInfo);
-    };
 
     return (
         <Row gutter={[16, 16]}>
