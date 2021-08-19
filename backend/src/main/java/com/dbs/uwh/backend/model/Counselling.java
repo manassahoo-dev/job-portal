@@ -27,7 +27,6 @@ public class Counselling extends BaseEntity {
 	private Category category;
 	
 	@NotNull
-	@Enumerated(EnumType.STRING)
-	private CounsellingStatus counsellingStatus;
+	private boolean counsellingStatus;
 
 }

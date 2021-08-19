@@ -19,15 +19,15 @@ public class Course extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@NotNull
-	private String courseName;
+	private String name;
 
 	@Column(columnDefinition = "TEXT")
-	private String shortDescription;
+	private String description;
 
 	@Column(columnDefinition = "TEXT")
-	private String courseSyllabus;
+	private String syllabus;
 
 	@NotNull
-	private Integer courseDuration;
+	private Integer duration;
 
 }

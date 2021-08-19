@@ -8,7 +8,7 @@ import com.dbs.uwh.backend.model.Job;
 import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping("/Jobs")
+@RequestMapping("/jobs")
 @Api(tags = "Jobs", value = "Jobs", description = "Jobs API")
 public class JobController extends GenericRestController<Job, Long> {
 }
