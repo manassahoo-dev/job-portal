@@ -1,5 +1,5 @@
-import { DeleteOutlined, EditOutlined, MoreOutlined } from '@ant-design/icons';
-import { Button, Dropdown, List, Menu } from "antd";
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { List, Menu } from "antd";
 import moment from "moment";
 import React from "react";
 
@@ -23,7 +23,7 @@ function CategoryCard({ item, setCategory, setIsAddItem }) {
             // actions={[<Dropdown overlay={actions} placement="bottomRight">
             //     <Button shape="circle" icon={<MoreOutlined />} />
             // </Dropdown>]}
-            className="custom-card"
+            className={item.id ? "custom-card active" : "custom-card"}
         >
             <List.Item.Meta
                 onClick={() => { setCategory(item); setIsAddItem(false) }}

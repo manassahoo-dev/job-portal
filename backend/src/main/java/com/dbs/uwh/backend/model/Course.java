@@ -2,6 +2,7 @@ package com.dbs.uwh.backend.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -29,5 +30,5 @@ public class Course extends BaseEntity {
 
 	@NotNull
 	private Integer duration;
-
+	
 }
