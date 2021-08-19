@@ -2,5 +2,7 @@ export default {
     users: '/users',
     batches: '/batches',
     aptitudes: '/aptitudes',
-    categories: '/categories'
+    categories: '/categories',
+    courses: '/courses',
+    students: '/students',
 }

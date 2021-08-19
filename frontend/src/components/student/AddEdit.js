@@ -1,29 +1,47 @@
 import { Button, Card, Col, Form, Input, message, Row } from "antd"
 import api from "../../services/api";
 import apiService from "../../services/api.service";
+import ACTIONTYPES from "../utility/ACTIONTYPES";
 import ValidationMessage from "../utility/ValidationMessage";
 
-function AddEditStudent({ setIsAddEditStudent }) {
+function AddEditStudent({ isActionPerformedStudent, setIsActionPerformedStudent, data }) {
 
     const [form] = Form.useForm();
 
+    if (isActionPerformedStudent === ACTIONTYPES.edit) {
+        form.setFieldsValue(data)
+    }
     const onFinish = (values) => {
         console.log('Success:', values);
-        apiService.create(api.users, values)
-            .then((response) => {
-                setIsAddEditStudent(false)
-            })
-            .catch((error) => {
-                message.error(error.response.message);
-            });;
+        if (isActionPerformedStudent === ACTIONTYPES.add) {
+            apiService.create(api.students, values)
+                .then((response) => {
+                    setIsActionPerformedStudent(ACTIONTYPES.none)
+                })
+                .catch((error) => {
+                    message.error(error.response.message);
+                });;
+        }
+        if (isActionPerformedStudent === ACTIONTYPES.edit) {
+            console.log(data)
+            apiService.update(api.students, data.id, values)
+                .then((response) => {
+                    setIsActionPerformedStudent(ACTIONTYPES.none)
+                })
+                .catch((error) => {
+                    message.error(error.response.message);
+                });;
+        }
+
     };
 
     const onFinishFailed = (errorInfo) => {
+        setIsActionPerformedStudent(ACTIONTYPES.none)
         console.log('Failed:', errorInfo);
     };
 
     const onCancel = () => {
-        setIsAddEditStudent(false)
+        setIsActionPerformedStudent(ACTIONTYPES.none)
     }
 
     return (

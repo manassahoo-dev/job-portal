@@ -1,33 +1,30 @@
 import { DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Card, Modal, Tooltip } from 'antd';
+import { Button, Card, message, Modal, Tooltip } from 'antd';
 import api from '../services/api';
 import ApiService from "../services/api.service";
+import ApiRequest from '../services/ApiRequest';
+import ACTIONTYPES from './utility/ACTIONTYPES';
 
 const { confirm } = Modal;
 const { Meta } = Card;
 
-function DeleteEntity({ item }) {
+function DeleteEntity({ entityName, item, url, setActionPerformed }) {
 
-    const showDeleteConfirm = (user) => {
+    const showDeleteConfirm = (item) => {
+        setActionPerformed(ACTIONTYPES.delete)
         confirm({
-            title: <Card cover={<img alt="user" src={user.image} />}>
+            title: <Card>
                 <Meta
-                    title='Are you sure delete this User?'
-                    description={user.mobile}
+                    title={`Are you sure delete this ${entityName}?`}
+                    description={item.mobile}
                 />
             </Card>,
             icon: <ExclamationCircleOutlined />,
-            content: <Card cover={<img alt="user" src={user.image} />}>
-                <Meta
-                    title={user.email}
-                    description={user.mobile}
-                />
-            </Card>,
             okText: 'Yes',
             okType: 'danger',
             cancelText: 'No',
             onOk() {
-                deleteUser(user.id);
+                deleteEntity(item.id);
             },
             onCancel() {
                 console.log('Cancel');
@@ -35,8 +32,15 @@ function DeleteEntity({ item }) {
         });
     }
 
-    const deleteUser = (id) => {
-        ApiService.delete(api.users, id);
+    const deleteEntity = (id) => {
+        ApiService.delete(url, id)
+            .then((response) => {
+                setActionPerformed(ACTIONTYPES.none)
+                message.info(`${entityName} deleted successfully!!`);
+            })
+            .catch((error) => {
+                message.error(error.response.message);
+            });;;
     }
 
     return (
