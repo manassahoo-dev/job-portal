@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @PrimaryKeyJoinColumn(name = "ID")
-public class Student extends User {
+public class Student extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	private int age;

@@ -2,6 +2,8 @@ package com.dbs.uwh.backend.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
@@ -23,5 +25,9 @@ public class Counselling extends BaseEntity {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private CounsellingStatus counsellingStatus;
 
 }
