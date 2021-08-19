@@ -43,7 +43,7 @@ const AppHeader = () => {
 
     return (
         <Header>
-            <div onClick={handleClick} selectedKeys={tabState} mode="horizontal" style={{ float: 'right' }}>
+            <div onClick={handleClick} mode="horizontal" style={{ float: 'right' }}>
                 <Space size="large">
                     <Switch checked={isDarkMode} onChange={toggleTheme} />
                     {user ?

@@ -70,7 +70,7 @@ function Batches() {
                                             itemLayout="horizontal"
                                             dataSource={data}
                                             renderItem={item => (
-                                                <List.Item className="px-2" onClick={() => setBatch(item)}>
+                                                <List.Item className="custom-card" onClick={() => setBatch(item)}>
                                                     <List.Item.Meta
                                                         title={<Button className="p-0" type="link" size="small" >{item.name}</Button>}
                                                         description={`${moment(item.startDate).format("Do MMM YY")} - ${moment(item.endDate).format("Do MMM YY")}`}

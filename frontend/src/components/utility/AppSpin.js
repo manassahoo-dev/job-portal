@@ -1,10 +1,10 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 
-function AppSpin({ loading, children}) {
+function AppSpin({ loading, size, tip, children}) {
     const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
     return (
-        <Spin tip="Loading..." indicator={antIcon} spinning={loading}>
+        <Spin tip={tip} size={size} indicator={antIcon} spinning={loading}>
             {children}
         </Spin>
     );
