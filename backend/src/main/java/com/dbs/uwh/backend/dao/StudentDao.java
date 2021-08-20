@@ -6,4 +6,6 @@ import com.dbs.uwh.backend.model.Student;
 
 @Repository
 public interface StudentDao extends GenericDao<Student, Long> {
+	
+	Student findTopByOrderByIdDesc();
 }
