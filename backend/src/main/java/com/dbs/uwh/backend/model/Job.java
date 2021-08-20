@@ -32,10 +32,6 @@ public class Job extends BaseEntity {
 
 	@NotNull
 	@Column(columnDefinition = "TEXT")
-	private String aboutCompany;
-
-	@NotNull
-	@Column(columnDefinition = "TEXT")
 	private String rolesAndResponsibilities;
 
 	@NotNull

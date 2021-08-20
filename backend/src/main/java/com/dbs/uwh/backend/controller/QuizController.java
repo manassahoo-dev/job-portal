@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dbs.uwh.backend.model.Quiz;
+import com.dbs.uwh.backend.model.QuizType;
 import com.dbs.uwh.backend.service.QuizService;
 
 import io.swagger.annotations.Api;
@@ -21,7 +23,10 @@ public class QuizController extends GenericRestController<Quiz, Long> {
 	private QuizService quizService;
 
 	@GetMapping(value = "/category/{id}")
-	public List<Quiz> findByCategoryId(@PathVariable("id") Long id) {
+	public List<Quiz> findByCategoryId(@PathVariable("id") Long id, @RequestParam(required = false) String quizType) {
+		if(quizType != null) {
+			return quizService.findByQuizTypeAndCategoryId(QuizType.valueOf(quizType), id);
+		}
 		return quizService.findByCategoryId(id);
 	}
 }

@@ -1,6 +1,7 @@
 package com.dbs.uwh.backend.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -34,9 +36,9 @@ public class Batch extends BaseEntity {
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "batch_id")
-	private Set<Course> courses;
+	@JsonIgnore
+	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<BatchCourse> courses = new HashSet<>();
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "batch_id")
