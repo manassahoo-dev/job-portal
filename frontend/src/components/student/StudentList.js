@@ -6,7 +6,7 @@ import ApiRequest from '../../services/ApiRequest';
 import ACTIONTYPES from '../utility/ACTIONTYPES';
 
 
-function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, setData }) {
+function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, setData, item }) {
 
     const { data, error, loading } = ApiRequest('GET', api.students, isActionPerformedStudent);
     const columns = [
@@ -14,6 +14,8 @@ function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, se
             title: 'SL No',
             dataIndex: 'id',
             key: 'id',
+            defaultSortOrder: 'descend',
+            sorter: (a, b) => a.id - b.id,
         }, {
             title: 'UID (Adhar)',
             dataIndex: 'idProof',
@@ -22,6 +24,7 @@ function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, se
             title: 'Name',
             dataIndex: 'name',
             render: (text, record) => <b>{`${record.firstName} ${record.lastName}`}</b>,
+            sorter: (a, b) => (a?.name - b?.name),
         }, {
             title: 'Email',
             dataIndex: 'email',
@@ -34,6 +37,8 @@ function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, se
             title: 'Age',
             dataIndex: 'age',
             key: 'age',
+            defaultSortOrder: 'descend',
+            sorter: (a, b) => a.age - b.age,
         }, {
             title: 'Gender',
             dataIndex: 'gender',
@@ -43,9 +48,9 @@ function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, se
             dataIndex: 'motherName',
             key: 'motherName',
         }, {
-            title: 'gender',
-            dataIndex: 'gender',
-            key: 'gender',
+            title: 'Father Name',
+            dataIndex: 'fatherName',
+            key: 'fatherName',
         }, {
             title: 'Action',
             key: 'action',
@@ -62,11 +67,13 @@ function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, se
 
     return (
         <>
+
             <Card className="overflow-auto">
                 <Row>
                     <Col span={24}>
                         <Table loading={loading} columns={columns} pagination={data.length > 10}
                             dataSource={data} size="small" rowKey="id"
+                            rowClassName={(record, index) => (record.id === item?.id) ? 'table-row-dark' : ''}
                             bordered
                         />
                     </Col>
