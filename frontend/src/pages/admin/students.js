@@ -8,14 +8,7 @@ import ACTIONTYPES from '../../components/utility/ACTIONTYPES';
 function Students() {
 
     const [isActionPerformedStudent, setIsActionPerformedStudent] = useState(ACTIONTYPES.none);
-    const [data, setData] = useState({
-        id: '',
-        email: '',
-        mobile: '',
-        firstName: '',
-        lastName: '',
-    });
-
+    const [data, setData] = useState({});
     const checkAddEdit = (isActionPerformedStudent === ACTIONTYPES.add || isActionPerformedStudent === ACTIONTYPES.edit)
 
     return (
@@ -30,11 +23,11 @@ function Students() {
             <Row gutter={[16, 16]}>
 
                 <Col xs={24} sm={24} md={24} lg={checkAddEdit ? 14 : 24} xl={checkAddEdit ? 14 : 24}>
-                    <StudentList isActionPerformedStudent={isActionPerformedStudent} setIsActionPerformedStudent={setIsActionPerformedStudent} setData={setData} />
+                    <StudentList isActionPerformedStudent={isActionPerformedStudent} setIsActionPerformedStudent={setIsActionPerformedStudent} setData={setData} item={data} />
                 </Col>
                 {checkAddEdit &&
                     <Col xs={24} sm={24} md={24} lg={10} xl={10}>
-                        <AddEditStudent isActionPerformedStudent={isActionPerformedStudent} setIsActionPerformedStudent={setIsActionPerformedStudent} data={data} />
+                        <AddEditStudent isActionPerformedStudent={isActionPerformedStudent} setIsActionPerformedStudent={setIsActionPerformedStudent} setData={setData} data={data} />
                     </Col>
                 }
             </Row>
