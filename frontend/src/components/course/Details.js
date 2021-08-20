@@ -2,8 +2,6 @@ import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined }
 import { Card, Descriptions, Dropdown, Menu, Rate } from "antd";
 import Meta from 'antd/lib/card/Meta';
 import confirm from 'antd/lib/modal/confirm';
-import { duration } from 'moment';
-
 
 function CourseDetails(props) {
 
@@ -57,11 +55,12 @@ function CourseDetails(props) {
         <>
             <Card title={categoryName}
                 extra={
-                    <Dropdown overlay={menu} placement="bottomRight">
-                        <MoreOutlined />
-                    </Dropdown>
+                    <a>
+                        <Dropdown overlay={menu} placement="bottomRight">
+                            <MoreOutlined />
+                        </Dropdown></a>
                 }
-                hoverable>
+            >
                 <Rate defaultValue={3} />
                 <Descriptions title="Course Info">
                 </Descriptions>

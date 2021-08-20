@@ -17,4 +17,6 @@ public class Answer extends BaseEntity {
 	@NotNull
 	@Column(columnDefinition = "TEXT")
 	private String text;
+	
+	private boolean correct;
 }

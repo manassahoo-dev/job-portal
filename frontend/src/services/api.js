@@ -5,4 +5,5 @@ export default {
     categories: '/categories',
     courses: '/courses',
     students: '/students',
+    QUIZ: '/quizes'
 }

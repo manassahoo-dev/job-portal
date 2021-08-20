@@ -1,28 +1,18 @@
 
 import {
-    Button, Card, Col, Form, message, PageHeader, Row, Typography
+    Button, Col, PageHeader, Row, Typography
 } from 'antd';
 import { useState } from 'react';
 import CategoryList from '../../components/category';
-import api from '../../services/api';
-import ApiService from '../../services/api.service';
-import ApiRequest from '../../services/ApiRequest';
+import QuizList from '../../components/quiz';
 
-const { Title, Text, Link } = Typography;
-function Aptitudes() {
+function Quizes(props) {
 
-    const [form] = Form.useForm();
-
-    const [isAddCategory, setIsAddCategory] = useState(false);
-    const [isAddItem, setIsAddItem] = useState(false);
+    console.log(props.location)
 
     const [category, setCategory] = useState(null);
-
-    const { data, error, loading } = ApiRequest('GET', api.aptitudes, setIsAddItem);
-
-    const validateMessages = {
-        required: '${label} is required',
-    };
+    const [isAddItem, setIsAddItem] = useState(false);
+    const [isAddCategory, setIsAddCategory] = useState(false);
 
     return (
         <Row gutter={[16, 16]}>
@@ -37,12 +27,12 @@ function Aptitudes() {
                         onBack={isAddCategory ? () => setIsAddItem(false) : ""}
                         title={category.name}
                             extra={[
-                                <Button block onClick={() => setIsAddItem(true)}>Add Batch Item</Button>,
+                                <Button block onClick={() => setIsAddItem(true)}>Add Quiz</Button>,
                             ]}
                         />
                         <Row>
                             <Col xs={24} sm={12} md={8}>
-                            <Card title="Courses">{category.courses.map((course, index) => <p>{course.name}</p>)}</Card>
+                                <QuizList categoryId={category.id} />
                             </Col>
                         </Row>
                     </>
@@ -51,4 +41,4 @@ function Aptitudes() {
         </Row>
     );
 }
-export default Aptitudes;
+export default Quizes;

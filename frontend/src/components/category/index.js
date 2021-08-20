@@ -8,7 +8,7 @@ import AppSpin from "../utility/AppSpin";
 import CategoryAdd from "./Add";
 import CategoryCard from "./Card";
 
-function CategoryList({ setCategory, setIsAddItem }) {
+function CategoryList({ id, setCategory, setIsAddItem }) {
 
     const [isAdd, setIsAdd] = useState(false);
     const { data, error, loading } = ApiRequest('GET', api.categories, isAdd);
