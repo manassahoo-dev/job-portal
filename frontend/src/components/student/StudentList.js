@@ -3,14 +3,22 @@ import { Button, Card, Col, Row, Space, Table, Tooltip } from 'antd';
 import DeleteEntity from '../DeleteEntity';
 import api from '../../services/api';
 import ApiRequest from '../../services/ApiRequest';
+import ACTIONTYPES from '../utility/ACTIONTYPES';
 
 
-function StudentDetails() {
+function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, setData }) {
 
-    const { data, error, loading } = ApiRequest('GET', api.users);
-
+    const { data, error, loading } = ApiRequest('GET', api.students, isActionPerformedStudent);
     const columns = [
         {
+            title: 'SL No',
+            dataIndex: 'id',
+            key: 'id',
+        }, {
+            title: 'UID (Adhar)',
+            dataIndex: 'idProof',
+            key: 'idProof',
+        }, {
             title: 'Name',
             dataIndex: 'name',
             render: (text, record) => <b>{`${record.firstName} ${record.lastName}`}</b>,
@@ -23,14 +31,30 @@ function StudentDetails() {
             dataIndex: 'mobile',
             key: 'mobile',
         }, {
+            title: 'Age',
+            dataIndex: 'age',
+            key: 'age',
+        }, {
+            title: 'Gender',
+            dataIndex: 'gender',
+            key: 'gender',
+        }, {
+            title: 'Mother Name',
+            dataIndex: 'motherName',
+            key: 'motherName',
+        }, {
+            title: 'gender',
+            dataIndex: 'gender',
+            key: 'gender',
+        }, {
             title: 'Action',
             key: 'action',
             render: (text, record) => (
                 <Space>
                     <Tooltip title="Edit">
-                        <Button type="dashed" size="small" shape="circle" icon={<EditOutlined />} onClick={() => ''} />
+                        <Button type="dashed" size="small" shape="circle" icon={<EditOutlined />} onClick={() => { setData(record); setIsActionPerformedStudent(ACTIONTYPES.edit) }} />
                     </Tooltip>
-                    <DeleteEntity item={record} />
+                    <DeleteEntity entityName={'User'} item={record} setActionPerformed={setIsActionPerformedStudent} url={api.students} />
                 </Space>
             ),
         },
@@ -38,11 +62,8 @@ function StudentDetails() {
 
     return (
         <>
-            <Card>
+            <Card className="overflow-auto">
                 <Row>
-                    <Col span={12}>
-                        <h3 className="py-2 fw-bolder m-0">Manage Users</h3>
-                    </Col>
                     <Col span={24}>
                         <Table loading={loading} columns={columns} pagination={data.length > 10}
                             dataSource={data} size="small" rowKey="id"
@@ -55,4 +76,4 @@ function StudentDetails() {
     );
 }
 
-export default StudentDetails
+export default StudentList

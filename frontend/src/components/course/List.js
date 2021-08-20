@@ -54,7 +54,7 @@ function CourseList() {
                             </Col>
                             <Col xs={24} sm={24} md={16} lg={14} xl={14}>
                                 {isAddItem &&
-                                    <AddEditCourse isAddItem={isAddItem} isEdit={isEdit} manageStates={manageStates.bind()} formData={formData} />
+                                    <AddEditCourse isEdit={isEdit} manageStates={manageStates.bind()} formData={formData} />
                                 }
                             </Col>
 

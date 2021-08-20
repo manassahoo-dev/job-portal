@@ -2,27 +2,39 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, PageHeader, Row } from "antd";
 import { useState } from "react";
 import AddEditStudent from "../../components/student/AddEdit";
-import StudentDetails from "../../components/student/StudentDetails";
+import StudentList from '../../components/student/StudentList';
+import ACTIONTYPES from '../../components/utility/ACTIONTYPES';
 
 function Students() {
-    const [isAddEditStudent, setIsAddEditStudent] = useState(false);
+
+    const [isActionPerformedStudent, setIsActionPerformedStudent] = useState(ACTIONTYPES.none);
+    const [data, setData] = useState({
+        id: '',
+        email: '',
+        mobile: '',
+        firstName: '',
+        lastName: '',
+    });
+
+    const checkAddEdit = (isActionPerformedStudent === ACTIONTYPES.add || isActionPerformedStudent === ACTIONTYPES.edit)
+
     return (
         <>
             <PageHeader
                 className="p-0 mb-2"
                 title='Students'
-                extra={
-                    <Button type="primary" block onClick={() => setIsAddEditStudent(true)} icon={<PlusOutlined />}>Add New Student</Button>
+                extra={!checkAddEdit &&
+                    <Button type="primary" block onClick={() => setIsActionPerformedStudent(ACTIONTYPES.add)} icon={<PlusOutlined />}>Add New Student</Button>
                 }
             />
             <Row gutter={[16, 16]}>
 
-                <Col xs={24} sm={24} md={24} lg={!isAddEditStudent ? 24 : 14} xl={!isAddEditStudent ? 24 : 14}>
-                    <StudentDetails />
+                <Col xs={24} sm={24} md={24} lg={checkAddEdit ? 14 : 24} xl={checkAddEdit ? 14 : 24}>
+                    <StudentList isActionPerformedStudent={isActionPerformedStudent} setIsActionPerformedStudent={setIsActionPerformedStudent} setData={setData} />
                 </Col>
-                {isAddEditStudent &&
+                {checkAddEdit &&
                     <Col xs={24} sm={24} md={24} lg={10} xl={10}>
-                        <AddEditStudent setIsAddEditStudent={setIsAddEditStudent} />
+                        <AddEditStudent isActionPerformedStudent={isActionPerformedStudent} setIsActionPerformedStudent={setIsActionPerformedStudent} data={data} />
                     </Col>
                 }
             </Row>
