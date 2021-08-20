@@ -31,4 +31,6 @@ public class Course extends BaseEntity {
 	@NotNull
 	private Integer duration;
 	
+	//Need to add current status
+	
 }
