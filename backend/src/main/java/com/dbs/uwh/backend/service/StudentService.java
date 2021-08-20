@@ -45,8 +45,10 @@ public class StudentService extends GenericService<Student, Long> {
 	}
 
 	public Student createStudent(Student student) {
+		
 		Student studentData = studentDao.findTopByOrderByIdDesc();
-		student.setRegistrationNumber(getCurrentAcademicYear() + student.getGender() + "/" + Long.valueOf(studentData.getId())+Long.valueOf("1"));
+		if(studentData!=null) {
+		student.setRegistrationNumber(getCurrentAcademicYear() + student.getGender() + "/" + Long.valueOf(studentData.getId())+Long.valueOf("1"));}
 		return studentDao.save(student);
 
 	}
