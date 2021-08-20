@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 @Embeddable
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class BatchCourseId implements Serializable {
+public class BatchVolunteeringId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

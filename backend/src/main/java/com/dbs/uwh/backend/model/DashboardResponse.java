@@ -21,4 +21,6 @@ public class DashboardResponse {
 	private HashMap<String, Integer> aptitudeStats = new HashMap<String, Integer>();
 	
 	private HashMap<String, Integer> jobStats = new HashMap<String, Integer>();
+	
+	
 }
