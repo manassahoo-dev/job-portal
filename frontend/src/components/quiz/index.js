@@ -1,32 +1,24 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Card, Empty, List, PageHeader } from "antd";
-import React, { useState } from "react";
+import { Col, List } from "antd";
+import React, { useContext } from "react";
+import QuizContext from "../../contexts/QuizContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
-import AppError from "../utility/AppError";
-import AppSpin from "../utility/AppSpin";
-import QuizAdd from "./Add";
 import QuizCard from "./Card";
 
-function QuizList({ categoryId, quizType }) {
-
-    const [isAdd, setIsAdd] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', `${api.QUIZ}/category/${categoryId}`, categoryId);
+function QuizList() {
+    const { quizData } = useContext(QuizContext);
+    const { data, error, loading } = ApiRequest('GET', `${api.QUIZ}/category/${quizData.categoryId}?quizType=${quizData.quizType}`, quizData);
 
     return (
-        <List
-            className="vh65 overflow-auto"
-            itemLayout="horizontal"
-            dataSource={data}
-            renderItem={item => (
-                <QuizCard quiz={item} />
-            )}
-        />
-        // <Empty
-        //     className={loading ? "d-none" : "vh65 card-center"}
-        //     description="No category found">
-        //     <Button icon={<PlusOutlined />} onClick={() => setIsAdd(true)}>Add One</Button>
-        // </Empty>
+        <>
+            {quizData.isAddEdit ? <Col span={12}>
+                {data.map((quiz, index) => <Col xs={24} key={index}><QuizCard quiz={quiz} /></Col>)}
+            </Col>
+                :
+                <>{data.map((quiz, index) => <Col xs={24} sm={12} key={index}><QuizCard quiz={quiz} /></Col>)}
+                </>
+            }
+        </>
     );
 }
 export default QuizList;

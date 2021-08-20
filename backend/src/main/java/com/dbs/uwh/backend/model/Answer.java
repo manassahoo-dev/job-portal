@@ -5,12 +5,12 @@ import javax.persistence.Entity;
 
 import com.sun.istack.NotNull;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 public class Answer extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 

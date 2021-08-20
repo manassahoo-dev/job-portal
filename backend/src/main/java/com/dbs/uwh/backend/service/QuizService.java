@@ -22,4 +22,21 @@ public class QuizService extends GenericService<Quiz, Long> {
 	public List<Quiz> findByCategoryId(Long categoryId) {
 		return quizDao.findByCategories_categoryId(categoryId);
 	}
+
+	public void deleteById(Long id) {
+		quizDao.deleteQuizCategory(id);
+		quizDao.deleteById(id);
+	}
+
+	public Quiz create(Quiz quiz) {
+		Quiz entity = quizDao.save(quiz);
+		
+		Long categoryId = quiz.getCategoryId();
+		Long quizId = quiz.getId();
+		boolean isExists = quizDao.existsQuizByCategories_categoryIdAndCategories_quizId(categoryId, quizId);
+		if (!isExists)
+			quizDao.saveQuizCategory(categoryId, quizId);
+		return entity;
+	}
+
 }

@@ -12,12 +12,12 @@ import javax.persistence.OneToMany;
 
 import com.sun.istack.NotNull;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 public class Question extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +30,7 @@ public class Question extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private QuestionType questionType;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "question_id")
 	private Set<Answer> answers;
 

@@ -8,7 +8,7 @@ import AppSpin from "../utility/AppSpin";
 import CategoryAdd from "./Add";
 import CategoryCard from "./Card";
 
-function CategoryList({ id, setCategory, setIsAddItem }) {
+function CategoryList({ id, setCategory }) {
 
     const [isAdd, setIsAdd] = useState(false);
     const { data, error, loading } = ApiRequest('GET', api.categories, isAdd);
@@ -39,7 +39,7 @@ function CategoryList({ id, setCategory, setIsAddItem }) {
                                         itemLayout="horizontal"
                                         dataSource={data}
                                         renderItem={item => (
-                                            <CategoryCard item={item} setCategory={setCategory} setIsAddItem={setIsAddItem} />
+                                            <CategoryCard id={id} item={item} setCategory={setCategory} />
                                         )}
                                     /> :
                                     <Empty

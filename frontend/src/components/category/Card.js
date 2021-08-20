@@ -1,9 +1,8 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { List, Menu } from "antd";
-import moment from "moment";
 import React from "react";
 
-function CategoryCard({ item, setCategory, setIsAddItem }) {
+function CategoryCard({ id, item, setCategory }) {
 
     const handleMenuClick = (e) => {
         console.log('click', e.key);
@@ -23,12 +22,12 @@ function CategoryCard({ item, setCategory, setIsAddItem }) {
             // actions={[<Dropdown overlay={actions} placement="bottomRight">
             //     <Button shape="circle" icon={<MoreOutlined />} />
             // </Dropdown>]}
-            className={item.id ? "custom-card active" : "custom-card"}
+            className={item.id === id ? "custom-card active" : "custom-card"}
+            onClick={() => { setCategory(item) }}
         >
             <List.Item.Meta
-                onClick={() => { setCategory(item); setIsAddItem(false) }}
                 title={item.name}
-                // description={`Created on ${moment(item.startDate).format("Do MMM YY")}`}
+            // description={`Created on ${moment(item.startDate).format("Do MMM YY")}`}
             />
         </List.Item>
     );

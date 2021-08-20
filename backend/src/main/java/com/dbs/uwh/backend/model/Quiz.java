@@ -10,16 +10,17 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 public class Quiz extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -39,7 +40,9 @@ public class Quiz extends BaseEntity {
 	private Set<Question> questions;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
 	private Set<QuizCategory> categories = new HashSet<>();
 
+	@Transient
+	private Long categoryId;
 }

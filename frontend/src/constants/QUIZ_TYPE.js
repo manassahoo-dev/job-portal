@@ -1,4 +1,4 @@
-export const QUIZ_TYPE = Object.freeze({
-    APTITUDE: 'APTITUDE',
-    EXAM: 'EXAM',
-})
+export const QUIZ_TYPE = {
+    APTITUDE: "APTITUDE",
+    EXAM: "EXAM",
+}
