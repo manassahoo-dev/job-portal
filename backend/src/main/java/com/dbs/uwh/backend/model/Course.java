@@ -1,11 +1,17 @@
 package com.dbs.uwh.backend.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
@@ -30,6 +36,10 @@ public class Course extends BaseEntity {
 
 	@NotNull
 	private Integer duration;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<BatchCourse> batches = new HashSet<>();
 	
 	//Need to add current status
 	
