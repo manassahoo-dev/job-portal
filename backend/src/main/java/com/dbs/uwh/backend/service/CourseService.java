@@ -27,4 +27,8 @@ public class CourseService extends GenericService<Course, Long> {
 		return courseStats;
 
 	}
+
+	public List<Course> findByCategoryId(Long categoryId) {
+		return courseDao.findByCategories_categoryId(categoryId);
+	}
 }

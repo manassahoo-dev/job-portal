@@ -39,6 +39,10 @@ public class Course extends BaseEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BatchCourse> batches = new HashSet<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<CourseCategory> categories = new HashSet<>();
 
 	@Column(columnDefinition = "boolean default false")
 	private boolean isActive;
