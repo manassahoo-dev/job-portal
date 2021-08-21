@@ -1,44 +1,47 @@
 import { Button, Card, Col, Form, Input, message, Row, Select } from "antd"
 import { Option } from "antd/lib/mentions";
+import { useContext } from "react";
+import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ACTIONTYPES from "../utility/ACTIONTYPES";
 import ValidationMessage from "../utility/ValidationMessage";
 
-function AddEditStudent({ isActionPerformedStudent, setIsActionPerformedStudent, setData, data }) {
+function AddEditStudent() {
 
     const [form] = Form.useForm();
+    const { contextData, setContextData } = useContext(AppContext);
 
-    if (isActionPerformedStudent === ACTIONTYPES.edit) {
-        form.setFieldsValue(data)
+    if (contextData.isActionPerformed === ACTIONTYPES.edit) {
+        form.setFieldsValue(contextData.selectedItem)
     }
+
+
     const onFinish = (values) => {
         console.log('Success:', values);
-        if (isActionPerformedStudent === ACTIONTYPES.add) {
+        if (contextData.isActionPerformed === ACTIONTYPES.add) {
             const updatedValues = {
                 ...values,
                 role: "JOB_SEEKER",
             }
             apiService.create(api.students, updatedValues)
                 .then((response) => {
-                    setIsActionPerformedStudent(ACTIONTYPES.none)
-                    setData({})
+                    resetContextData()
                 })
                 .catch((error) => {
                     message.error(`${updatedValues.firstName} added SuccessFully`);
                 });;
         }
-        if (isActionPerformedStudent === ACTIONTYPES.edit) {
+        if (contextData.isActionPerformed === ACTIONTYPES.edit) {
             const updatedValues = {
-                ...data,
+                ...contextData.selectedItem,
                 ...values,
                 role: "JOB_SEEKER",
             }
-            console.log(data)
+            console.log(contextData.selectedItem)
             apiService.update(api.students, updatedValues.id, updatedValues)
                 .then((response) => {
-                    setData({})
-                    setIsActionPerformedStudent(ACTIONTYPES.none)
+                    resetContextData()
                 })
                 .catch((error) => {
                     message.error(error.response.message);
@@ -52,8 +55,15 @@ function AddEditStudent({ isActionPerformedStudent, setIsActionPerformedStudent,
     };
 
     const onCancel = () => {
-        setData({})
-        setIsActionPerformedStudent(ACTIONTYPES.none)
+        resetContextData()
+    }
+
+    const resetContextData = () => {
+        setContextData({
+            ...contextData,
+            selectedItem: {},
+            isActionPerformed: ACTIONTYPES.none
+        })
     }
 
     return (
