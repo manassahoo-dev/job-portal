@@ -1,34 +1,60 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Select, Space } from "antd";
+import { Button, Form, Input, Select, Row, Checkbox } from "antd";
 import React from "react";
 
 const { Option } = Select;
 
 function Answer(props) {
-    console.log(props);
+
+    const handleCheck = (answer) => {
+        console.log(answer);
+    }
     return (
-        <Form.List name="answers">
-            {(fields, { add, remove }) => (
-                <>
-                    {fields.map(({ key, name, fieldKey, ...restField }) => (
-                        <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                            <Form.Item
-                                name={[props.index, key, 'text']}
-                                fieldKey={[props.index, key, 'text']}
-                                rules={[{ required: true, message: 'Missing first name' }]}
+        <Form.List name={[props.fieldKey, "answers"]}>
+            {(answers, { add, remove }) => {
+                return (
+                    <div>
+                        {answers.map((answer, index2) => (
+                            <Row justify="space-around" align="top">
+                                <Form.Item
+                                    {...answer}
+                                    name={[answer.name, "correct"]}
+                                    fieldKey={[answer.fieldKey, "correct"]}
+                                    key={[answer.fieldKey, "correct"]}
+                                >
+                                    <Checkbox onChange={() => handleCheck(answer)}/>
+                                </Form.Item>
+                                <Form.Item
+                                    {...answer}
+                                    name={[answer.name, "text"]}
+                                    fieldKey={[answer.fieldKey, "text"]}
+                                    key={[answer.fieldKey, "text"]}
+                                    rules={[
+                                        {required: true}
+                                    ]}
+                                >
+                                    <Input placeholder="Answer" />
+                                </Form.Item>
+                                <MinusCircleOutlined
+                                    onClick={() => {
+                                        remove(answer.name);
+                                    }}
+                                />
+                            </Row>
+                        ))}
+                        <Form.Item>
+                            <Button
+                                type="dashed"
+                                onClick={() => {
+                                    add();
+                                }}
                             >
-                                <Input placeholder={key} />
-                            </Form.Item>
-                            <MinusCircleOutlined onClick={() => remove(name)} />
-                        </Space>
-                    ))}
-                    <Form.Item>
-                        <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                            Add field
-                        </Button>
-                    </Form.Item>
-                </>
-            )}
+                                <PlusOutlined /> Add Answer
+                            </Button>
+                        </Form.Item>
+                    </div>
+                );
+            }}
         </Form.List>
     );
 }

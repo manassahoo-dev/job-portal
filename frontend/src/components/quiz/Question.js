@@ -1,5 +1,5 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Card, Divider, Form, Input, Select } from "antd";
+import { Button, Form, Input, Select, Card } from "antd";
 import React from "react";
 import Answer from "./Answer";
 
@@ -8,44 +8,47 @@ const { Option } = Select;
 function Question(props) {
     return (
         <Form.List name="questions">
-            {(questions, { add, remove }) => {
+            {(fields, { add, remove }) => {
                 return (
-                    <div>
-                        {questions.map((field, index) => (
-                            <Card size="small" key={field.key} title={`Question ${index + 1}`} extra={questions.length > 1 ? (
-                                <Button
-                                    type="danger"
-                                    className="dynamic-delete-button"
-                                    onClick={() => remove(field.name)}
-                                    icon={<MinusCircleOutlined />}
-                                >
-                                    Remove
-                                </Button>
-                            ) : null}>
+                    <>
+                        {fields.map((field, index) => (
+                            <Card size="small" title={`Question ${index + 1}`} extra={<a href="#"><MinusCircleOutlined
+                                onClick={() => {
+                                    remove(field.name);
+                                    console.log(field);
+                                }}
+                            /></a>} >
                                 <Form.Item
-                                    name={[index, "text"]}
-                                    label="Question"
-                                    rules={[{ required: true }]}
+                                    {...field}
+                                    name={[field.name, "text"]}
+                                    fieldKey={[field.fieldKey, "text"]}
+                                    rules={[
+                                        { required: true }
+                                    ]}
                                 >
-                                    <Input placeholder="Input Question" />
+                                    <Input placeholder="Question" />
                                 </Form.Item>
-                                <Answer index={index}/>
-                                
+
+                                <Form.Item>
+                                    <Answer fieldKey={field.name} />
+                                </Form.Item>
                             </Card>
                         ))}
-                        <Divider />
-                        <Form.Item>
-                            <Button
-                                type="dashed"
-                                onClick={() => add()}
-                            >
-                                <PlusOutlined /> Add Question
-                            </Button>
-                        </Form.Item>
-                    </div>
+
+                        <Button
+                            type="dashed"
+                            onClick={() => {
+                                add();
+                            }}
+                            block
+                        >
+                            <PlusOutlined /> Add Question
+                        </Button>
+                    </>
                 );
             }}
         </Form.List>
+
     );
 }
 

@@ -10,7 +10,7 @@ import QuizAddEdit from '../../components/quiz/AddEdit';
 import { QUIZ_TYPE } from '../../constants/QUIZ_TYPE';
 import QuizContext from '../../contexts/QuizContext';
 
-function Quizes(props) {
+function Counseling(props) {
 
     const quizType = props.location.pathname.includes("/aptitudes") ? QUIZ_TYPE.APTITUDE : QUIZ_TYPE.EXAM;
     const [category, setCategory] = useState(null);
@@ -37,7 +37,7 @@ function Quizes(props) {
             <AppBreadCrumb path={toSentenceCase(quizType)} />
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8}>
-                    < CategoryList setCategory={setCategory} id={quizData.categoryId}/>
+                    < CategoryList setCategory={setCategory} id={quizData.categoryId} />
                 </Col>
                 <Col xs={24} sm={12} md={16}>
                     {category &&
@@ -60,4 +60,4 @@ function Quizes(props) {
         </QuizContext.Provider>
     );
 }
-export default Quizes;
+export default Counseling;
