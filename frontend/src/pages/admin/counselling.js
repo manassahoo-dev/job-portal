@@ -7,12 +7,10 @@ import CategoryList from '../../components/category';
 import AppBreadCrumb from '../../components/layout/AppBreadcrumb';
 import QuizList from '../../components/quiz';
 import QuizAddEdit from '../../components/quiz/AddEdit';
-import { QUIZ_TYPE } from '../../constants/QUIZ_TYPE';
 import QuizContext from '../../contexts/QuizContext';
 
 function Counseling(props) {
 
-    const quizType = props.location.pathname.includes("/aptitudes") ? QUIZ_TYPE.APTITUDE : QUIZ_TYPE.EXAM;
     const [category, setCategory] = useState(null);
 
     const object = {
@@ -28,13 +26,9 @@ function Counseling(props) {
 
     const [quizData, setQuizData] = useState(object);
 
-    const toSentenceCase = (value) => {
-        return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
-    }
-
     return (
         <QuizContext.Provider value={{ quizData, setQuizData }}>
-            <AppBreadCrumb path={toSentenceCase(quizType)} />
+            <AppBreadCrumb path="counselling" />
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8}>
                     < CategoryList setCategory={setCategory} id={quizData.categoryId} />

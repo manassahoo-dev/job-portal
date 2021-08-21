@@ -19,7 +19,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Question extends BaseEntity {
+public class QuizQuestion extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,6 +33,6 @@ public class Question extends BaseEntity {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "question_id")
-	private Set<Answer> answers;
+	private Set<QuizAnswer> answers;
 
 }
