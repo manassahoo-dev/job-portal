@@ -7,6 +7,7 @@ const Batches = React.lazy(() => import('./pages/admin/batches'))
 const AdminDashBoard = React.lazy(() => import('./pages/admin/dashboard'))
 const Students = React.lazy(() => import('./pages/admin/students'))
 const AdminQuiz = React.lazy(() => import('./pages/admin/quizes'))
+const AdminCounselling = React.lazy(() => import('./pages/admin/counselling'))
 
 const routes = [
   { path: '/admin/users', name: 'User List', component: Users },
@@ -16,6 +17,7 @@ const routes = [
   { path: '/admin/students', name: 'Student', component: Students },
   { path: '/admin/aptitudes', name: 'Admin Aptitude Test', component: AdminQuiz },
   { path: '/admin/exams', name: 'Admin Exams', component: AdminQuiz },
+  { path: '/admin/counselling', name: 'Admin Counseling', component: AdminCounselling },
   { path: '/', name: 'Home', component: Home },
 ]
 

@@ -39,15 +39,14 @@ public class Batch extends BaseEntity {
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
 
+	@JsonIgnore
+
+	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<BatchCourse> courses = new HashSet<>();
+
 	/*
 	 * @JsonIgnore
 	 * 
-	 * @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval =
-	 * true) private Set<BatchCourse> courses = new HashSet<>();
-	 */
-
-
-	/*	@JsonIgnore
 	 * @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval =
 	 * true) private Set<BatchVolunteering> volunteerings = new HashSet<>();
 	 */

@@ -1,4 +1,4 @@
-import { Button, Card, Form, Input, message, Space } from "antd";
+import { Button, Card, Col, Form, Input, message, Row } from "antd";
 import React, { useContext } from 'react';
 import QuizContext from "../../contexts/QuizContext";
 import api from "../../services/api";
@@ -61,7 +61,6 @@ function QuizAddEdit() {
         <Card>
             <Form
                 layout="vertical"
-                className="vh65"
                 form={form}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -73,12 +72,14 @@ function QuizAddEdit() {
                 <Form.Item label="Quiz Description" name="description" ><TextArea rows={3} /></Form.Item>
                 <h4>Questions</h4>
                 <Question />
-                <Form.Item className="float-end">
-                    <Space>
-                        <Button type="primary" htmlType="submit">{quizData.selectedQuiz?.id ? 'Update' : 'Add'} Quiz</Button>
-                        <Button onClick={onCancel}>Cancel</Button>
-                    </Space>
-                </Form.Item>
+                <Row gutter={[16, 16]}>
+                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                        <Form.Item><Button block onClick={onCancel}>Cancel</Button></Form.Item>
+                    </Col>
+                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                        <Form.Item><Button type="primary" htmlType="submit" block>{quizData.selectedQuiz?.id ? 'Update' : 'Add'} Quiz</Button></Form.Item>
+                    </Col>
+                </Row>
             </Form>
         </Card>
     );
