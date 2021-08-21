@@ -37,9 +37,9 @@ public class Quiz extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private QuizType quizType;
 
-	@OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "quiz_id")
-	private Set<QuizQuestion> questions;
+	private Set<QuizQuestion> questions = new HashSet<>();
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)

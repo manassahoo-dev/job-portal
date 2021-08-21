@@ -34,11 +34,11 @@ public class BatchController extends GenericRestController<Batch, Long> {
 	 * return batchService.findByCategoryId(id); }
 	 */
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Batch create(@RequestBody @Valid Batch batch) {
-		return batchService.insertBatchCourse(batch);
-	}
+//	@PostMapping
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public Batch create(@RequestBody @Valid Batch batch) {
+//		return batchService.insertBatchCourse(batch);
+//	}
 
 	/*
 	 * @PostMapping("/courses")
