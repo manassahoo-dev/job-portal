@@ -12,8 +12,10 @@ import com.dbs.uwh.backend.model.Batch;
 public interface BatchDao extends GenericDao<Batch, Long> {
 
 	boolean existsBatchByCourses_courseIdAndCourses_batchId(Long courseId, Long batchId);
-	
+
 	boolean existsBatchByVolunteerings_volunteeringIdAndVolunteerings_batchId(Long volunteeringId, Long batchId);
+
+	boolean existsBatchByCounsellings_counsellingIdAndCounsellings_batchId(Long counsellingId, Long batchId);
 
 	@Modifying
 	@Transactional
@@ -24,10 +26,15 @@ public interface BatchDao extends GenericDao<Batch, Long> {
 	@Transactional
 	@Query(value = "INSERT INTO batch_course (course_id, batch_id) VALUES (?1, ?2)", nativeQuery = true)
 	public void saveBatchCourse(Long courseId, Long id);
-	
+
 	@Modifying
 	@Transactional
 	@Query(value = "INSERT INTO batch_volunteering (course_id, volunteering_id) VALUES (?1, ?2)", nativeQuery = true)
-	public void saveBatchVolunteering(Long courseId, Long id);
+	public void saveBatchVolunteering(Long volunteeringId, Long id);
+
+	@Modifying
+	@Transactional
+	@Query(value = "INSERT INTO batch_counselling (course_id, counselling_id) VALUES (?1, ?2)", nativeQuery = true)
+	public void saveBatchCounselling(Long counsellingId, Long id);
 
 }

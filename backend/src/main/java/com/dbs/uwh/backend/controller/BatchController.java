@@ -26,26 +26,6 @@ public class BatchController extends GenericRestController<Batch, Long> {
 	@Autowired
 	private BatchService batchService;
 
-	/*
-	 * @GetMapping(value = "/category/{id}") public List<Quiz>
-	 * findByCategoryId(@PathVariable("id") Long id, @RequestParam(required = false)
-	 * String quizType) { if(quizType != null) { return
-	 * batchService.findByQuizTypeAndCategoryId(QuizType.valueOf(quizType), id); }
-	 * return batchService.findByCategoryId(id); }
-	 */
-
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Batch create(@RequestBody @Valid Batch batch) {
-		return batchService.insertBatchCourse(batch);
-	}
-
-	/*
-	 * @PostMapping("/courses")
-	 * 
-	 * @ResponseStatus(HttpStatus.CREATED) public Batch create(@RequestBody @Valid
-	 * Batch batch) { return batchService.insertBatchCourse(batch); }
-	 */
 
 	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
