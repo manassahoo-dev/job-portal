@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import com.dbs.uwh.backend.model.constant.QuizType;
+import com.dbs.uwh.backend.model.mapping.QuizCategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 

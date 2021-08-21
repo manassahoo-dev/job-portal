@@ -1,4 +1,4 @@
-package com.dbs.uwh.backend.model;
+package com.dbs.uwh.backend.model.mapping;
 
 import java.io.Serializable;
 
@@ -11,12 +11,12 @@ import lombok.Setter;
 @Embeddable
 @Getter
 @Setter
-public class QuizCategoryId implements Serializable {
+public class CounsellingCategoryId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "quiz_id")
-	private Long quizId;
+	private Long counsellingId;
 
 	@Column(name = "category_id")
 	private Long categoryId;

@@ -1,10 +1,17 @@
 package com.dbs.uwh.backend.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
+import com.dbs.uwh.backend.model.mapping.CounsellingCategory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.Getter;
@@ -20,11 +27,18 @@ public class Counselling extends BaseEntity {
 	@NotNull
 	private String name;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "category_id")
-	private Category category;
+	@Column(columnDefinition = "TEXT")
+	private String description;
 
-	@NotNull
-	private boolean counsellingStatus;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "quiz_id")
+	private Set<Question> questions;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "counselling", cascade = CascadeType.ALL)
+	private Set<CounsellingCategory> categories = new HashSet<>();
+
+	@Transient
+	private Long categoryId;
 
 }
