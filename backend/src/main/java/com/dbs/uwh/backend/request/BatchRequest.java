@@ -14,5 +14,6 @@ public class BatchRequest {
 	@NotNull
 	private Long batchId;
 	private Set<Long> courseIds;
+	private Set<Long> volunteeringIds;
 	private Set<Long> quizIds;
 }

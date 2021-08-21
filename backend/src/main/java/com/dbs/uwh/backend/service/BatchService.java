@@ -49,7 +49,7 @@ public class BatchService extends GenericService<Batch, Long> {
 	public void insertMapping(BatchRequest request) {
 
 		Set<Long> courseIds = request.getCourseIds();
-		Long batchId = request.getBatchId();
+		Set<Long> volunteeringIds = request.getVolunteeringIds();
 
 		if (!courseIds.isEmpty()) {
 			for (Long courseId : courseIds) {
@@ -60,6 +60,14 @@ public class BatchService extends GenericService<Batch, Long> {
 			}
 		}
 
+		if (!volunteeringIds.isEmpty()) {
+			for (Long vId : volunteeringIds) {
+				boolean isExists = batchDao.existsBatchByVolunteerings_volunteeringIdAndVolunteerings_batchId(request.getBatchId(),
+						vId);
+				if (!isExists)
+					batchDao.saveBatchVolunteering(request.getBatchId(), vId);
+			}
+		}
 	}
 
 }
