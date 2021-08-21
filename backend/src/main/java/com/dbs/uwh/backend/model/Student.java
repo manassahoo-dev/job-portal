@@ -1,10 +1,14 @@
 package com.dbs.uwh.backend.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,7 +20,8 @@ import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @Entity
 @PrimaryKeyJoinColumn(name = "ID")
 public class Student extends User {
@@ -31,18 +36,18 @@ public class Student extends User {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private IdProof idProof;
-	
+
 	@NotNull
 	private String idNumber;
 
 	private String registrationNumber;
 
 	private String studentType;
-	
+
 	private String highestQualification;
-	
+
 	private String skill;
-	
+
 	private Address address;
 
 	private float examsPercentage;
@@ -59,9 +64,10 @@ public class Student extends User {
 	private boolean placement;
 
 	private boolean counselling;
-	
-	
-	
-	
+
+	/*
+	 * @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private Set<StudentQuiz> quizs = new HashSet<>();
+	 */
 
 }
