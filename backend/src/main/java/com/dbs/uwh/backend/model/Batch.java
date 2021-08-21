@@ -40,6 +40,21 @@ public class Batch extends BaseEntity {
 	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BatchCourse> courses = new HashSet<>();
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<BatchVolunteering> volunteering = new HashSet<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<BatchCounselling> counselling = new HashSet<>();
+	
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private Set<BatchQuiz> quiz = new HashSet<>();
+	 */
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "batch_id")
 	private Set<Student> student;

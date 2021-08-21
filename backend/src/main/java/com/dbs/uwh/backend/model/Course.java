@@ -41,6 +41,6 @@ public class Course extends BaseEntity {
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BatchCourse> batches = new HashSet<>();
 	
-	//Need to add current status
+	private boolean isActive;
 	
 }

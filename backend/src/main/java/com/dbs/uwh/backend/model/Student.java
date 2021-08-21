@@ -30,7 +30,8 @@ public class Student extends User {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private IdProof idProof;
-
+	
+	@NotNull
 	private String idNumber;
 
 	private String registrationNumber;
@@ -57,5 +58,9 @@ public class Student extends User {
 	private boolean placement;
 
 	private boolean counselling;
+	
+	
+	
+	
 
 }

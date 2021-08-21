@@ -11,13 +11,13 @@ import lombok.EqualsAndHashCode;
 @Embeddable
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class BatchCourseId implements Serializable {
+public class StudentQuizId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "batch_id")
-    private Long batchId;
+	@Column(name = "student_id")
+    private Long studentId;
  
-    @Column(name = "volunteering_id")
-    private Long volunteeringId;
+    @Column(name = "quiz_id")
+    private Long quizId;
 }
