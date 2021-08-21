@@ -3,12 +3,14 @@ package com.dbs.uwh.backend.service;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dbs.uwh.backend.dao.BatchDao;
 import com.dbs.uwh.backend.model.Batch;
+import com.dbs.uwh.backend.request.BatchRequest;
 
 @Service
 public class BatchService extends GenericService<Batch, Long> {
@@ -41,6 +43,22 @@ public class BatchService extends GenericService<Batch, Long> {
 		batchStats.put("batchesInProgress", inProgress);
 
 		return batchStats;
+
+	}
+
+	public void insertMapping(BatchRequest request) {
+
+		Set<Long> courseIds = request.getCourseIds();
+		Long batchId = request.getBatchId();
+
+		if (!courseIds.isEmpty()) {
+			for (Long courseId : courseIds) {
+				boolean isExists = batchDao.existsBatchByCourses_courseIdAndCourses_batchId(request.getBatchId(),
+						courseId);
+				if (!isExists)
+					batchDao.saveBatchCourse(request.getBatchId(), courseId);
+			}
+		}
 
 	}
 
