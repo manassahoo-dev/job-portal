@@ -1,16 +1,12 @@
 package com.dbs.uwh.backend.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.ColumnDefault;
+
 import com.sun.istack.NotNull;
 
 import lombok.Getter;
@@ -36,10 +32,15 @@ public class Course extends BaseEntity {
 	@NotNull
 	private Integer duration;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<BatchCourse> batches = new HashSet<>();
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private Set<BatchCourse> batches = new HashSet<>();
+	 */
 
-	private boolean isActive;
+	/*
+	 * @Column(columnDefinition = "boolean default false") private boolean isActive;
+	 */
 
 }

@@ -28,7 +28,7 @@ public class Category extends BaseEntity {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Course> courses;
+	private Set<CourseCategory> courses;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
