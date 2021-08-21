@@ -4,6 +4,7 @@ import QuizContext from "../../contexts/QuizContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ValidationMessage from "../utility/ValidationMessage";
+import Question from "./Question";
 
 const { TextArea } = Input;
 
@@ -49,7 +50,7 @@ function QuizAddEdit() {
     }
 
     const onFinishFailed = (errorInfo) => {
-        console.error(errorInfo);
+        console.info(errorInfo.values);
     };
 
     const onCancel = () => {
@@ -71,6 +72,7 @@ function QuizAddEdit() {
                 <Form.Item label="Quiz Name" name="name" rules={[{ required: true }]}><Input /></Form.Item>
                 <Form.Item label="Quiz Description" name="description" ><TextArea rows={3} /></Form.Item>
                 <h4>Questions</h4>
+                <Question />
                 <Form.Item className="float-end">
                     <Space>
                         <Button type="primary" htmlType="submit">{quizData.selectedQuiz?.id ? 'Update' : 'Add'} Quiz</Button>
