@@ -1,3 +1,4 @@
+
 package com.dbs.uwh.backend.model;
 
 import java.util.Date;
@@ -19,8 +20,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+
 @Getter
+
 @Setter
+
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "name" }, name = "uk_name") })
 public class Batch extends BaseEntity {
 
@@ -35,16 +39,23 @@ public class Batch extends BaseEntity {
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<BatchCourse> courses = new HashSet<>();
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private Set<BatchCourse> courses = new HashSet<>();
+	 */
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<BatchVolunteering> volunteerings = new HashSet<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<BatchCounselling> counsellings = new HashSet<>();
+	/*	@JsonIgnore
+	 * @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private Set<BatchVolunteering> volunteerings = new HashSet<>();
+	 */
 
+	/*
+	 * @JsonIgnore
+	 * 
+	 * @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval =
+	 * true) private Set<BatchCounselling> counsellings = new HashSet<>();
+	 */
 }
