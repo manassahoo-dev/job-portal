@@ -6,22 +6,21 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "name" }, name = "uk_name") })
 public class Batch extends BaseEntity {
 
@@ -39,23 +38,13 @@ public class Batch extends BaseEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BatchCourse> courses = new HashSet<>();
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<BatchVolunteering> volunteering = new HashSet<>();
-	
+	private Set<BatchVolunteering> volunteerings = new HashSet<>();
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<BatchCounselling> counselling = new HashSet<>();
-	
-	/*
-	 * @JsonIgnore
-	 * 
-	 * @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval =
-	 * true) private Set<BatchQuiz> quiz = new HashSet<>();
-	 */
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "batch_id")
-	private Set<Student> student;
+	private Set<BatchCounselling> counsellings = new HashSet<>();
+
 }

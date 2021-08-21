@@ -7,12 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @MappedSuperclass
-@Data
-@EqualsAndHashCode(callSuper=false)
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = false)
 public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

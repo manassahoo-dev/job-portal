@@ -9,17 +9,17 @@ import javax.validation.constraints.Email;
 
 import com.sun.istack.NotNull;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Email
 	private String email;
 

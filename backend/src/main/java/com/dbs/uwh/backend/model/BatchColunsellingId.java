@@ -5,19 +5,19 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Embeddable
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 public class BatchColunsellingId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "batch_id")
-    private Long batchId;
- 
-    @Column(name = "counselling_id")
-    private Long counsellingId;
+	private Long batchId;
+
+	@Column(name = "counselling_id")
+	private Long counsellingId;
 }

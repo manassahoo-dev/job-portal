@@ -1,7 +1,6 @@
 package com.dbs.uwh.backend.model;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;

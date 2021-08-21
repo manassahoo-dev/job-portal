@@ -5,19 +5,19 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Embeddable
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 public class QuizCategoryId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "quiz_id")
-    private Long quizId;
- 
-    @Column(name = "category_id")
-    private Long categoryId;
+	private Long quizId;
+
+	@Column(name = "category_id")
+	private Long categoryId;
 }

@@ -2,12 +2,15 @@ package com.dbs.uwh.backend.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +30,8 @@ public class QuizCategory {
     @MapsId("categoryId")
     private Category category;
  
-    @Column(name = "created_on")
-    private Date createdOn = new Date();
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
+    
 }

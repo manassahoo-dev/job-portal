@@ -9,24 +9,24 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 public class BatchVolunteering {
 	@EmbeddedId
-    private BatchVolunteeringId id;
- 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("batchId")
-    private Batch batch;
- 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("volunteeringId")
-    private Volunteering volunteering;
- 
-    @Column(name = "created_on")
-    private Date createdOn = new Date();
+	private BatchVolunteeringId id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@MapsId("batchId")
+	private Batch batch;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@MapsId("volunteeringId")
+	private Volunteering volunteering;
+
+	@Column(name = "created_on")
+	private Date createdOn = new Date();
 }
