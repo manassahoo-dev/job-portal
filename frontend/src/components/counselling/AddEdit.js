@@ -8,7 +8,7 @@ import Question from "./Question";
 
 const { TextArea } = Input;
 
-function QuizAddEdit() {
+function CounsellingAddEdit() {
 
     const [form] = Form.useForm();
     const { contextData, setContextData } = useContext(AppContext);
@@ -25,9 +25,9 @@ function QuizAddEdit() {
     };
 
     const create = (values) => {
-        apiService.create(api.QUIZ, values)
+        apiService.create(api.COUNSELLING, values)
             .then((response) => {
-                message.success('Quiz added successfully');
+                message.success('Counselling added successfully');
                 setContextData({ ...contextData, isAddEdit: false, selectedItem: null })
                 form.resetFields();
             })
@@ -54,21 +54,22 @@ function QuizAddEdit() {
                 validateMessages={ValidationMessage}
             >
                 <Form.Item label="id" name="id" hidden><Input /></Form.Item>
-                <Form.Item label="Quiz Type" name="quizType" hidden><Input /></Form.Item>
-                <Form.Item label="Quiz Name" name="name" rules={[{ required: true }]}><Input /></Form.Item>
-                <Form.Item label="Quiz Description" name="description" ><TextArea rows={3} /></Form.Item>
-                <h4>Questions</h4>
-                <Question />
-                <Row gutter={[16, 16]}>
-                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                <Form.Item label="Counselling Type" name="quizType" hidden><Input /></Form.Item>
+                <Form.Item label="Counselling Name" name="name" rules={[{ required: true }]}><Input /></Form.Item>
+                <Form.Item label="Counselling Description" name="description" ><TextArea rows={3} /></Form.Item>
+                <Form.Item>
+                    <Question />
+                </Form.Item>
+                <Row gutter={16}>
+                    <Col span="12">
                         <Form.Item><Button block onClick={onCancel}>Cancel</Button></Form.Item>
                     </Col>
-                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                        <Form.Item><Button type="primary" htmlType="submit" block>{contextData.selectedItem?.id ? 'Update' : 'Add'} Quiz</Button></Form.Item>
+                    <Col span="12">
+                        <Form.Item><Button type="primary" htmlType="submit" block>{contextData.selectedItem?.id ? 'Update' : 'Add'} Counselling</Button></Form.Item>
                     </Col>
                 </Row>
             </Form>
         </Card>
     );
 }
-export default QuizAddEdit;
+export default CounsellingAddEdit;

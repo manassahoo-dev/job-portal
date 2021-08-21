@@ -5,8 +5,8 @@ import {
 import { useEffect, useState } from 'react';
 import CategoryList from '../../components/category';
 import CounsellingList from '../../components/counselling';
+import CounsellingAddEdit from '../../components/counselling/AddEdit';
 import AppBreadCrumb from '../../components/layout/AppBreadcrumb';
-import QuizAddEdit from '../../components/quiz/AddEdit';
 import AppContext from '../../contexts/AppContext';
 
 function Counselling(props) {
@@ -44,7 +44,7 @@ function Counselling(props) {
                             />
                             <Row gutter={[16, 16]}>
                                 <CounsellingList />
-                                {contextData.isAddEdit && <Col xs={24} sm={12}><QuizAddEdit /></Col>}
+                            {contextData.isAddEdit && <Col xs={24} sm={12}><CounsellingAddEdit /></Col>}
                             </Row>
                         </>
                     }

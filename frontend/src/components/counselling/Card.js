@@ -15,16 +15,19 @@ function CounsellingCard({ counselling }) {
 
     const handleMenuClick = (e) => {
         e.key === "edit" ? setContextData({ ...contextData, isAddEdit: true, selectedItem: counselling }) : showConfirmDelete();
-        
+
     }
 
     const showConfirmDelete = () => {
         confirm({
-            title: 'Do you Want to delete this Counselling ?',
+            title: 'Do you Want to delete this Counselling?',
             icon: <ExclamationCircleOutlined />,
-            content: 'Some descriptions',
+            content: counselling.name,
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
             onOk() {
-                deleteQuiz();
+                deleteCounselling();
             },
             onCancel() {
                 console.log('Cancel');
@@ -32,10 +35,10 @@ function CounsellingCard({ counselling }) {
         });
     }
 
-    const deleteQuiz = () => {
+    const deleteCounselling = () => {
         apiService.delete(api.COUNSELLING, counselling.id)
             .then((response) => {
-                message.success('Quiz deleted successfully');
+                message.success('Counselling deleted successfully');
                 setContextData({ ...contextData, isAddEdit: false, selectedItem: null })
             })
             .catch((error) => {
@@ -68,7 +71,7 @@ function CounsellingCard({ counselling }) {
                 renderItem={(question, index) => (
                     <List.Item key={index}>
                         <List.Item.Meta
-                            avatar={<Text type="success">{index+1}</Text>}
+                            avatar={<Text type="success">{index + 1}</Text>}
                             title={question.text}
                         />
                     </List.Item>
