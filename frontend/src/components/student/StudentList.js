@@ -120,7 +120,7 @@ function StudentList() {
                     <Col span={24}>
                         <Table loading={loading} columns={columns} pagination={data.length > 10}
                             dataSource={data} size="small" rowKey="id"
-                            rowClassName={(record, index) => (record.id === contextData.selectedItem?.id) ? 'table-row-dark' : ''}
+                            rowClassName={(record, index) => (record.id === contextData.selectedItem?.id) ? 'ant-table-row-selected' : ''}
                             bordered
                         />
                     </Col>

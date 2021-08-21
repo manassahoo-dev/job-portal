@@ -11,7 +11,6 @@ function Question(props) {
                 return (
                     <Card size="small" title="Questions" extra={<Button type="link" onClick={() => { add(); }}><PlusOutlined /> Add Question</Button>} >
                         {fields.length > 0 && fields.map((field, index) => (
-
                             <Row >
                                 <Col flex="auto">
                                     <Form.Item
@@ -33,8 +32,6 @@ function Question(props) {
                                 </Col>
                             </Row>
                         ))}
-
-
                     </Card>
                 );
             }}

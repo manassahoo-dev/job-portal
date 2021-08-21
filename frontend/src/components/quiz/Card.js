@@ -22,9 +22,12 @@ function QuizCard({ quiz }) {
 
     const showConfirmDelete = () => {
         confirm({
-            title: 'Do you Want to delete these items?',
+            title: 'Do you Want to delete this Quiz?',
             icon: <ExclamationCircleOutlined />,
-            content: 'Some descriptions',
+            content: quiz.name,
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
             onOk() {
                 deleteQuiz();
             },
