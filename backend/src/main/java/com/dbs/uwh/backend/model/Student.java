@@ -9,6 +9,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.dbs.uwh.backend.model.constant.Gender;
+import com.dbs.uwh.backend.model.constant.IdProof;
 import com.sun.istack.NotNull;
 
 import lombok.Getter;

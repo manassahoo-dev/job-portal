@@ -10,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.dbs.uwh.backend.model.constant.QuestionType;
 import com.sun.istack.NotNull;
 
 import lombok.Getter;

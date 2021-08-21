@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.dbs.uwh.backend.model.Quiz;
-import com.dbs.uwh.backend.model.QuizType;
+import com.dbs.uwh.backend.model.constant.QuizType;
 
 @Repository
 public interface QuizDao extends GenericDao<Quiz, Long> {

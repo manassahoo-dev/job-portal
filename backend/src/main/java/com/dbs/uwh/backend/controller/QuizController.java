@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dbs.uwh.backend.model.Quiz;
-import com.dbs.uwh.backend.model.QuizType;
+import com.dbs.uwh.backend.model.constant.QuizType;
 import com.dbs.uwh.backend.service.QuizService;
 
 import io.swagger.annotations.Api;

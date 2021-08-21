@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.dbs.uwh.backend.dao.StudentDao;
-import com.dbs.uwh.backend.model.Gender;
 import com.dbs.uwh.backend.model.Student;
+import com.dbs.uwh.backend.model.constant.Gender;
 
 @Service
 public class StudentService extends GenericService<Student, Long> {

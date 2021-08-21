@@ -7,6 +7,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.validation.constraints.Email;
 
+import com.dbs.uwh.backend.model.constant.Role;
 import com.sun.istack.NotNull;
 
 import lombok.Getter;

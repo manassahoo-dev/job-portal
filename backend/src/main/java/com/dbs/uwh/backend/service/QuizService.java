@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.dbs.uwh.backend.dao.QuizDao;
 import com.dbs.uwh.backend.model.Quiz;
-import com.dbs.uwh.backend.model.QuizType;
+import com.dbs.uwh.backend.model.constant.QuizType;
 
 @Service
 public class QuizService extends GenericService<Quiz, Long> {
