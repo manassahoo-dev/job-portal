@@ -1,6 +1,6 @@
 import { Button, Card, Col, Form, Input, message, Row } from "antd";
 import React, { useContext } from 'react';
-import QuizContext from "../../contexts/QuizContext";
+import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ValidationMessage from "../utility/ValidationMessage";
@@ -11,14 +11,14 @@ const { TextArea } = Input;
 function QuizAddEdit() {
 
     const [form] = Form.useForm();
-    const { quizData, setQuizData } = useContext(QuizContext);
-    form.setFieldsValue(quizData.selectedQuiz);
-    form.setFieldsValue({ quizType: quizData.quizType });
+    const { contextData, setContextData } = useContext(AppContext);
+    form.setFieldsValue(contextData.selectedItem);
+    form.setFieldsValue({ quizType: contextData.quizType });
 
     const onFinish = (values) => {
         const updatedValues = {
             ...values,
-            categoryId: quizData.categoryId,
+            categoryId: contextData.categoryId,
         }
 
         create(updatedValues);
@@ -29,7 +29,7 @@ function QuizAddEdit() {
         apiService.create(api.QUIZ, values)
             .then((response) => {
                 message.success('Quiz added successfully');
-                setQuizData({ ...quizData, isAddEdit: false, selectedQuiz: null })
+                setContextData({ ...contextData, isAddEdit: false, selectedItem: null })
                 form.resetFields();
             })
             .catch((error) => {
@@ -41,7 +41,7 @@ function QuizAddEdit() {
         apiService.update(api.QUIZ, values.id, values)
             .then((response) => {
                 message.success('Quiz updated successfully');
-                setQuizData({ ...quizData, isAddEdit: false, selectedQuiz: null })
+                setContextData({ ...contextData, isAddEdit: false, selectedItem: null })
                 form.resetFields();
             })
             .catch((error) => {
@@ -54,7 +54,7 @@ function QuizAddEdit() {
     };
 
     const onCancel = () => {
-        setQuizData({ ...quizData, isAddEdit: false, selectedQuiz: null })
+        setContextData({ ...contextData, isAddEdit: false, selectedItem: null })
     }
 
     return (
@@ -77,7 +77,7 @@ function QuizAddEdit() {
                         <Form.Item><Button block onClick={onCancel}>Cancel</Button></Form.Item>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                        <Form.Item><Button type="primary" htmlType="submit" block>{quizData.selectedQuiz?.id ? 'Update' : 'Add'} Quiz</Button></Form.Item>
+                        <Form.Item><Button type="primary" htmlType="submit" block>{contextData.selectedItem?.id ? 'Update' : 'Add'} Quiz</Button></Form.Item>
                     </Col>
                 </Row>
             </Form>

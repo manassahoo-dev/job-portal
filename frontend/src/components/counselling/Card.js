@@ -1,26 +1,26 @@
-import { CheckCircleOutlined, DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
-import { Card, Dropdown, List, Menu, message, Modal, Tag, Typography } from "antd";
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
+import { Card, Dropdown, List, Menu, message, Modal, Typography } from "antd";
 import React, { useContext } from 'react';
 import AppContext from '../../contexts/AppContext';
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 
+const { Text, Link } = Typography;
 const { confirm } = Modal;
 const { Meta } = Card;
-const { Text, Link } = Typography;
 
-function QuizCard({ quiz }) {
+function CounsellingCard({ counselling }) {
 
     const { contextData, setContextData } = useContext(AppContext);
 
     const handleMenuClick = (e) => {
-        e.key === "edit" ? setContextData({ ...contextData, isAddEdit: true, selectedItem: quiz }) : showConfirmDelete();
+        e.key === "edit" ? setContextData({ ...contextData, isAddEdit: true, selectedItem: counselling }) : showConfirmDelete();
         
     }
 
     const showConfirmDelete = () => {
         confirm({
-            title: 'Do you Want to delete these items?',
+            title: 'Do you Want to delete this Counselling ?',
             icon: <ExclamationCircleOutlined />,
             content: 'Some descriptions',
             onOk() {
@@ -33,7 +33,7 @@ function QuizCard({ quiz }) {
     }
 
     const deleteQuiz = () => {
-        apiService.delete(api.QUIZ, quiz.id)
+        apiService.delete(api.COUNSELLING, counselling.id)
             .then((response) => {
                 message.success('Quiz deleted successfully');
                 setContextData({ ...contextData, isAddEdit: false, selectedItem: null })
@@ -55,22 +55,21 @@ function QuizCard({ quiz }) {
     return (
         <Card
             bordered={false}
-            className={contextData.selectedItem?.id === quiz.id && "active"}
-            title={quiz.name}
+            className={contextData.selectedItem?.id === counselling.id && "active"}
+            title={counselling.name}
             extra={
                 <a><Dropdown overlay={actions} placement="bottomRight">
                     <MoreOutlined />
                 </Dropdown></a>
             }>
             <List
-                dataSource={quiz.questions}
+                size="small"
+                dataSource={counselling.questions}
                 renderItem={(question, index) => (
                     <List.Item key={index}>
                         <List.Item.Meta
-                            avatar={<Text type="success">{index + 1}</Text>}
+                            avatar={<Text type="success">{index+1}</Text>}
                             title={question.text}
-                            description={question.answers.map((answer, index) =>
-                                <Tag icon={answer.correct && <CheckCircleOutlined />} color={answer.correct ? "success" : ""}>{answer.text}</Tag>)}
                         />
                     </List.Item>
                 )}
@@ -78,4 +77,4 @@ function QuizCard({ quiz }) {
         </Card>
     );
 }
-export default QuizCard;
+export default CounsellingCard;

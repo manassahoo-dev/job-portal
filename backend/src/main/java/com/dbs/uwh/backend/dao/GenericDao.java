@@ -9,5 +9,4 @@ import com.dbs.uwh.backend.model.BaseEntity;
 
 @NoRepositoryBean
 public interface GenericDao<T extends BaseEntity, ID extends Serializable> extends JpaRepository<T, ID> {
-
 }
