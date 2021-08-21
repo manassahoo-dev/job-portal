@@ -22,6 +22,7 @@ function AddEditStudent({ isActionPerformedStudent, setIsActionPerformedStudent,
             apiService.create(api.students, updatedValues)
                 .then((response) => {
                     setIsActionPerformedStudent(ACTIONTYPES.none)
+                    setData({})
                 })
                 .catch((error) => {
                     message.error(`${updatedValues.firstName} added SuccessFully`);
@@ -36,8 +37,8 @@ function AddEditStudent({ isActionPerformedStudent, setIsActionPerformedStudent,
             console.log(data)
             apiService.update(api.students, updatedValues.id, updatedValues)
                 .then((response) => {
-                    setIsActionPerformedStudent(ACTIONTYPES.none)
                     setData({})
+                    setIsActionPerformedStudent(ACTIONTYPES.none)
                 })
                 .catch((error) => {
                     message.error(error.response.message);
@@ -51,6 +52,7 @@ function AddEditStudent({ isActionPerformedStudent, setIsActionPerformedStudent,
     };
 
     const onCancel = () => {
+        setData({})
         setIsActionPerformedStudent(ACTIONTYPES.none)
     }
 
@@ -75,14 +77,14 @@ function AddEditStudent({ isActionPerformedStudent, setIsActionPerformedStudent,
                             onChange={e => form.setFieldsValue({ gender: e })}
                             allowClear
                         >
-                            <Option value="MALE">Male</Option>
-                            <Option value="FEMALE">Female</Option>
-                            <Option value="OTHER">Other</Option>
+                            <Option value="M">Male</Option>
+                            <Option value="F">Female</Option>
+                            <Option value="O">Other</Option>
                         </Select></Form.Item>
                         <Form.Item><Button type="default" htmlType="reset" block onClick={onCancel}>Cancel</Button></Form.Item>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                        <Form.Item label="Aadhaar Number" name="idProof"
+                        <Form.Item label="Aadhaar Number" name="idNumber"
                             rules={[{ required: true, },
                             { pattern: new RegExp("^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$"), message: 'Please enter a valid Adhar' }]}
                         >
