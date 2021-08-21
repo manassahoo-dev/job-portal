@@ -1,4 +1,4 @@
-package com.dbs.uwh.backend.model;
+package com.dbs.uwh.backend.model.mapping;
 
 import java.util.Date;
 
@@ -12,19 +12,22 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.dbs.uwh.backend.model.Category;
+import com.dbs.uwh.backend.model.Counselling;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-public class QuizCategory {
+public class CounsellingCategory {
 	@EmbeddedId
-    private QuizCategoryId id;
+    private CounsellingCategoryId id;
  
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("quizId")
-    private Quiz quiz;
+    @MapsId("counsellingId")
+    private Counselling counselling;
  
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("categoryId")
