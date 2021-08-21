@@ -11,12 +11,12 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Answer extends BaseEntity {
+public class CounsellingQuestion extends BaseEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@NotNull
 	@Column(columnDefinition = "TEXT")
 	private String text;
-	
-	private boolean correct;
+
 }

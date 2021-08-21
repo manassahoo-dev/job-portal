@@ -31,8 +31,8 @@ public class Counselling extends BaseEntity {
 	private String description;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "quiz_id")
-	private Set<Question> questions;
+	@JoinColumn(name = "counselling_id")
+	private Set<CounsellingQuestion> questions;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "counselling", cascade = CascadeType.ALL)

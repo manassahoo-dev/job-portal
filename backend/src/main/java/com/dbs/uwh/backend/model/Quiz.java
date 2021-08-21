@@ -39,7 +39,7 @@ public class Quiz extends BaseEntity {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "quiz_id")
-	private Set<Question> questions;
+	private Set<QuizQuestion> questions;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)

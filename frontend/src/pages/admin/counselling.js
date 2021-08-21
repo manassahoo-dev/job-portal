@@ -4,40 +4,33 @@ import {
 } from 'antd';
 import { useEffect, useState } from 'react';
 import CategoryList from '../../components/category';
+import CounsellingList from '../../components/counselling';
 import AppBreadCrumb from '../../components/layout/AppBreadcrumb';
-import QuizList from '../../components/quiz';
 import QuizAddEdit from '../../components/quiz/AddEdit';
-import { QUIZ_TYPE } from '../../constants/QUIZ_TYPE';
-import QuizContext from '../../contexts/QuizContext';
+import AppContext from '../../contexts/AppContext';
 
-function Counseling(props) {
+function Counselling(props) {
 
-    const quizType = props.location.pathname.includes("/aptitudes") ? QUIZ_TYPE.APTITUDE : QUIZ_TYPE.EXAM;
     const [category, setCategory] = useState(null);
 
     const object = {
-        selectedQuiz: null,
+        selectedItem: null,
         isAddEdit: false,
-        quizType: quizType,
         categoryId: category?.id
     }
 
     useEffect(() => {
-        setQuizData({ ...quizData, categoryId: category?.id })
+        setContextData({ ...contextData, categoryId: category?.id })
     }, [category]);
 
-    const [quizData, setQuizData] = useState(object);
-
-    const toSentenceCase = (value) => {
-        return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
-    }
+    const [contextData, setContextData] = useState(object);
 
     return (
-        <QuizContext.Provider value={{ quizData, setQuizData }}>
-            <AppBreadCrumb path={toSentenceCase(quizType)} />
+        <AppContext.Provider value={{ contextData, setContextData }}>
+            <AppBreadCrumb path="counselling" />
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8}>
-                    < CategoryList setCategory={setCategory} id={quizData.categoryId} />
+                    < CategoryList setCategory={setCategory} id={contextData.categoryId} />
                 </Col>
                 <Col xs={24} sm={12} md={16}>
                     {category &&
@@ -46,18 +39,18 @@ function Counseling(props) {
                                 className="p-0 mb-2"
                                 title={category.name}
                                 extra={[
-                                    <Button block onClick={() => setQuizData({ ...quizData, isAddEdit: true })}>Add {toSentenceCase(quizType)}</Button>,
+                                    <Button block onClick={() => setContextData({ ...contextData, isAddEdit: true })}>Add counselling</Button>,
                                 ]}
                             />
                             <Row gutter={[16, 16]}>
-                                <QuizList />
-                                {quizData.isAddEdit && <Col xs={24} sm={12}><QuizAddEdit /></Col>}
+                                <CounsellingList />
+                                {contextData.isAddEdit && <Col xs={24} sm={12}><QuizAddEdit /></Col>}
                             </Row>
                         </>
                     }
                 </Col>
             </Row>
-        </QuizContext.Provider>
+        </AppContext.Provider>
     );
 }
-export default Counseling;
+export default Counselling;
