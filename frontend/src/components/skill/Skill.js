@@ -4,25 +4,25 @@ import React from "react";
 
 const { Option } = Select;
 
-function Question(props) {
+function Skill(props) {
     return (
-        <Form.List name="questions">
+        <Form.List name="skills">
             {(fields, { add, remove }) => {
                 return (
-                    <Card size="small" title="Questions" extra={<Button type="link" onClick={() => { add(); }}><PlusOutlined /> Add Question</Button>} >
+                    <Card size="small" title="Questions" extra={<Button type="link" onClick={() => { add(); }}><PlusOutlined /> Add skill</Button>} >
                         {fields.length > 0 && fields.map((field, index) => (
                             <Row >
                                 <Col flex="auto">
                                     <Form.Item
                                         {...field}
                                         className="mb-1"
-                                        name={[field.name, "text"]}
-                                        fieldKey={[field.fieldKey, "text"]}
+                                        name={[field.name, "skill"]}
+                                        fieldKey={[field.fieldKey, "skill"]}
                                         rules={[
                                             { required: true, message: 'Can not be blank' }
                                         ]}
                                     >
-                                        <Input placeholder={`Question ${index+1}`} />
+                                        <Input placeholder={`skill ${index+1}`} />
                                     </Form.Item>
                                 </Col>
                                 <Col flex="48px">
@@ -41,4 +41,4 @@ function Question(props) {
     );
 }
 
-export default Question;
+export default Skill;

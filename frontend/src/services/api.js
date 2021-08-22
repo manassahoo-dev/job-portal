@@ -7,4 +7,5 @@ export default {
     students: '/students',
     QUIZ: '/quizes',
     COUNSELLING: '/counselling',
+    SKILLSET: '/skillsets',
 }

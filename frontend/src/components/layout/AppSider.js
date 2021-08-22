@@ -22,7 +22,7 @@ const AppLayout = () => {
         { name: 'Student', icon: <BsPersonFill />, path: '/admin/students' },
         { name: 'Batch', icon: <GiTeacher />, path: '/admin/batches' },
         { name: 'Course', icon: <GiBookPile />, path: '/admin/courses' },
-        { name: 'Skill Test', icon: <BiBookReader />, path: '/admin/skill-test' },
+        { name: 'Skill Test', icon: <BiBookReader />, path: '/admin/skills' },
         { name: 'Counselling', icon: <TiGroup />, path: '/admin/counselling' },
         { name: 'Aptitude Test', icon: <IoIosBookmarks />, path: '/admin/aptitudes' },
         { name: 'Volunteering', icon: <RiHandHeartFill />, path: '/admin/volunteering' },
