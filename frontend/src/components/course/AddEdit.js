@@ -1,30 +1,68 @@
 import {
     InfoCircleOutlined
 } from '@ant-design/icons';
-import { Button, Card, Col, Form, Input, Row, Select } from "antd";
+import { Button, Card, Col, Form, Input, message, Row, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { Option } from "antd/lib/mentions";
+import { useContext } from 'react';
+import AppContext from '../../contexts/AppContext';
+import api from '../../services/api';
+import apiService from '../../services/api.service';
 import ValidationMessage from '../utility/ValidationMessage';
 
 
-
-function AddEditCourse(props) {
+function AddEditCourse() {
 
     const [form] = Form.useForm();
-    if (props.isEdit) {
-        form.setFieldsValue(props.formData)
-    }
+    const { contextData, setContextData } = useContext(AppContext);
+    form.setFieldsValue(contextData.selectedItem);
 
     const onFinish = (values) => {
+        console.log('selectedItem', contextData.selectedItem.id)
+        const updatedValues = {
+            ...values,
+            id: contextData.selectedItem.id,
+            categoryId: contextData.categoryId,
+        }
+        contextData.selectedItem.id ? update(updatedValues) : create(updatedValues)
+    }
+
+    const create = (values) => {
+        apiService.create(api.courses, values)
+            .then((response) => {
+                message.success('Course added successfully');
+                form.resetFields();
+                resetContextData()
+            })
+            .catch((error) => {
+                message.error(error.response.data.message);
+            });;
+    }
+
+    const update = (values) => {
         console.log(values)
-        form.resetFields();
-        props.manageStates()
-    };
+        apiService.update(api.courses, values.id, values)
+            .then((response) => {
+                resetContextData()
+            })
+            .catch((error) => {
+                message.error(error.response.message);
+            });;
+    }
 
     const onCancel = () => {
         form.resetFields();
-        props.manageStates()
+        resetContextData()
     }
+
+    const resetContextData = () => {
+        setContextData({
+            ...contextData,
+            selectedItem: {},
+            isAddEdit: false
+        })
+    }
+
 
     const onFinishFailed = (errorInfo) => {
         console.error(errorInfo);
@@ -39,7 +77,7 @@ function AddEditCourse(props) {
                     onFinishFailed={onFinishFailed}
                     validateMessages={ValidationMessage}
                 >
-                    <Form.Item label="Sub-Category Course Name" name='subCatName' rules={[{ required: true }]} tooltip="This is a required field">
+                    <Form.Item label="Sub-Category Course Name" name='name' rules={[{ required: true }]} tooltip="This is a required field">
                         <Input placeholder="Sub-Category Name" />
                     </Form.Item>
 
@@ -47,9 +85,9 @@ function AddEditCourse(props) {
                         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                             <Form.Item label="Duration" name='duration' rules={[{ required: true }]}>
                                 <Select>
-                                    <Option value="15 Days">15 Days</Option>
-                                    <Option value="30 Days">30 Days</Option>
-                                    <Option value="45 Days">45 Days</Option>
+                                    <Option value="15">15 Days</Option>
+                                    <Option value="30">30 Days</Option>
+                                    <Option value="45">45 Days</Option>
                                 </Select>
                             </Form.Item>
                         </Col>
@@ -63,7 +101,7 @@ function AddEditCourse(props) {
                         </Col>
                     </Row>
                     <Form.Item
-                        label="Category Syllabus"
+                        label="Course Syllabus"
                         name="syllabus"
                         rules={[{ required: true }]}
                         tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
@@ -88,7 +126,7 @@ function AddEditCourse(props) {
                             <Form.Item><Button type="default" htmlType="reset" block onClick={onCancel}>Cancel</Button></Form.Item>
                         </Col>
                         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                            <Form.Item><Button type="primary" htmlType="submit" block>Create</Button></Form.Item>
+                            <Form.Item><Button type="primary" htmlType="submit" block>{ }Create</Button></Form.Item>
                         </Col>
                     </Row>
                 </Form>
@@ -96,4 +134,4 @@ function AddEditCourse(props) {
         </>
     )
 }
-export default AddEditCourse;
+export default AddEditCourse
