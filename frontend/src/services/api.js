@@ -8,4 +8,5 @@ export default {
     QUIZ: '/quizes',
     COUNSELLING: '/counselling',
     SKILLSET: '/skillsets',
+    DASHBOARD: '/dashboard'
 }
