@@ -77,14 +77,26 @@ function JobAddEdit(params) {
             >
                 <Row gutter={[16, 16]}>
                     <Col xs={24} md={12} lg={12}>
-                        <Form.Item label="Enter Job Name" name='name' rules={[{ required: true }]} tooltip="This is a required field">
+                        <Form.Item label="Enter Job Name" name='name' rules={[{ required: true }]}>
                             <Input placeholder="Job Sub-Category Name" />
                         </Form.Item>
 
-                        <Form.Item label="Select Location" name='name' rules={[{ required: true }]} tooltip="This is a required field">
+                        <Form.Item label="Select Location" name='name' rules={[{ required: true }]}>
                             <Input placeholder="Location Name" />
                         </Form.Item>
-                        <Form.Item label="Company Name" name='name' rules={[{ required: true }]} tooltip="This is a required field">
+                        <Form.Item label="Company Name" name='name' rules={[{ required: true }]}>
+                            <Input placeholder="Company Name" />
+                        </Form.Item>
+                    </Col>
+                    <Col xs={24} md={12} lg={12}>
+                        <Form.Item label="Enter Job Name" name='name' rules={[{ required: true }]}>
+                            <Input placeholder="Job Sub-Category Name" />
+                        </Form.Item>
+
+                        <Form.Item label="Select Location" name='name' rules={[{ required: true }]}>
+                            <Input placeholder="Location Name" />
+                        </Form.Item>
+                        <Form.Item label="Company Name" name='name' rules={[{ required: true }]}>
                             <Input placeholder="Company Name" />
                         </Form.Item>
                     </Col>
@@ -92,11 +104,11 @@ function JobAddEdit(params) {
 
                 <Row gutter={[16, 16]}>
                     <Col xs={24} md={12} lg={12}>
-                        <Form.Item label="Duration" name='duration' rules={[{ required: true }]}>
+                        <Form.Item label="Select Experience" name='experience' rules={[{ required: true }]}>
                             <Select>
-                                <Option value="15">15 Days</Option>
-                                <Option value="30">30 Days</Option>
-                                <Option value="45">45 Days</Option>
+                                <Option value="0-2 Years">0-2 Years</Option>
+                                <Option value="3-5 Years">3-5 Years</Option>
+                                <Option value="5+ Years">5+ Years</Option>
                             </Select>
                         </Form.Item>
                     </Col>

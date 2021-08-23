@@ -18,7 +18,6 @@ function JobCard({ job }) {
 
     }
 
-    const options = ['a', 'b', 'c', 'd', 'e', 'f'];
 
     const showConfirmDelete = () => {
         confirm({
@@ -63,11 +62,6 @@ function JobCard({ job }) {
             <p>Content</p>
         </div>
     );
-    const viewDetails = () => {
-        <Popover content={content} title="Title">
-            <Button type="primary">Hover me</Button>
-        </Popover>
-    }
 
     return (
         <Card
@@ -89,7 +83,6 @@ function JobCard({ job }) {
                     <MoreOutlined />
                 </Dropdown></a>
             }>
-            <Rate defaultValue={2} />
             <Meta
                 title="Company Name"
                 description={job.companyName}

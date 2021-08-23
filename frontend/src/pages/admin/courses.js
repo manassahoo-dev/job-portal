@@ -2,6 +2,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, PageHeader, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import CategoryList from '../../components/category/index';
+import CourseList from '../../components/course';
 import AddEditCourse from '../../components/course/AddEdit';
 import CourseCards from '../../components/course/Card';
 import AppContext from '../../contexts/AppContext';
@@ -38,9 +39,7 @@ function Courses() {
                                 ]}
                             />
                             <Row gutter={[16, 16]}>
-                                <Col xs={24} md={16} lg={10} xl={contextData.isAddEdit ? 12 : 24}>
-                                    <CourseCards />
-                                </Col>
+                                <CourseList />
                                 <Col xs={24} sm={12}>
                                     {contextData.isAddEdit &&
                                         <AddEditCourse />
