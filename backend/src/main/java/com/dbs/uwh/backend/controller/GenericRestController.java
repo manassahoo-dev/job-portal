@@ -56,5 +56,10 @@ public abstract class GenericRestController<T extends BaseEntity, ID extends Ser
 	public boolean exists(@RequestBody T entity) {
 		return genericService.exists(entity);
 	}
+	
+	@PostMapping(value = "/find")
+	public T findOne(@RequestBody T entity) {
+		return genericService.findOne(entity);
+	}
 
 }
