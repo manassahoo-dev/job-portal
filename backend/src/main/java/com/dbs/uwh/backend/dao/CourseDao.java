@@ -14,6 +14,7 @@ import com.dbs.uwh.backend.model.Course;
 public interface CourseDao extends GenericDao<Course, Long> {
 
 	List<Course> findByCategories_categoryId(Long categoryId);
+	List<Course> findByBatches_batchId(Long batchId);
 
 	boolean existsCourseByCategories_categoryIdAndCategories_courseId(Long categoryId, Long courseId);
 
