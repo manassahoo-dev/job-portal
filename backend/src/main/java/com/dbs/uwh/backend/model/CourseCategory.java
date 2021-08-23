@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Temporal;
@@ -14,19 +13,21 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString(of = {"id"})
 public class CourseCategory {
 	@EmbeddedId
     private CourseCategoryId id;
  
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @MapsId("courseId")
     private Course course;
  
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @MapsId("categoryId")
     private Category category;
  
