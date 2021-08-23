@@ -3,6 +3,8 @@ package com.dbs.uwh.backend.service;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +32,22 @@ public class CourseService extends GenericService<Course, Long> {
 
 	public List<Course> findByCategoryId(Long categoryId) {
 		return courseDao.findByCategories_categoryId(categoryId);
+	}
+	
+	public void deleteById(Long id) {
+		courseDao.deleteCourseCategory(id);
+		courseDao.deleteById(id);
+	}
+
+	@Transactional
+	public Course create(Course course) {
+		Course entity = courseDao.save(course);
+		
+		Long categoryId = course.getCategoryId();
+		Long courseId = course.getId();
+		boolean isExists = courseDao.existsCourseByCategories_categoryIdAndCategories_courseId(categoryId, courseId);
+		if (!isExists)
+			courseDao.saveCourseCategory(categoryId, courseId);
+		return entity;
 	}
 }
