@@ -45,60 +45,58 @@ function CourseCards() {
     }
 
     return (
-        <Col xs={24} md={16} lg={10} xl={24}>
-            <AppSpin loading={loading}>
-                {data.length ?
-                    <List
-                        className="overflow-auto"
-                        itemLayout="horizontal"
-                        dataSource={data}
-                        renderItem={item => (
-                            <List.Item className="px-2">
-                                <Card title={item.name}
-                                    extra={
-                                        <Dropdown
-                                            overlay={
-                                                <Menu onClick={(e) => { handleMenuClick(e, { item }) }}>
-                                                    <Menu.Item key='edit' icon={<EditOutlined />}>
-                                                        Edit
-                                                    </Menu.Item>
-                                                    <Menu.Item danger key='delete' icon={<DeleteOutlined />} >
-                                                        Delete
-                                                    </Menu.Item>
-                                                </Menu>
-                                            } placement="bottomRight">
-                                            <MoreOutlined />
-                                        </Dropdown>
-                                    }
-                                    hoverable
-                                >
-                                    <Rate defaultValue={2} />
-                                    <Meta
-                                        title="Duration"
-                                        description={`${item.duration} Days`}
-                                    />
-                                    <Meta
-                                        title="Description"
-                                        description={`${item.description}`}
-                                    />
-                                    <Meta
-                                        title="Syllabus"
-                                        description={`${item.syllabus}`}
-                                    />
-                                </Card>
-                            </List.Item>
+        <AppSpin loading={loading}>
+            {data.length ?
+                <List
+                    className="overflow-auto"
+                    itemLayout="horizontal"
+                    dataSource={data}
+                    renderItem={item => (
+                        <List.Item className="px-2">
+                            <Card title={item.name}
+                                extra={
+                                    <Dropdown
+                                        overlay={
+                                            <Menu onClick={(e) => { handleMenuClick(e, { item }) }}>
+                                                <Menu.Item key='edit' icon={<EditOutlined />}>
+                                                    Edit
+                                                </Menu.Item>
+                                                <Menu.Item danger key='delete' icon={<DeleteOutlined />} >
+                                                    Delete
+                                                </Menu.Item>
+                                            </Menu>
+                                        } placement="bottomRight">
+                                        <MoreOutlined />
+                                    </Dropdown>
+                                }
+                                hoverable
+                            >
+                                <Rate defaultValue={2} />
+                                <Meta
+                                    title="Duration"
+                                    description={`${item.duration} Days`}
+                                />
+                                <Meta
+                                    title="Description"
+                                    description={`${item.description}`}
+                                />
+                                <Meta
+                                    title="Syllabus"
+                                    description={`${item.syllabus}`}
+                                />
+                            </Card>
+                        </List.Item>
 
-                        )}
-                    />
+                    )}
+                />
 
-                    :
-                    <Empty
-                        className="vh65 card-center"
-                        description="No course found">
-                    </Empty>
-                }
-            </AppSpin >
-        </Col>
+                :
+                <Empty
+                    className="vh65 card-center"
+                    description="No course found">
+                </Empty>
+            }
+        </AppSpin >
     )
 }
 export default CourseCards
