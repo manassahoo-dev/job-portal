@@ -49,8 +49,8 @@ const AppHeader = () => {
                 <Space size="large">
                     <Switch checked={isDarkMode} onChange={toggleTheme} />
                     {user ?
-                        <Dropdown overlay={menu} placement="bottomCenter">
-                            <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+                        <Dropdown overlay={menu} placement="bottomCenter" placement="bottomRight" arrow style={{width: '150px'}}>
+                            <a><Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar></a>
                         </Dropdown>
                         :
                         <Button type='primary'>

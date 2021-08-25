@@ -1,8 +1,16 @@
 package com.dbs.uwh.backend.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
+import com.dbs.uwh.backend.model.mapping.JobCategory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.Getter;
@@ -37,4 +45,11 @@ public class Job extends BaseEntity {
 	@NotNull
 	@Column(columnDefinition = "TEXT")
 	private String salaryRange;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "job", cascade = CascadeType.ALL)
+	private Set<JobCategory> categories = new HashSet<>();
+	
+	@Transient
+	private Long categoryId;
 }

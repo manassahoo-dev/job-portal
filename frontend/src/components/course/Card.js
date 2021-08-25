@@ -93,7 +93,7 @@ function CourseCards() {
 
                     :
                     <Empty
-                        className="vh65 card-center"
+                        className="vh65 card-center bg-white"
                         description="No course found">
                     </Empty>
                 }

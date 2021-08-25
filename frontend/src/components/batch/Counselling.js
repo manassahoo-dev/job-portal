@@ -7,10 +7,10 @@ import ApiRequest from "../../services/ApiRequest";
 import AppSpin from '../utility/AppSpin';
 import AddItem from './Add';
 
-function CourseCard() {
+function CounsellingCard() {
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/courses`, contextData);
+    const { data, error, loading } = ApiRequest('GET', `${api.COUNSELLING}/${contextData.batch?.id}/counselling`, contextData);
 
     return (
         <AppSpin loading={loading}>
@@ -18,7 +18,7 @@ function CourseCard() {
                 <PageHeader
                     className="p-0 mb-1"
                     onBack={isAdd ? () => setIsAdd(false) : ""}
-                    title="Courses"
+                    title="Counselling"
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ?
@@ -44,4 +44,4 @@ function CourseCard() {
         </AppSpin>
     );
 }
-export default CourseCard;
+export default CounsellingCard;

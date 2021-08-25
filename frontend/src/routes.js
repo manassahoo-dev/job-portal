@@ -11,11 +11,10 @@ const Counselling = React.lazy(() => import('./pages/admin/counselling'))
 const Skills = React.lazy(() => import('./pages/admin/skills'))
 
 const routes = [
-  { path: '/admin/users', name: 'User List', component: Users },
+  { path: '/admin/dashboard', name: 'Dashboard', component: DashBoard },
   { path: '/admin/courses', name: 'Courses', component: Courses },
   { path: '/admin/batches', name: 'Batches', component: Batches },
-  { path: '/admin/dashboard', name: 'DashBoard', component: DashBoard },
-  { path: '/admin/students', name: 'Student', component: Students },
+  { path: '/admin/students', name: 'Students', component: Students },
   { path: '/admin/aptitudes', name: 'Aptitude Test', component: Quiz },
   { path: '/admin/exams', name: 'Exams', component: Quiz },
   { path: '/admin/counselling', name: 'Counseling', component: Counselling },

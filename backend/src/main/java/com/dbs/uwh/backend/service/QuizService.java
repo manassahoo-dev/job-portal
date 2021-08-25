@@ -1,7 +1,6 @@
 package com.dbs.uwh.backend.service;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.dbs.uwh.backend.dao.QuizDao;
 import com.dbs.uwh.backend.model.Quiz;
-import com.dbs.uwh.backend.model.QuizQuestion;
 import com.dbs.uwh.backend.model.constant.QuizType;
 
 @Service
@@ -34,7 +32,6 @@ public class QuizService extends GenericService<Quiz, Long> {
 
 	@Transactional
 	public Quiz create(Quiz quiz) {
-		Set<QuizQuestion> questions = quiz.getQuestions();
 		Quiz entity = quizDao.save(quiz);
 		
 		Long categoryId = quiz.getCategoryId();
