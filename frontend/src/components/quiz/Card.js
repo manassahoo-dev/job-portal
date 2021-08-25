@@ -15,14 +15,19 @@ function QuizCard({ quiz }) {
 
     const handleMenuClick = (e) => {
         e.key === "edit" ? setContextData({ ...contextData, isAddEdit: true, selectedItem: quiz }) : showConfirmDelete();
-        
+
     }
+
+    const options = ['a', 'b', 'c', 'd', 'e', 'f'];
 
     const showConfirmDelete = () => {
         confirm({
-            title: 'Do you Want to delete these items?',
+            title: 'Do you Want to delete this Quiz?',
             icon: <ExclamationCircleOutlined />,
-            content: 'Some descriptions',
+            content: quiz.name,
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
             onOk() {
                 deleteQuiz();
             },
@@ -63,14 +68,15 @@ function QuizCard({ quiz }) {
                 </Dropdown></a>
             }>
             <List
+                size="small"
                 dataSource={quiz.questions}
                 renderItem={(question, index) => (
                     <List.Item key={index}>
                         <List.Item.Meta
                             avatar={<Text type="success">{index + 1}</Text>}
-                            title={question.text}
+                            title={<Text strong>{question.text}</Text>}
                             description={question.answers.map((answer, index) =>
-                                <Tag icon={answer.correct && <CheckCircleOutlined />} color={answer.correct ? "success" : ""}>{answer.text}</Tag>)}
+                                <Text type={answer.correct ? "success" : ""}>{options[index]}) {answer.text}<br/></Text>)}
                         />
                     </List.Item>
                 )}

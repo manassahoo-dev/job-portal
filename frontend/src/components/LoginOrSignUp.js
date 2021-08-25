@@ -50,8 +50,7 @@ function LoginOrSignUp(props) {
                 setUserExistsState(response.data);
             })
             .catch(e => {
-                // console.table(e.response);
-                message.error('Try again after some time');
+                message.error(e.response.statusText);
             });
     }
 

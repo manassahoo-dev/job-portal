@@ -2,14 +2,12 @@ import {
     BookOutlined, FileOutlined, HomeOutlined, TeamOutlined,
     UserOutlined
 } from '@ant-design/icons';
-import { Card, Col, PageHeader, Row, Statistic, Table, Tabs, Timeline, List } from 'antd';
+import { Card, Col, List, Row, Statistic, Table, Tabs, Timeline, Avatar } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import Text from 'antd/lib/typography/Text';
 import Title from 'antd/lib/typography/Title';
-import { useState } from 'react';
 
 const { TabPane } = Tabs;
-
 
 const statItems = [
     { name: 'Student', icon: <UserOutlined />, category1: { name: 'Male', count: 230 }, category2: { name: 'Female', count: 130 } },
@@ -23,6 +21,15 @@ const contentStyle = {
     height: '500px',
     overflow: 'auto',
 };
+
+const avatar = {
+    textAlign: 'center',
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    fontSize: '2rem',
+    color: '#bfbfbf'
+}
 
 const studentList = [
     { name: 'Rahul Reddy', batch: 'B163', time: '9:30 AM' },
@@ -96,19 +103,16 @@ const cardTitles = ['Skill Test', 'Counselling', 'Volunteering Sessions Attended
 function AdminDashBoard(params) {
 
     const dataCard = (
-        <Card>
-            <Card bordered style={contentStyle}>
-                <Title level={3} type="secondary">Ongoing Batch</Title>
-                <Tabs type="card">
-                    {batches.map((batch, index) =>
-                        <TabPane tab={batch.name} key={index}>
-                            <Text italic>Started on 10 Aug to 9 September 2021</Text><br />
-                            <Text italic>Time :{batch.time}</Text>
-                            <Table size='small' dataSource={courses} columns={coursesColumns} />
-                        </TabPane>
-                    )}
-                </Tabs>
-            </Card>
+        <Card bordered={false} style={contentStyle} title={<Text strong>Ongoing Batch</Text>}>
+            <Tabs type="card">
+                {batches.map((batch, index) =>
+                    <TabPane tab={batch.name} key={index}>
+                        <Text italic>Started on 10 Aug to 9 September 2021</Text><br />
+                        <Text italic>Time :{batch.time}</Text>
+                        <Table size='small' dataSource={courses} columns={coursesColumns} />
+                    </TabPane>
+                )}
+            </Tabs>
         </Card>
     );
 
@@ -142,67 +146,47 @@ function AdminDashBoard(params) {
                     <Col xs={24} sm={12} md={8} lg={8} xl={6} xxl={4}>
                         <Card hoverable>
                             <Row>
-                                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                    <Title level={3} type="success">{item.name} {item.icon}</Title>
-                                    <Title level={5}>Total {item.name} {item.category1.count + item.category2.count}</Title>
+                                <Col span={18} className="mb-4">
+                                    <Title level={3} className="m-0" type="success">{item.name}</Title>
+                                    <Text>Total {item.name} {item.category1.count + item.category2.count}</Text>
                                 </Col>
-                                <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                                <Col span={6} className="mb-4">
+                                    <span style={avatar}>{item.icon}</span>
+                                </Col>
+                                <Col span={12}>
                                     <Statistic title={item.category1.name} value={item.category1.count} prefix={item.category1.icon} />
                                 </Col>
-                                <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                                <Col span={12}>
                                     <Statistic title={item.category2.name} value={item.category2.count} prefix={item.category2.icon} />
                                 </Col>
                             </Row>
                         </Card>
                     </Col>
                 )}
-            </Row>
-
-            <Row gutter={[16, 16]}>
                 <Col xs={24} sm={24} md={16} lg={18} xl={18}>
                     {dataCard}
                 </Col>
                 <Col xs={24} sm={24} md={8} lg={6} xl={6}>
                     {timeline}
                 </Col>
+                {cardTitles.map((item) =>
+                    <Col xs={24} md={8}>
+                        <Card bordered={false} title={<Text strong>{item}</Text>}>
+                            <Tabs style={contentStyle} >
+                                <TabPane tab="Batch 1- 10.30 AM" key="1">
+                                    <Text italic>20 Students Skill test will conduct today 10 Aug, 21</Text>
+                                    <Table size='small' dataSource={studentList} columns={columns} />
+                                </TabPane>
+                                <TabPane tab="Upcoming" key="2">
+                                    <Meta title="Repairing Started on 10-1-2021" description="Batch:'B163',Time: 10.30 AM" />
+                                </TabPane>
+                            </Tabs>
+                        </Card>
+                    </Col>
+                )}
+                <Col span={24}>{dataCard}</Col>
             </Row>
 
-            <Row>
-                <List
-                    grid={{
-                        gutter: 16,
-                        xs: 1,
-                        sm: 1,
-                        md: 2,
-                        lg: 2,
-                        xl: 2,
-                        xxl: 3,
-                    }}
-                    dataSource={cardTitles}
-                    renderItem={item => (
-                        <List.Item>
-                            <Card bordered>
-                                <PageHeader
-                                    title={<Title level={3} type="secondary">{item}</Title>}
-                                />
-                                <Card style={contentStyle}>
-                                    <Tabs type="card">
-                                        <TabPane tab="Batch 1- 10.30 AM" key="1">
-                                            <Text italic>20 Students Skill test will conduct today 10 Aug, 21</Text>
-                                            <Table size='small' dataSource={studentList} columns={columns} />
-                                        </TabPane>
-                                        <TabPane tab="Upcoming" key="2">
-                                            <Meta title="Repairing Started on 10-1-2021" description="Batch:'B163',Time: 10.30 AM" />
-                                        </TabPane>
-                                    </Tabs>
-                                </Card>
-                            </Card>
-
-                        </List.Item>
-                    )}
-                />
-            </Row>
-            {dataCard}
 
         </>
     )

@@ -56,15 +56,19 @@ input[type="number"] {
 .overflow-auto {
   overflow: auto;
 }
-.custom-card{
-  .ant-list-item-meta{
+.custom-card {
+  .ant-list-item-meta {
     padding: 0 1rem !important;
     cursor: pointer;
   }
-  .ant-list-item-action{
+  .ant-list-item-action {
     visibility: hidden;
   }
 }
-.active{
+.active {
   border: 1px solid blue !important;
+}
+
+.table-row-dark {
+  background-color: #a3a2a2;
 }

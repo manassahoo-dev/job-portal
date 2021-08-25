@@ -1,5 +1,6 @@
 package com.dbs.uwh.backend.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,10 +16,12 @@ import com.sun.istack.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString(of = { "text", "answers" })
 public class QuizQuestion extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -26,13 +29,13 @@ public class QuizQuestion extends BaseEntity {
 	@NotNull
 	@Column(columnDefinition = "TEXT")
 	private String text;
-	
+
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private QuestionType questionType;
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true)
 	@JoinColumn(name = "question_id")
-	private Set<QuizAnswer> answers;
+	private Set<QuizAnswer> answers = new HashSet<>();
 
 }

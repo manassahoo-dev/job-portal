@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -47,4 +48,6 @@ public class Course extends BaseEntity {
 	@Column(columnDefinition = "boolean default false")
 	private boolean isActive;
 
+	@Transient
+	private Long categoryId;
 }

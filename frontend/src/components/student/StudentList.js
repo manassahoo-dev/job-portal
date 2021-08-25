@@ -1,14 +1,22 @@
-import { EditOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Row, Space, Table, Tooltip } from 'antd';
+import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Button, Card, Col, message, Row, Space, Table, Tooltip } from 'antd';
 import DeleteEntity from '../DeleteEntity';
 import api from '../../services/api';
 import ApiRequest from '../../services/ApiRequest';
 import ACTIONTYPES from '../utility/ACTIONTYPES';
+import { useContext } from 'react';
+import AppContext from '../../contexts/AppContext';
+import apiService from '../../services/api.service';
+import confirm from 'antd/lib/modal/confirm';
+import Meta from 'antd/lib/card/Meta';
 
+// { isActionPerformedStudent, setIsActionPerformedStudent, setData, item }
 
-function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, setData, item }) {
+function StudentList() {
 
-    const { data, error, loading } = ApiRequest('GET', api.students, isActionPerformedStudent);
+    const { contextData, setContextData } = useContext(AppContext);
+
+    const { data, error, loading } = ApiRequest('GET', api.students, contextData);
     const columns = [
         {
             title: 'SL No',
@@ -18,8 +26,8 @@ function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, se
             sorter: (a, b) => a.id - b.id,
         }, {
             title: 'UID (Adhar)',
-            dataIndex: 'idProof',
-            key: 'idProof',
+            dataIndex: 'idNumber',
+            key: 'idNumber',
         }, {
             title: 'Name',
             dataIndex: 'name',
@@ -57,13 +65,52 @@ function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, se
             render: (text, record) => (
                 <Space>
                     <Tooltip title="Edit">
-                        <Button type="dashed" size="small" shape="circle" icon={<EditOutlined />} onClick={() => { setData(record); setIsActionPerformedStudent(ACTIONTYPES.edit) }} />
+                        <Button type="dashed" size="small" shape="circle" icon={<EditOutlined />} onClick={() => {
+                            setContextData({ ...contextData, isActionPerformed: ACTIONTYPES.edit, selectedItem: record })
+                        }} />
                     </Tooltip>
-                    <DeleteEntity entityName={'User'} item={record} setActionPerformed={setIsActionPerformedStudent} url={api.students} />
+                    <Tooltip title="Delete">
+                        <Button danger size="small" shape="circle" icon={<DeleteOutlined />} onClick={() => showDeleteConfirm(record)} />
+                    </Tooltip>
                 </Space>
             ),
         },
     ];
+
+    const showDeleteConfirm = (item) => {
+        setContextData({
+            ...contextData,
+            isActionPerformed: ACTIONTYPES.delete
+        })
+        confirm({
+            title: <Card>
+                <Meta
+                    title={'Are you sure delete this user?'}
+                    description={`${item.firstName} ${item.lastName}`}
+                />
+            </Card>,
+            icon: <ExclamationCircleOutlined />,
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk() {
+                apiService.delete(api.users, item.id)
+                    .then((response) => {
+                        setContextData({
+                            ...contextData,
+                            isActionPerformed: ACTIONTYPES.none
+                        })
+                        message.info(`${item.id} deleted successfully!!`);
+                    })
+                    .catch((error) => {
+                        message.error(error.response.message);
+                    });;;
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    }
 
     return (
         <>
@@ -73,7 +120,7 @@ function StudentList({ isActionPerformedStudent, setIsActionPerformedStudent, se
                     <Col span={24}>
                         <Table loading={loading} columns={columns} pagination={data.length > 10}
                             dataSource={data} size="small" rowKey="id"
-                            rowClassName={(record, index) => (record.id === item?.id) ? 'table-row-dark' : ''}
+                            rowClassName={(record, index) => (record.id === contextData.selectedItem?.id) ? 'ant-table-row-selected' : ''}
                             bordered
                         />
                     </Col>

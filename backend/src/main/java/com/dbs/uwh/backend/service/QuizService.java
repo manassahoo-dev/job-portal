@@ -2,6 +2,8 @@ package com.dbs.uwh.backend.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ public class QuizService extends GenericService<Quiz, Long> {
 
 	@Autowired
 	private QuizDao quizDao;
-
+	
 	public List<Quiz> findByQuizTypeAndCategoryId(QuizType quizType, Long categoryId) {
 		return quizDao.findByQuizTypeAndCategories_categoryId(quizType, categoryId);
 	}
@@ -28,6 +30,7 @@ public class QuizService extends GenericService<Quiz, Long> {
 		quizDao.deleteById(id);
 	}
 
+	@Transactional
 	public Quiz create(Quiz quiz) {
 		Quiz entity = quizDao.save(quiz);
 		

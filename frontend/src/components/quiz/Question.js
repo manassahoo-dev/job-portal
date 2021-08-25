@@ -1,18 +1,16 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Select, Card } from "antd";
+import { Button, Card, Form, Input, Select } from "antd";
 import React from "react";
 import Answer from "./Answer";
-
-const { Option } = Select;
 
 function Question(props) {
     return (
         <Form.List name="questions">
             {(fields, { add, remove }) => {
                 return (
-                    <>
+                    <Card bordered={false} size="small" title="Questions" extra={<Button type="link" onClick={() => { add(); }}><PlusOutlined /> Add Question</Button>} >
                         {fields.map((field, index) => (
-                            <Card size="small" title={`Question ${index + 1}`} extra={<a href="#"><MinusCircleOutlined
+                            <Card bordered={false} size="small" title={`Question ${index + 1}`} extra={<a href="#"><MinusCircleOutlined
                                 onClick={() => {
                                     remove(field.name);
                                     console.log(field);
@@ -23,7 +21,7 @@ function Question(props) {
                                     name={[field.name, "text"]}
                                     fieldKey={[field.fieldKey, "text"]}
                                     rules={[
-                                        { required: true }
+                                        { required: true, message: 'Question can not be blank' }
                                     ]}
                                 >
                                     <Input placeholder="Question" />
@@ -34,17 +32,7 @@ function Question(props) {
                                 </Form.Item>
                             </Card>
                         ))}
-
-                        <Button
-                            type="dashed"
-                            onClick={() => {
-                                add();
-                            }}
-                            block
-                        >
-                            <PlusOutlined /> Add Question
-                        </Button>
-                    </>
+                    </Card>
                 );
             }}
         </Form.List>

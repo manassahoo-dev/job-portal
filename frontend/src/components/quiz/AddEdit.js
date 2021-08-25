@@ -22,25 +22,12 @@ function QuizAddEdit() {
         }
 
         create(updatedValues);
-        // values.id ? update(updatedValues) : create(updatedValues)
     };
 
     const create = (values) => {
         apiService.create(api.QUIZ, values)
             .then((response) => {
-                message.success('Quiz added successfully');
-                setContextData({ ...contextData, isAddEdit: false, selectedItem: null })
-                form.resetFields();
-            })
-            .catch((error) => {
-                message.error(error.response.data.message);
-            });
-    }
-
-    const update = (values) => {
-        apiService.update(api.QUIZ, values.id, values)
-            .then((response) => {
-                message.success('Quiz updated successfully');
+                message.success('Quiz saved successfully');
                 setContextData({ ...contextData, isAddEdit: false, selectedItem: null })
                 form.resetFields();
             })
@@ -70,8 +57,9 @@ function QuizAddEdit() {
                 <Form.Item label="Quiz Type" name="quizType" hidden><Input /></Form.Item>
                 <Form.Item label="Quiz Name" name="name" rules={[{ required: true }]}><Input /></Form.Item>
                 <Form.Item label="Quiz Description" name="description" ><TextArea rows={3} /></Form.Item>
-                <h4>Questions</h4>
-                <Question />
+                <Form.Item>
+                    <Question />
+                </Form.Item>
                 <Row gutter={[16, 16]}>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                         <Form.Item><Button block onClick={onCancel}>Cancel</Button></Form.Item>

@@ -3,6 +3,7 @@ package com.dbs.uwh.backend.service;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,9 @@ public abstract class GenericService<T extends BaseEntity, ID extends Serializab
 		return genericDao.exists(example);
 	}
 
+	public T findOne(T entity) {
+		ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll().withIgnoreCase();
+		Example<T> example = Example.of(entity, exampleMatcher);
+		return genericDao.findOne(example).orElseThrow(() -> new EntityNotFoundException(entity.toString()));
+	}
 }

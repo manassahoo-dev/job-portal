@@ -5,6 +5,7 @@ import Avatar from 'antd/lib/avatar/avatar';
 import React, { useState } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import { Link } from "react-router-dom";
+import AppBreadCrumb from './AppBreadcrumb';
 
 const { Header } = Layout;
 
@@ -43,12 +44,13 @@ const AppHeader = () => {
 
     return (
         <Header>
+            {/* <AppBreadCrumb /> */}
             <div onClick={handleClick} mode="horizontal" style={{ float: 'right' }}>
                 <Space size="large">
                     <Switch checked={isDarkMode} onChange={toggleTheme} />
                     {user ?
-                        <Dropdown overlay={menu} placement="bottomCenter">
-                            <Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+                        <Dropdown overlay={menu} placement="bottomCenter" placement="bottomRight" arrow style={{width: '150px'}}>
+                            <a><Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar></a>
                         </Dropdown>
                         :
                         <Button type='primary'>
