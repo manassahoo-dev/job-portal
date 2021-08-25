@@ -8,8 +8,10 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dbs.uwh.backend.dao.BatchCourseDao;
 import com.dbs.uwh.backend.dao.BatchDao;
 import com.dbs.uwh.backend.model.Batch;
+import com.dbs.uwh.backend.model.BatchCourse;
 import com.dbs.uwh.backend.request.BatchRequest;
 
 @Service
@@ -17,6 +19,9 @@ public class BatchService extends GenericService<Batch, Long> {
 
 	@Autowired
 	BatchDao batchDao;
+
+	@Autowired
+	BatchCourseDao batchCourseDao;
 
 	public HashMap<String, Integer> BatchStats() {
 		HashMap<String, Integer> batchStats = new HashMap<String, Integer>();
@@ -51,7 +56,7 @@ public class BatchService extends GenericService<Batch, Long> {
 		Set<Long> courseIds = request.getCourseIds();
 		Set<Long> volunteeringIds = request.getVolunteeringIds();
 
-		if (!courseIds.isEmpty()) {
+		if (courseIds != null) {
 			for (Long courseId : courseIds) {
 				boolean isExists = batchDao.existsBatchByCourses_courseIdAndCourses_batchId(request.getBatchId(),
 						courseId);
@@ -60,14 +65,18 @@ public class BatchService extends GenericService<Batch, Long> {
 			}
 		}
 
-		if (!volunteeringIds.isEmpty()) {
+		if (volunteeringIds != null) {
 			for (Long vId : volunteeringIds) {
-				boolean isExists = batchDao.existsBatchByVolunteerings_volunteeringIdAndVolunteerings_batchId(request.getBatchId(),
-						vId);
+				boolean isExists = batchDao
+						.existsBatchByVolunteerings_volunteeringIdAndVolunteerings_batchId(request.getBatchId(), vId);
 				if (!isExists)
 					batchDao.saveBatchVolunteering(request.getBatchId(), vId);
 			}
 		}
+	}
+
+	public List<BatchCourse> findCoursesByBatchId(Long batchId) {
+		return batchCourseDao.findByBatch_Id(batchId);
 	}
 
 }

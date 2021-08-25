@@ -11,10 +11,9 @@ import com.dbs.uwh.backend.model.Batch;
 @Repository
 public interface BatchDao extends GenericDao<Batch, Long> {
 
-	boolean existsBatchByCourses_courseIdAndCourses_batchId(Long courseId, Long batchId);
-	
+	boolean existsBatchByCourses_courseIdAndCourses_batchId(Long courseId, Long batchId);	
 	boolean existsBatchByVolunteerings_volunteeringIdAndVolunteerings_batchId(Long volunteeringId, Long batchId);
-
+	
 	@Modifying
 	@Transactional
 	@Query(value = "DELETE FROM quiz_category WHERE quiz_id = ?1", nativeQuery = true)
@@ -22,12 +21,12 @@ public interface BatchDao extends GenericDao<Batch, Long> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "INSERT INTO batch_course (course_id, batch_id) VALUES (?1, ?2)", nativeQuery = true)
+	@Query(value = "INSERT INTO batch_course (course_id, batch_id, created_on) VALUES (?1, ?2, current_timestamp())", nativeQuery = true)
 	public void saveBatchCourse(Long courseId, Long id);
 	
 	@Modifying
 	@Transactional
-	@Query(value = "INSERT INTO batch_volunteering (course_id, volunteering_id) VALUES (?1, ?2)", nativeQuery = true)
+	@Query(value = "INSERT INTO batch_volunteering (course_id, volunteering_id, created_on) VALUES (?1, ?2, current_timestamp())", nativeQuery = true)
 	public void saveBatchVolunteering(Long courseId, Long id);
 
 }

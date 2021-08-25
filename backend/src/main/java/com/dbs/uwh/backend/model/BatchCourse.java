@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
@@ -23,18 +22,15 @@ public class BatchCourse {
 	@EmbeddedId
 	private BatchCourseId id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-
+	@ManyToOne
 	@MapsId("batchId")
 	private Batch batch;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-
+	@ManyToOne
 	@MapsId("courseId")
 	private Course course;
 
-	
 	@CreationTimestamp
-	@Column(name = "created_on")
-	private Timestamp createdOn ;
+	@Column(name = "created_on", insertable = true, updatable = false)
+	private Timestamp createdOn;
 }

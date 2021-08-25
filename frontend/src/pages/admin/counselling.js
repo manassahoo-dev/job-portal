@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import CategoryList from '../../components/category';
 import CounsellingList from '../../components/counselling';
 import CounsellingAddEdit from '../../components/counselling/AddEdit';
-import AppBreadCrumb from '../../components/layout/AppBreadcrumb';
 import AppContext from '../../contexts/AppContext';
 
 function Counselling(props) {
@@ -27,7 +26,6 @@ function Counselling(props) {
 
     return (
         <AppContext.Provider value={{ contextData, setContextData }}>
-            <AppBreadCrumb path="counselling" />
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8}>
                     < CategoryList setCategory={setCategory} id={contextData.categoryId} />

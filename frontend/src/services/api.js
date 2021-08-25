@@ -1,6 +1,6 @@
 export default {
     users: '/users',
-    batches: '/batches',
+    BATCH: '/batches',
     aptitudes: '/aptitudes',
     categories: '/categories',
     courses: '/courses',

@@ -4,7 +4,6 @@ import {
 } from 'antd';
 import { useEffect, useState } from 'react';
 import CategoryList from '../../components/category';
-import AppBreadCrumb from '../../components/layout/AppBreadcrumb';
 import QuizList from '../../components/quiz';
 import QuizAddEdit from '../../components/quiz/AddEdit';
 import { QUIZ_TYPE } from '../../constants/QUIZ_TYPE';
@@ -34,7 +33,6 @@ function Quizes(props) {
 
     return (
         <AppContext.Provider value={{ contextData, setContextData }}>
-            <AppBreadCrumb path={toSentenceCase(quizType)} />
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8}>
                     < CategoryList setCategory={setCategory} id={contextData.categoryId}/>

@@ -4,7 +4,6 @@ import {
 } from 'antd';
 import { useEffect, useState } from 'react';
 import CategoryList from '../../components/category';
-import AppBreadCrumb from '../../components/layout/AppBreadcrumb';
 import SkillList from '../../components/skill';
 import SkillSetAddEdit from '../../components/skill/AddEdit';
 import { QUIZ_TYPE } from '../../constants/QUIZ_TYPE';
@@ -30,7 +29,6 @@ function Skills(props) {
 
     return (
         <AppContext.Provider value={{ contextData, setContextData }}>
-            <AppBreadCrumb path="Skill Test" />
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8}>
                     < CategoryList setCategory={setCategory} id={contextData.categoryId} />
