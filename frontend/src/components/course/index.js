@@ -3,6 +3,7 @@ import { useContext } from "react";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
+import AppEmpty from "../utility/AppEmpty";
 import CourseCard from "./Card";
 
 function CourseList() {
@@ -11,19 +12,21 @@ function CourseList() {
 
     return (
         <>
-            {contextData.isAddEdit ? <Col span={12}>
-                {loading ?
-                    data.map((course, index) => <Col xs={24} key={index}><CourseCard course={course} /></Col>)
-                    :
-                    <Empty
-                        className="vh65 card-center bg-white"
-                        description="No course found">
-                    </Empty>
-                }
-            </Col>
-                :
-                <>{data.map((course, index) => <Col xs={24} sm={12} key={index}><CourseCard course={course} /></Col>)}
+            {data.length ?
+                <>
+                    {contextData.isAddEdit ?
+                        <Col span={12}>
+                            <>{data.map((course, index) => <Col xs={24} key={index}><CourseCard course={course} /></Col>)}</>
+                        </Col>
+                        :
+                        <>{data.map((course, index) => <Col xs={24} sm={12} key={index}><CourseCard course={course} /></Col>)}
+                        </>
+                    }
                 </>
+                :
+                <Col span={contextData.isAddEdit ? 12 : 24}>
+                    <AppEmpty name="Course" />
+                </Col>
             }
         </>
     );
