@@ -77,8 +77,8 @@ function AddEditCourse() {
                     onFinishFailed={onFinishFailed}
                     validateMessages={ValidationMessage}
                 >
-                    <Form.Item label="Sub-Category Course Name" name='name' rules={[{ required: true }]} tooltip="This is a required field">
-                        <Input placeholder="Sub-Category Name" />
+                    <Form.Item label="Course Name" name='name' rules={[{ required: true }]} tooltip="This is a required field">
+                        <Input placeholder="Course Name" />
                     </Form.Item>
 
                     <Row gutter={[16, 16]}>
@@ -112,7 +112,7 @@ function AddEditCourse() {
                         />
                     </Form.Item>
                     <Form.Item
-                        label="Short Description"
+                        label="Course Description"
                         name="description"
                         tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
                     >

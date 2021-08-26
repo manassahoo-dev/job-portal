@@ -44,6 +44,10 @@ function QuizAddEdit() {
         setContextData({ ...contextData, isAddEdit: false, selectedItem: null })
     }
 
+    const toSentenceCase = (value) => {
+        return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
+    }
+
     return (
         <Card>
             <Form
@@ -55,8 +59,8 @@ function QuizAddEdit() {
             >
                 <Form.Item label="id" name="id" hidden><Input /></Form.Item>
                 <Form.Item label="Quiz Type" name="quizType" hidden><Input /></Form.Item>
-                <Form.Item label="Quiz Name" name="name" rules={[{ required: true }]}><Input /></Form.Item>
-                <Form.Item label="Quiz Description" name="description" ><TextArea rows={3} /></Form.Item>
+                <Form.Item label={`${toSentenceCase(contextData.quizType)} Name`} name="name" rules={[{ required: true }]}><Input /></Form.Item>
+                <Form.Item label={`${toSentenceCase(contextData.quizType)} Description`} name="description" ><TextArea rows={3} /></Form.Item>
                 <Form.Item>
                     <Question />
                 </Form.Item>
