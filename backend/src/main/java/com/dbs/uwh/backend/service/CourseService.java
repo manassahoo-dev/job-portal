@@ -14,7 +14,7 @@ import com.dbs.uwh.backend.dao.CourseCategoryDao;
 import com.dbs.uwh.backend.dao.CourseDao;
 import com.dbs.uwh.backend.model.Category;
 import com.dbs.uwh.backend.model.Course;
-import com.dbs.uwh.backend.model.CourseCategory;
+import com.dbs.uwh.backend.model.mapping.CourseCategory;
 
 @Service
 public class CourseService extends GenericService<Course, Long> {

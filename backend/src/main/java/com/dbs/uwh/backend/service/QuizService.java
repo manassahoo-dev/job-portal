@@ -42,4 +42,8 @@ public class QuizService extends GenericService<Quiz, Long> {
 		return entity;
 	}
 
+	public List<Quiz> findByQuizType(QuizType quizType) {
+		return quizDao.findByQuizType(quizType);
+	}
+
 }

@@ -5,9 +5,9 @@ import ApiRequest from "../../services/ApiRequest";
 
 const { Paragraph, Text } = Typography;
 
-function AddItem({ isAdd, ids }) {
+function AddItem({ isAdd, path, ids }) {
 
-    const { data, error, loading } = ApiRequest('GET', `${api.COURSE}`, isAdd);
+    const { data, error, loading } = ApiRequest('GET', path, isAdd);
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);

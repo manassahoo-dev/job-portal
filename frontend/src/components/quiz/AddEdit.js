@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
+import toSentenceCase from "../utility/util";
 import ValidationMessage from "../utility/ValidationMessage";
 import Question from "./Question";
 
@@ -42,10 +43,6 @@ function QuizAddEdit() {
 
     const onCancel = () => {
         setContextData({ ...contextData, isAddEdit: false, selectedItem: null })
-    }
-
-    const toSentenceCase = (value) => {
-        return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
     }
 
     return (

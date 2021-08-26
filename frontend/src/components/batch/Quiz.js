@@ -10,7 +10,7 @@ import AddItem from './Add';
 function QuizCard({ quizType}) {
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', `${api.QUIZ}/${contextData.batch?.id}/quizess?quizType=${quizType}`, contextData);
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/quizes?quizType=${quizType}`, contextData);
 
     return (
         <AppSpin loading={loading}>
@@ -18,11 +18,11 @@ function QuizCard({ quizType}) {
                 <PageHeader
                     className="p-0 mb-1"
                     onBack={isAdd ? () => setIsAdd(false) : ""}
-                    title="Aptitude Tests"
+                    title={quizType}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ?
-                    <AddItem isAdd={isAdd} ids={data.map(({ id }) => id.courseId)}/>
+                    <AddItem isAdd={isAdd} path={`${api.QUIZ}/type/${quizType}`} ids={data.map(({ id }) => id.courseId)}/>
                     :
 
                     <List
@@ -31,9 +31,9 @@ function QuizCard({ quizType}) {
                         renderItem={item => (
                             <List.Item className="px-0">
                                 <List.Item.Meta
-                                    title={<b>{item.course.name}</b>}
+                                    title={<b>{item.quiz.name}</b>}
                                     description={<Paragraph type="secondary" ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
-                                        {item.course.description}
+                                        {item.quiz.description}
                                     </Paragraph>}
                                 />
                             </List.Item>

@@ -20,9 +20,7 @@ function Home() {
             {!user ?
                 <Redirect to="/login" />
                 :
-                <Button type='primary'>
-                    <Link to="/login">Login</Link>
-                </Button>
+                <></>
             }
         </div>
     );

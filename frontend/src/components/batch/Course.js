@@ -22,7 +22,7 @@ function CourseCard() {
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ?
-                    <AddItem isAdd={isAdd} ids={data.map(({ id }) => id.courseId)}/>
+                    <AddItem isAdd={isAdd} path={api.COURSE} ids={data.map(({ id }) => id.courseId)}/>
                     :
 
                     <List

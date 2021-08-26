@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
+import com.dbs.uwh.backend.model.mapping.BatchCourse;
+import com.dbs.uwh.backend.model.mapping.CourseCategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 

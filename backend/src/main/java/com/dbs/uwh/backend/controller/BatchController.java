@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dbs.uwh.backend.model.Batch;
-import com.dbs.uwh.backend.model.BatchCourse;
-import com.dbs.uwh.backend.model.BatchQuiz;
 import com.dbs.uwh.backend.model.constant.QuizType;
+import com.dbs.uwh.backend.model.mapping.BatchCounselling;
+import com.dbs.uwh.backend.model.mapping.BatchCourse;
+import com.dbs.uwh.backend.model.mapping.BatchQuiz;
+import com.dbs.uwh.backend.model.mapping.BatchSkillSet;
 import com.dbs.uwh.backend.request.BatchRequest;
 import com.dbs.uwh.backend.service.BatchService;
 
@@ -46,5 +48,15 @@ public class BatchController extends GenericRestController<Batch, Long> {
 	@GetMapping("/{id}/quizes")
 	public List<BatchQuiz> findQuizes(@PathVariable("id") Long id, @RequestParam(required = false) String quizType) {
 		return batchService.findByQuizQuizTypeAndBatchId(id, QuizType.valueOf(quizType));
+	}
+	
+	@GetMapping("/{id}/skills")
+	public List<BatchSkillSet> findSkillSets(@PathVariable("id") Long id) {
+		return batchService.findAllSkillSetByBatchId(id);
+	}
+	
+	@GetMapping("/{id}/counselling")
+	public List<BatchCounselling> findCounselling(@PathVariable("id") Long id) {
+		return batchService.findAllCounsellingByBatchId(id);
 	}
 }
