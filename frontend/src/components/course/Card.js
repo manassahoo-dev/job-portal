@@ -47,7 +47,6 @@ function CourseCard({ course }) {
     }
 
     return (
-
         <Card title={course.name}
             extra={
                 <Dropdown
@@ -81,7 +80,6 @@ function CourseCard({ course }) {
                 description={`${course.syllabus}`}
             />
         </Card>
-
     )
 }
 export default CourseCard

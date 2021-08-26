@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dbs.uwh.backend.model.Batch;
 import com.dbs.uwh.backend.model.BatchCourse;
+import com.dbs.uwh.backend.model.BatchQuiz;
+import com.dbs.uwh.backend.model.constant.QuizType;
 import com.dbs.uwh.backend.request.BatchRequest;
 import com.dbs.uwh.backend.service.BatchService;
 
@@ -38,5 +41,10 @@ public class BatchController extends GenericRestController<Batch, Long> {
 	@GetMapping("/{id}/courses")
 	public List<BatchCourse> findCourses(@PathVariable("id") Long id) {
 		return batchService.findCoursesByBatchId(id);
+	}
+	
+	@GetMapping("/{id}/quizes")
+	public List<BatchQuiz> findQuizes(@PathVariable("id") Long id, @RequestParam(required = false) String quizType) {
+		return batchService.findByQuizQuizTypeAndBatchId(id, QuizType.valueOf(quizType));
 	}
 }

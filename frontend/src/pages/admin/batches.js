@@ -1,33 +1,24 @@
 
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Col, Dropdown, Menu, PageHeader, Row, Typography } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import React, { useEffect, useState } from "react";
 import BatchList from '../../components/batch';
+import CounsellingCard from '../../components/batch/Counselling';
 import CourseCard from '../../components/batch/Course';
+import QuizCard from '../../components/batch/Quiz';
+import SkillTestCard from '../../components/batch/SkillTest';
 import AppContext from "../../contexts/AppContext";
 
 const { Title, Text, Link } = Typography;
 function Batches() {
 
     const [batch, setBatch] = useState(null);
-    const [isAddBatch, setIsAddBatch] = useState(false);
-
-    const menu = (
-        <Menu>
-            <Menu.Item>Add Course</Menu.Item>
-            <Menu.Item>Add Aptitude Test</Menu.Item>
-            <Menu.Item>Add Skill Test</Menu.Item>
-            <Menu.Item>Add Counselling</Menu.Item>
-            <Menu.Item>Add Exam</Menu.Item>
-        </Menu>
-    );
 
     const object = {
         isAddEdit: true,
         batch: batch
     }
 
-    const items = [<CourseCard />];
+    const items = [<CourseCard />, <QuizCard quizType="APTITUDE" />, <CounsellingCard />, <QuizCard quizType="EXAM" />, <SkillTestCard />];
     const [contextData, setContextData] = useState(object);
     useEffect(() => {
         setContextData({ ...contextData, batch })
@@ -42,20 +33,11 @@ function Batches() {
                 <Col xs={24} sm={12} md={16}>
                     {batch &&
                         <>
-                            <PageHeader
-                                className="p-0 mb-2"
-                                onBack={isAddBatch ? () => setIsAddBatch(false) : ""}
-                                title={batch.name}
-                                extra={[
-                                    <Dropdown overlay={menu} placement="bottomRight" arrow>
-                                        <Button onClick={() => setIsAddBatch(true)} icon={< PlusOutlined />}>Add Batch Item</Button>
-                                    </Dropdown>
-                                ]}
-                            />
-                            <Row>
-                                {items.map((item, index) => <Col xs={24} sm={12}>
-                                    {item}
-                                </Col>)}
+                            <Row gutter={[12, 12]}>
+                                {items.map((item, index) =>
+                                    <Col xs={24} sm={12} md={8}>
+                                        {item}
+                                    </Col>)}
                             </Row>
                         </>
                     }

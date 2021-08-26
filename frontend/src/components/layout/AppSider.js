@@ -36,7 +36,7 @@ const AppLayout = () => {
             <div className="logo" />
             <Menu defaultSelectedKeys={['1']} mode="inline">
                 {menuItems.map((item, index) =>
-                    <Menu.Item key={item.name} icon={item.icon}>
+                    <Menu.Item className="mb-1" key={item.name} icon={item.icon}>
                         <Link to={item.path}>{item.name}</Link>
                     </Menu.Item>
                 )}

@@ -1,4 +1,4 @@
-import { Col } from "antd";
+import { Col, Empty } from "antd";
 import { useContext } from "react";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
@@ -12,7 +12,14 @@ function CourseList() {
     return (
         <>
             {contextData.isAddEdit ? <Col span={12}>
-                {data.map((course, index) => <Col xs={24} key={index}><CourseCard course={course} /></Col>)}
+                {loading ?
+                    data.map((course, index) => <Col xs={24} key={index}><CourseCard course={course} /></Col>)
+                    :
+                    <Empty
+                        className="vh65 card-center bg-white"
+                        description="No course found">
+                    </Empty>
+                }
             </Col>
                 :
                 <>{data.map((course, index) => <Col xs={24} sm={12} key={index}><CourseCard course={course} /></Col>)}

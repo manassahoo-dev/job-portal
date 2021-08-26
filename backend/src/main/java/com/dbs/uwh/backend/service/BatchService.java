@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.dbs.uwh.backend.dao.BatchCourseDao;
 import com.dbs.uwh.backend.dao.BatchDao;
+import com.dbs.uwh.backend.dao.BatchQuizDao;
 import com.dbs.uwh.backend.model.Batch;
 import com.dbs.uwh.backend.model.BatchCourse;
+import com.dbs.uwh.backend.model.BatchQuiz;
+import com.dbs.uwh.backend.model.constant.QuizType;
 import com.dbs.uwh.backend.request.BatchRequest;
 
 @Service
@@ -22,6 +25,9 @@ public class BatchService extends GenericService<Batch, Long> {
 
 	@Autowired
 	BatchCourseDao batchCourseDao;
+
+	@Autowired
+	BatchQuizDao batchQuizDao;
 
 	public HashMap<String, Integer> BatchStats() {
 		HashMap<String, Integer> batchStats = new HashMap<String, Integer>();
@@ -76,7 +82,10 @@ public class BatchService extends GenericService<Batch, Long> {
 	}
 
 	public List<BatchCourse> findCoursesByBatchId(Long batchId) {
-		return batchCourseDao.findByBatch_Id(batchId);
+		return batchCourseDao.findByBatchId(batchId);
 	}
 
+	public List<BatchQuiz> findByQuizQuizTypeAndBatchId(Long id, QuizType quizType) {
+		return batchQuizDao.findByQuizQuizTypeAndBatchId(quizType, id);
+	}
 }
