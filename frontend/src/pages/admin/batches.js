@@ -1,5 +1,5 @@
 
-import { Col, Row, Typography } from 'antd';
+import { Button, Card, Col, Row, Space, Typography } from 'antd';
 import React, { useEffect, useState } from "react";
 import BatchList from '../../components/batch';
 import CounsellingCard from '../../components/batch/Counselling';
@@ -12,9 +12,9 @@ const { Title, Text, Link } = Typography;
 function Batches() {
 
     const [batch, setBatch] = useState(null);
+    const [isEdit, setIsEdit] = useState(false);
 
     const object = {
-        isAddEdit: true,
         batch: batch
     }
 
@@ -32,14 +32,40 @@ function Batches() {
                 </Col>
                 <Col xs={24} sm={12} md={16}>
                     {batch &&
-                        <>
-                            <Row gutter={[12, 12]}>
-                                {items.map((item, index) =>
-                                    <Col xs={24} sm={12} md={8} key={index}>
-                                        {item}
-                                    </Col>)}
-                            </Row>
-                        </>
+                        <Row gutter={[12, 12]}>
+                            <Col span={24}>
+                                <Card>
+                                    <Row align="middle">
+                                        <Col span={6}>
+                                            <Text type="secondary">Batch</Text><br />
+                                            <Text strong>{batch.name}</Text>
+                                        </Col>
+                                        <Col span={6}>
+                                            <Text type="secondary">Start Date</Text><br />
+                                            <Text strong>{batch.startDate}</Text>
+                                        </Col>
+                                        <Col span={6}>
+                                            <Text type="secondary">End Date</Text><br />
+                                            <Text strong>{batch.endDate}</Text>
+                                        </Col>
+                                        <Col span={6}>
+                                            {
+                                                isEdit ?
+                                                    <>
+                                                        <Button type="primary" className="w-50">Save</Button>
+                                                        <Button className="w-50" onClick={() => setIsEdit(false)}>Cancel</Button>
+                                                    </> : <Button type="primary" className="px-5 float-end" onClick={() => setIsEdit(true)}>Edit</Button>
+                                            }
+
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+                            {items.map((item, index) =>
+                                <Col xs={24} sm={12} md={8} key={index}>
+                                    {item}
+                                </Col>)}
+                        </Row>
                     }
                 </Col>
             </Row>

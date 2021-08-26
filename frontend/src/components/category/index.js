@@ -8,10 +8,10 @@ import AppSpin from "../utility/AppSpin";
 import CategoryAdd from "./Add";
 import CategoryCard from "./Card";
 
-function CategoryList({ id, setCategory }) {
+function CategoryList({ id, setCategory, groupBy }) {
 
     const [isAdd, setIsAdd] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', api.CATEGORY, isAdd);
+    const { data, error, loading } = ApiRequest('GET', `${api.CATEGORY}/${groupBy}`, isAdd);
     return (
         <AppSpin loading={loading} size="large" tip="Fetching categories...">
             <Card className={loading ? 'vh65': 'overflow-auto'}>

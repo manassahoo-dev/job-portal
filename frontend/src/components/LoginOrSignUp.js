@@ -91,7 +91,7 @@ function LoginOrSignUp(props) {
                             name="email"
                             rules={[{ type: 'email', required: true, message: 'Please input your Mail Id!' }]}
                         >
-                            <Input placeholder="abc@def.com" style={{ width: '100%' }} prefix={<MailOutlined style={{ width: 50, align: 'right' }} />} />
+                            <Input placeholder="abc@def.com" style={{ width: '100%' }} prefix={<MailOutlined style={{ padding: '10px', align: 'right' }} />} />
                         </Form.Item>
                     </>
                     :

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import CategoryList from '../../components/category';
 import QuizList from '../../components/quiz';
 import QuizAddEdit from '../../components/quiz/AddEdit';
+import toSentenceCase from '../../components/utility/util';
 import { QUIZ_TYPE } from '../../constants/QUIZ_TYPE';
 import AppContext from '../../contexts/AppContext';
 
@@ -27,15 +28,11 @@ function Quizes(props) {
 
     const [contextData, setContextData] = useState(object);
 
-    const toSentenceCase = (value) => {
-        return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
-    }
-
     return (
         <AppContext.Provider value={{ contextData, setContextData }}>
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8}>
-                    < CategoryList setCategory={setCategory} id={contextData.categoryId}/>
+                    < CategoryList setCategory={setCategory} id={contextData.categoryId} groupBy={quizType}/>
                 </Col>
                 <Col xs={24} sm={12} md={16}>
                     {category &&
