@@ -1,12 +1,12 @@
 export default {
-    users: '/users',
+    USER: '/users',
     BATCH: '/batches',
-    aptitudes: '/aptitudes',
-    categories: '/categories',
-    courses: '/courses',
-    students: '/students',
+    CATEGORY: '/categories',
+    COURSE: '/courses',
+    STUDENT: '/students',
     QUIZ: '/quizes',
     COUNSELLING: '/counselling',
     SKILLSET: '/skillsets',
-    DASHBOARD: '/dashboard'
+    DASHBOARD: '/dashboard',
+    JOB: '/jobs',
 }

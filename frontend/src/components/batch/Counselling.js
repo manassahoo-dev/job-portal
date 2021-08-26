@@ -10,7 +10,7 @@ import AddItem from './Add';
 function CounsellingCard() {
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', `${api.COUNSELLING}/${contextData.batch?.id}/counselling`, contextData);
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/counselling`, contextData);
 
     return (
         <AppSpin loading={loading}>
@@ -22,7 +22,7 @@ function CounsellingCard() {
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ?
-                    <AddItem isAdd={isAdd} ids={data.map(({ id }) => id.courseId)}/>
+                    <AddItem isAdd={isAdd} path={api.COUNSELLING}  ids={data.map(({ id }) => id.courseId)}/>
                     :
 
                     <List
@@ -31,9 +31,9 @@ function CounsellingCard() {
                         renderItem={item => (
                             <List.Item className="px-0">
                                 <List.Item.Meta
-                                    title={<b>{item.course.name}</b>}
+                                    title={<b>{item.counselling.name}</b>}
                                     description={<Paragraph type="secondary" ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
-                                        {item.course.description}
+                                        {item.counselling.description}
                                     </Paragraph>}
                                 />
                             </List.Item>

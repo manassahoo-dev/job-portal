@@ -1,5 +1,5 @@
 
-package com.dbs.uwh.backend.model;
+package com.dbs.uwh.backend.model.mapping;
 
 import java.io.Serializable;
 

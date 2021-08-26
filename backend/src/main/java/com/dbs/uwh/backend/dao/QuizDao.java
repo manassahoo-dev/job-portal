@@ -15,6 +15,7 @@ import com.dbs.uwh.backend.model.constant.QuizType;
 public interface QuizDao extends GenericDao<Quiz, Long> {
 	List<Quiz> findByQuizTypeAndCategories_categoryId(QuizType quizType, Long categoryId);
 	List<Quiz> findByCategories_categoryId(Long categoryId);
+	List<Quiz> findByQuizType(QuizType quizType);
 	
 	boolean existsQuizByCategories_categoryIdAndCategories_quizId(Long categoryId, Long quizId);
 

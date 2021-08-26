@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.dbs.uwh.backend.model.mapping.CourseCategory;
 import com.dbs.uwh.backend.model.mapping.JobCategory;
 import com.dbs.uwh.backend.model.mapping.QuizCategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;

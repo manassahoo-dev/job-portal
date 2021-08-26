@@ -35,7 +35,7 @@ function Batches() {
                         <>
                             <Row gutter={[12, 12]}>
                                 {items.map((item, index) =>
-                                    <Col xs={24} sm={12} md={8}>
+                                    <Col xs={24} sm={12} md={8} key={index}>
                                         {item}
                                     </Col>)}
                             </Row>

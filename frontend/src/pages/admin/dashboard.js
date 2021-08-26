@@ -6,10 +6,13 @@ import { Card, Col, List, Row, Statistic, Table, Tabs, Timeline, Avatar } from '
 import Meta from 'antd/lib/card/Meta';
 import Text from 'antd/lib/typography/Text';
 import Title from 'antd/lib/typography/Title';
+import api from '../../services/api';
+import ApiRequest from '../../services/ApiRequest';
 
 const { TabPane } = Tabs;
 
 const statItems = [
+    { name: 'Student', icon: <UserOutlined />, category1: { name: 'Male', count: 230 }, category2: { name: 'Female', count: 130 } },
     { name: 'Student', icon: <UserOutlined />, category1: { name: 'Male', count: 230 }, category2: { name: 'Female', count: 130 } },
     { name: 'Batch', icon: <TeamOutlined />, category1: { name: 'Completed', count: 161 }, category2: { name: 'Inprogress', count: 12 } },
     { name: 'Course', icon: <BookOutlined />, category1: { name: 'Reserve', count: 88 }, category2: { name: 'Active', count: 32 } },
@@ -102,6 +105,8 @@ const cardTitles = ['Skill Test', 'Counselling', 'Volunteering Sessions Attended
 
 function AdminDashBoard(params) {
 
+    const { data, error, loading } = ApiRequest('GET', api.DASHBOARD);
+
     const dataCard = (
         <Card bordered={false} style={contentStyle} title={<Text strong>Ongoing Batch</Text>}>
             <Tabs type="card">
@@ -143,12 +148,12 @@ function AdminDashBoard(params) {
         <>
             <Row gutter={[16, 16]}>
                 {statItems.map((item) =>
-                    <Col xs={24} sm={12} md={8} lg={8} xl={6} xxl={4}>
+                    <Col xs={24} sm={12} md={8} lg={4}>
                         <Card hoverable>
                             <Row>
                                 <Col span={18} className="mb-4">
                                     <Title level={3} className="m-0" type="success">{item.name}</Title>
-                                    <Text>Total {item.name} {item.category1.count + item.category2.count}</Text>
+                                    <Text> {item.name} {item.category1.count + item.category2.count}</Text>
                                 </Col>
                                 <Col span={6} className="mb-4">
                                     <span style={avatar}>{item.icon}</span>

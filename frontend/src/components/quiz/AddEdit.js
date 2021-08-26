@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
+import toSentenceCase from "../utility/util";
 import ValidationMessage from "../utility/ValidationMessage";
 import Question from "./Question";
 
@@ -55,8 +56,8 @@ function QuizAddEdit() {
             >
                 <Form.Item label="id" name="id" hidden><Input /></Form.Item>
                 <Form.Item label="Quiz Type" name="quizType" hidden><Input /></Form.Item>
-                <Form.Item label="Quiz Name" name="name" rules={[{ required: true }]}><Input /></Form.Item>
-                <Form.Item label="Quiz Description" name="description" ><TextArea rows={3} /></Form.Item>
+                <Form.Item label={`${toSentenceCase(contextData.quizType)} Name`} name="name" rules={[{ required: true }]}><Input /></Form.Item>
+                <Form.Item label={`${toSentenceCase(contextData.quizType)} Description`} name="description" ><TextArea rows={3} /></Form.Item>
                 <Form.Item>
                     <Question />
                 </Form.Item>

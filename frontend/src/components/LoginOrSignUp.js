@@ -3,7 +3,7 @@ import { Alert, Button, Card, Form, Input, message, Tabs, Typography } from 'ant
 import { useState } from 'react';
 import OtpInput from 'react-otp-input';
 import { Link, useHistory } from 'react-router-dom';
-import path from "../services/api";
+import API from "../services/api";
 import userService from '../services/api.service';
 
 const { Title, Text } = Typography;
@@ -35,7 +35,7 @@ function LoginOrSignUp(props) {
         }
         sessionStorage.setItem('user', JSON.stringify(userData));
         type === 'Login' ?
-            history.push('/') :
+            history.push('/admin/dashboard') :
             history.push({
                 pathname: '/register',
                 state: { Data: data }
@@ -44,7 +44,7 @@ function LoginOrSignUp(props) {
 
     const isExists = (values) => {
 
-        userService.exists(path.users, values)
+        userService.exists(API.USER, values)
             .then(response => {
                 setOTPSentState(response.data);
                 setUserExistsState(response.data);

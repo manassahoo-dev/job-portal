@@ -1,25 +1,21 @@
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
-import { Card, Col, Descriptions, Dropdown, Empty, List, Menu, Rate } from "antd";
+import { Card, Dropdown, Menu, message, Rate } from "antd";
 import Meta from 'antd/lib/card/Meta';
 import confirm from 'antd/lib/modal/confirm';
 import Text from 'antd/lib/typography/Text';
 import { useContext } from 'react';
 import AppContext from '../../contexts/AppContext';
 import api from '../../services/api';
-import ApiRequest from '../../services/ApiRequest';
-import ACTIONTYPES from '../utility/ACTIONTYPES';
-import AppSpin from '../utility/AppSpin';
+import apiService from '../../services/api.service';
 
 
-function CourseCards() {
+function CourseCard({ course }) {
 
     const { contextData, setContextData } = useContext(AppContext);
-    const { data, error, loading } = ApiRequest('GET', `${api.courses}/category/${contextData.categoryId}`, contextData);
 
-    const handleMenuClick = (e, { item }) => {
-        console.log('##', item)
+    const handleMenuClick = (e) => {
         e.key === 'edit' ?
-            setContextData({ ...contextData, selectedItem: item, isAddEdit: true }) :
+            setContextData({ ...contextData, selectedItem: course, isAddEdit: true }) :
             deleteCourse();
     }
 
@@ -28,7 +24,7 @@ function CourseCards() {
             title: <Card>
                 <Meta
                     title='Are you sure delete this Course?'
-                    description={`${data.name} - ${data.duration}`}
+                    description={`${course.name} - ${course.duration}`}
                 />
             </Card>,
             icon: <ExclamationCircleOutlined />,
@@ -36,69 +32,54 @@ function CourseCards() {
             okType: 'danger',
             cancelText: 'No',
             onOk() {
-                console.log('onOk');
+                apiService.delete(api.COURSE, course.id)
+                    .then((response) => {
+                        message.success('Course deleted successfully');
+                        setContextData({ ...contextData, isAddEdit: false, selectedItem: {} })
+                    })
+                    .catch((error) => {
+                        message.error(error.response.data.message);
+                    });
             },
             onCancel() {
-                console.log('Cancel');
             },
         });
     }
 
     return (
-        <Col xs={24} md={16} lg={10} xl={24}>
-            <AppSpin loading={loading}>
-                {data.length ?
-                    <List
-                        className="overflow-auto"
-                        itemLayout="horizontal"
-                        dataSource={data}
-                        renderItem={item => (
-                            <List.Item className="px-2">
-                                <Card title={item.name}
-                                    extra={
-                                        <Dropdown
-                                            overlay={
-                                                <Menu onClick={(e) => { handleMenuClick(e, { item }) }}>
-                                                    <Menu.Item key='edit' icon={<EditOutlined />}>
-                                                        Edit
-                                                    </Menu.Item>
-                                                    <Menu.Item danger key='delete' icon={<DeleteOutlined />} >
-                                                        Delete
-                                                    </Menu.Item>
-                                                </Menu>
-                                            } placement="bottomRight">
-                                            <MoreOutlined />
-                                        </Dropdown>
-                                    }
-                                    hoverable
-                                >
-                                    <Rate defaultValue={2} />
-                                    <Meta
-                                        title="Duration"
-                                        description={`${item.duration} Days`}
-                                    />
-                                    <Meta
-                                        title="Description"
-                                        description={`${item.description}`}
-                                    />
-                                    <Meta
-                                        title="Syllabus"
-                                        description={`${item.syllabus}`}
-                                    />
-                                </Card>
-                            </List.Item>
-
-                        )}
-                    />
-
-                    :
-                    <Empty
-                        className="vh65 card-center bg-white"
-                        description="No course found">
-                    </Empty>
-                }
-            </AppSpin >
-        </Col>
+        <Card title={course.name}
+            extra={
+                <Dropdown
+                    overlay={
+                        <Menu onClick={(e) => { handleMenuClick(e) }}>
+                            <Menu.Item key='edit' icon={<EditOutlined />}>
+                                Edit
+                            </Menu.Item>
+                            <Menu.Item danger key='delete' icon={<DeleteOutlined />} >
+                                Delete
+                            </Menu.Item>
+                        </Menu>
+                    } placement="bottomRight">
+                    <MoreOutlined />
+                </Dropdown>
+            }
+            hoverable
+        >
+            <Meta
+                title="Duration"
+            />
+            <Text type="secondary">{course.duration} Days </Text>
+            <Text type="secondary">In Week 5 Days (Mon - Fri)</Text>
+            <br /> <br />
+            <Meta
+                title="Description"
+                description={`${course.description}`}
+            /><br />
+            <Meta
+                title="Syllabus"
+                description={`${course.syllabus}`}
+            />
+        </Card>
     )
 }
-export default CourseCards
+export default CourseCard

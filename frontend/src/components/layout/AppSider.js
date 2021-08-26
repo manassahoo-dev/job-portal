@@ -25,7 +25,7 @@ const AppLayout = () => {
         { name: 'Skill Test', icon: <BiBookReader />, path: '/admin/skills' },
         { name: 'Counselling', icon: <TiGroup />, path: '/admin/counselling' },
         { name: 'Aptitude Test', icon: <IoIosBookmarks />, path: '/admin/aptitudes' },
-        { name: 'Volunteering', icon: <RiHandHeartFill />, path: '/admin/volunteering' },
+        { name: 'Enquiry', icon: <RiHandHeartFill />, path: '/admin/enquiry' },
         { name: 'Exam', icon: <ImPen />, path: '/admin/exams' },
         { name: 'Job', icon: <GiSuitcase />, path: '/admin/jobs' },
         { name: 'Report', icon: <FaGraduationCap />, path: '/admin/reports' },
