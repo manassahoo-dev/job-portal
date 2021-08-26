@@ -2,9 +2,12 @@ package com.dbs.uwh.backend.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -60,10 +63,5 @@ public class Student extends User {
 	private boolean placement;
 
 	private boolean counselling;
-
-	/*
-	 * @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval =
-	 * true) private Set<StudentQuiz> quizs = new HashSet<>();
-	 */
 
 }
