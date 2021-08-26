@@ -1,8 +1,8 @@
 import { BackTop, Layout } from 'antd';
 import React, { Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
+import PrivateRoute from '../../PrivateRoute';
 import routes from '../../routes';
-
 const { Content } = Layout;
 
 const AppContent = (props) => {
@@ -13,7 +13,7 @@ const AppContent = (props) => {
                     {routes.map((route, idx) => {
                         return (
                             route.component && (
-                                <Route
+                                <PrivateRoute
                                     key={idx}
                                     path={route.path}
                                     exact={route.exact}
@@ -24,7 +24,7 @@ const AppContent = (props) => {
                                         </>
                                     )}
                                 >
-                                </Route>
+                                </PrivateRoute>
                             )
                         )
                     })}
