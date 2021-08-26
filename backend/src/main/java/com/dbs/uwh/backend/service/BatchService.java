@@ -61,7 +61,6 @@ public class BatchService extends GenericService<Batch, Long> {
 
 		Set<Long> courseIds = request.getCourseIds();
 		Set<Long> volunteeringIds = request.getVolunteeringIds();
-		Set<Long> counsellingIds = request.getCounsellingIds();
 
 		if (courseIds != null) {
 			for (Long courseId : courseIds) {
@@ -78,15 +77,6 @@ public class BatchService extends GenericService<Batch, Long> {
 						.existsBatchByVolunteerings_volunteeringIdAndVolunteerings_batchId(request.getBatchId(), vId);
 				if (!isExists)
 					batchDao.saveBatchVolunteering(request.getBatchId(), vId);
-			}
-		}
-		
-		if (!counsellingIds.isEmpty()) {
-			for (Long cId : counsellingIds) {
-				boolean isExists = batchDao.existsBatchByCounsellings_counsellingIdAndCounsellings_batchId(request.getBatchId(),
-						cId);
-				if (!isExists)
-					batchDao.saveBatchVolunteering(request.getBatchId(), cId);
 			}
 		}
 	}
