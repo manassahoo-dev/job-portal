@@ -24,7 +24,7 @@ function AddEditStudent() {
                 ...values,
                 role: "JOB_SEEKER",
             }
-            apiService.create(api.students, updatedValues)
+            apiService.create(api.STUDENT, updatedValues)
                 .then((response) => {
                     resetContextData()
                 })
@@ -39,7 +39,7 @@ function AddEditStudent() {
                 role: "JOB_SEEKER",
             }
             console.log(contextData.selectedItem)
-            apiService.update(api.students, updatedValues.id, updatedValues)
+            apiService.update(api.STUDENT, updatedValues.id, updatedValues)
                 .then((response) => {
                     resetContextData()
                 })

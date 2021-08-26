@@ -32,7 +32,7 @@ function CourseCard({ course }) {
             okType: 'danger',
             cancelText: 'No',
             onOk() {
-                apiService.delete(api.courses, course.id)
+                apiService.delete(api.COURSE, course.id)
                     .then((response) => {
                         message.success('Course deleted successfully');
                         setContextData({ ...contextData, isAddEdit: false, selectedItem: {} })

@@ -9,7 +9,7 @@ function CategoryAdd({ setIsAdd }) {
     const [form] = Form.useForm();
 
     const onFinish = (values) => {
-        apiService.create(api.categories, values)
+        apiService.create(api.CATEGORY, values)
             .then((response) => {
                 message.success('Category added successfully');
                 setIsAdd(false);

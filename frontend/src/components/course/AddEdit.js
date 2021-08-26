@@ -28,7 +28,7 @@ function AddEditCourse() {
     }
 
     const create = (values) => {
-        apiService.create(api.courses, values)
+        apiService.create(api.COURSE, values)
             .then((response) => {
                 message.success('Course added successfully');
                 form.resetFields();
@@ -41,7 +41,7 @@ function AddEditCourse() {
 
     const update = (values) => {
         console.log(values)
-        apiService.update(api.courses, values.id, values)
+        apiService.update(api.COURSE, values.id, values)
             .then((response) => {
                 resetContextData()
             })

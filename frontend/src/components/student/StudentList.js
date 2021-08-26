@@ -16,7 +16,7 @@ function StudentList() {
 
     const { contextData, setContextData } = useContext(AppContext);
 
-    const { data, error, loading } = ApiRequest('GET', api.students, contextData);
+    const { data, error, loading } = ApiRequest('GET', api.STUDENT, contextData);
     const columns = [
         {
             title: 'SL No',
@@ -94,7 +94,7 @@ function StudentList() {
             okType: 'danger',
             cancelText: 'No',
             onOk() {
-                apiService.delete(api.users, item.id)
+                apiService.delete(api.USER, item.id)
                     .then((response) => {
                         setContextData({
                             ...contextData,

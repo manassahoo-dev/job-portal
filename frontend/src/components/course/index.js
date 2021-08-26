@@ -7,7 +7,7 @@ import CourseCard from "./Card";
 
 function CourseList() {
     const { contextData } = useContext(AppContext);
-    const { data, error, loading } = ApiRequest('GET', `${api.courses}/category/${contextData.categoryId}`, contextData);
+    const { data, error, loading } = ApiRequest('GET', `${api.COURSE}/category/${contextData.categoryId}`, contextData);
 
     return (
         <>

@@ -11,7 +11,7 @@ import CategoryCard from "./Card";
 function CategoryList({ id, setCategory }) {
 
     const [isAdd, setIsAdd] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', api.categories, isAdd);
+    const { data, error, loading } = ApiRequest('GET', api.CATEGORY, isAdd);
     return (
         <AppSpin loading={loading} size="large" tip="Fetching categories...">
             <Card className={loading ? 'vh65': 'overflow-auto'}>

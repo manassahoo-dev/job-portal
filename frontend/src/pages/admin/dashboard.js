@@ -107,7 +107,6 @@ function AdminDashBoard(params) {
 
     const { data, error, loading } = ApiRequest('GET', api.DASHBOARD);
 
-    console.log('@@', Object.keys(data))
     const dataCard = (
         <Card bordered={false} style={contentStyle} title={<Text strong>Ongoing Batch</Text>}>
             <Tabs type="card">
