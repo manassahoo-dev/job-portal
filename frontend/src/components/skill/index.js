@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
+import AppEmpty from "../utility/AppEmpty";
 import SkillSetCard from "./Card";
 
 function SkillList() {
@@ -11,14 +12,23 @@ function SkillList() {
 
     return (
         <>
-            {contextData.isAddEdit ? <Col span={12}>
-                {data.map((skillSet, index) => <Col xs={24} key={index}><SkillSetCard skillSet={skillSet} /></Col>)}
-            </Col>
-                :
-                <>{data.map((skillSet, index) => <Col xs={24} sm={12} key={index}><SkillSetCard skillSet={skillSet} /></Col>)}
+            {data.length ?
+                <>
+                    {contextData.isAddEdit ? <Col span={12}>
+                        {data.map((skillSet, index) => <Col xs={24} key={index}><SkillSetCard skillSet={skillSet} /></Col>)}
+                    </Col>
+                        :
+                        <>{data.map((skillSet, index) => <Col xs={24} sm={12} key={index}><SkillSetCard skillSet={skillSet} /></Col>)}
+                        </>
+                    }
                 </>
+                :
+                <Col span={contextData.isAddEdit ? 12 : 24}>
+                    <AppEmpty name="Skill" />
+                </Col>
             }
         </>
+
     );
 }
 export default SkillList;
