@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
+import AppEmpty from "../utility/AppEmpty";
 import CounsellingCard from "./Card";
 
 function CounsellingList() {
@@ -11,14 +12,23 @@ function CounsellingList() {
 
     return (
         <>
-            {contextData.isAddEdit ? <Col span={12}>
-                {data.map((counselling, index) => <Col xs={24} key={index}><CounsellingCard counselling={counselling} /></Col>)}
-            </Col>
-                :
-                <>{data.map((counselling, index) => <Col xs={24} sm={12} key={index}><CounsellingCard counselling={counselling} /></Col>)}
+            {data.length ?
+                <>
+                    {contextData.isAddEdit ? <Col span={12}>
+                        {data.map((counselling, index) => <Col xs={24} key={index}><CounsellingCard counselling={counselling} /></Col>)}
+                    </Col>
+                        :
+                        <>{data.map((counselling, index) => <Col xs={24} sm={12} key={index}><CounsellingCard counselling={counselling} /></Col>)}
+                        </>
+                    }
                 </>
+                :
+                <Col span={contextData.isAddEdit ? 12 : 24}>
+                    <AppEmpty name="Counselling" />
+                </Col>
             }
         </>
+
     );
 }
 export default CounsellingList;
