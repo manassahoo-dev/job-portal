@@ -15,5 +15,6 @@ public class BatchRequest {
 	private Long batchId;
 	private Set<Long> courseIds;
 	private Set<Long> volunteeringIds;
+	private Set<Long> counsellingIds;
 	private Set<Long> quizIds;
 }

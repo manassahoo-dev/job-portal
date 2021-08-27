@@ -58,7 +58,7 @@ public class Batch extends BaseEntity {
 
 	@Transient
 	private Set<Long> courseIds;
-
+	
 	@Transient
 	private Set<Long> volunteeringIds;
 }

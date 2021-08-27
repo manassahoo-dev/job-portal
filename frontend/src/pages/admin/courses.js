@@ -25,7 +25,7 @@ function Courses() {
         <AppContext.Provider value={{ contextData, setContextData }}>
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8} lg={8} xl={8}>
-                    < CategoryList setCategory={setCategory} id={contextData.categoryId} />
+                    < CategoryList setCategory={setCategory} id={contextData.categoryId} groupBy="course"/>
                 </Col>
 
                 <Col xs={24} sm={12} md={16}>

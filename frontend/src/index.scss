@@ -33,9 +33,13 @@ input[type="number"] {
   font-weight: bold;
 }
 .logo {
-  height: 32px;
-  margin: 16px;
-  background: #00b7ff;
+    height: 32px;
+    margin: 16px;
+    background: #fa7879;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
 }
 ::-webkit-scrollbar {
   width: 3px;
@@ -68,7 +72,6 @@ input[type="number"] {
 .active {
   border: 1px solid blue !important;
 }
-
 .table-row-dark {
   background-color: #a3a2a2;
 }

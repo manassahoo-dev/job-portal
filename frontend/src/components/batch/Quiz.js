@@ -5,6 +5,7 @@ import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
 import AppSpin from '../utility/AppSpin';
+import toSentenceCase from '../utility/util';
 import AddItem from './Add';
 
 function QuizCard({ quizType}) {
@@ -18,7 +19,7 @@ function QuizCard({ quizType}) {
                 <PageHeader
                     className="p-0 mb-1"
                     onBack={isAdd ? () => setIsAdd(false) : ""}
-                    title={quizType}
+                    title={toSentenceCase(quizType)}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ?

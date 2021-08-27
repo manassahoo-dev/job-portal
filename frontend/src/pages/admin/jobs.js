@@ -25,7 +25,7 @@ function Jobs() {
         <AppContext.Provider value={{ contextData, setContextData }}>
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8}>
-                    < CategoryList setCategory={setCategory} id={contextData.categoryId} />
+                    < CategoryList setCategory={setCategory} id={contextData.categoryId} groupBy="job"/>
                 </Col>
                 <Col xs={24} sm={12} md={16}>
                     {category &&
