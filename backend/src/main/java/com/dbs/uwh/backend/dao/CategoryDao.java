@@ -10,7 +10,7 @@ import com.dbs.uwh.backend.model.CategoryCount;
 
 @Repository
 public interface CategoryDao extends GenericDao<Category, Long> {
-
+	
 	@Query(nativeQuery = true, value = "SELECT c.id, c.name, count(qc.quiz_id) AS count FROM category c LEFT JOIN quiz_category qc ON (c.id = qc.category_id ) GROUP BY c.id")
 	List<CategoryCount> groupByAptitudeCount();
 	

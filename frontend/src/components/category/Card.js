@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { List, Menu, Typography } from "antd";
+import { Badge, List, Menu, Typography } from "antd";
 import React from "react";
 
 const { Text, Link } = Typography;
@@ -24,10 +24,10 @@ function CategoryCard({ id, item, setCategory }) {
             className={item.id === id ? "custom-card active" : "custom-card"}
             onClick={() => { setCategory(item) }}
         >
-            <Text type={item.count > 0 ? "success" : "secondary"}><b className="px-2">{item.count}</b></Text>
             <List.Item.Meta
-                title={<Text type={item.count > 0 ? "success" : "secondary"}><b>{item.name}</b></Text>}
+                title={<Text><b>{item.name}</b></Text>}
             />
+            <Badge style={{ backgroundColor: '#52c41a', margin: '0 10px' }} count={item.count > 0 ? item.count : ''} />
         </List.Item>
     );
 }

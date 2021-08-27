@@ -1,12 +1,11 @@
-
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Layout, Menu, Space, Switch } from 'antd';
+import { Button, Dropdown, Layout, Menu, Space, Switch, Typography } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import React, { useState } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import { Link } from "react-router-dom";
-import AppBreadCrumb from './AppBreadcrumb';
 
+const { Text } = Typography;
 const { Header } = Layout;
 
 const AppHeader = () => {
@@ -36,6 +35,7 @@ const AppHeader = () => {
             <Menu.Item key="2" icon={<UserOutlined />}>
                 Setting
             </Menu.Item>
+            <Menu.Divider />
             <Menu.Item key="3">
                 <Link to="/" onClick={logout}><LogoutOutlined /> Logout</Link>
             </Menu.Item>
@@ -44,13 +44,13 @@ const AppHeader = () => {
 
     return (
         <Header>
-            {/* <AppBreadCrumb /> */}
             <div onClick={handleClick} mode="horizontal" style={{ float: 'right' }}>
                 <Space size="large">
                     <Switch checked={isDarkMode} onChange={toggleTheme} />
                     {user ?
                         <Dropdown overlay={menu} placement="bottomCenter" placement="bottomRight" arrow style={{width: '150px'}}>
-                            <a><Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar></a>
+                            <a><Avatar style={{ backgroundColor: '#f56a00' }}>{user?.firstName.charAt(0).toUpperCase()}</Avatar>
+                                <Text className="mx-2">{user?.firstName}&nbsp;{user?.lastName}</Text></a>
                         </Dropdown>
                         :
                         <Button type='primary'>
