@@ -1,6 +1,7 @@
 import { Button, Card, Form, Input, List, message, PageHeader } from "antd";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ApiRequest from "../../services/ApiRequest";
@@ -8,7 +9,7 @@ import AppError from "../utility/AppError";
 import AppSpin from "../utility/AppSpin";
 import ValidationMessage from "../utility/ValidationMessage";
 
-function BatchList({ id, setBatch }) {
+function BatchList({ setBatch }) {
 
     const onFinish = (values) => {
         apiService.create(api.BATCH, values)
@@ -27,7 +28,9 @@ function BatchList({ id, setBatch }) {
     const [form] = Form.useForm();
     const [isAddBatch, setIsAddBatch] = useState(false);
     const { data, error, loading } = ApiRequest('GET', api.BATCH, isAddBatch);
+    const { contextData } = useContext(AppContext);
 
+    console.log(contextData);
     return (
         <AppSpin loading={loading}>
             <Card>
@@ -62,7 +65,9 @@ function BatchList({ id, setBatch }) {
                                     itemLayout="horizontal"
                                     dataSource={data}
                                     renderItem={item => (
-                                        <List.Item className="custom-card" onClick={() => setBatch(item)}>
+                                        <List.Item 
+                                            className={item?.id === contextData?.batch?.id ? "custom-card active" : "custom-card"}
+                                        onClick={() => setBatch(item)}>
                                             <List.Item.Meta
                                                 title={<Button className="p-0" type="link" size="small" >{item.name}</Button>}
                                                 description={`${moment(item.startDate).format("Do MMM YY")} - ${moment(item.endDate).format("Do MMM YY")}`}

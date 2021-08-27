@@ -38,6 +38,8 @@ public class Course extends BaseEntity {
 
 	@NotNull
 	private Integer duration;
+	
+	private String days;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)

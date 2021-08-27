@@ -1,6 +1,8 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { List, Menu } from "antd";
+import { List, Menu, Typography } from "antd";
 import React from "react";
+
+const { Text, Link } = Typography;
 
 function CategoryCard({ id, item, setCategory }) {
 
@@ -19,15 +21,12 @@ function CategoryCard({ id, item, setCategory }) {
 
     return (
         <List.Item
-            // actions={[<Dropdown overlay={actions} placement="bottomRight">
-            //     <Button shape="circle" icon={<MoreOutlined />} />
-            // </Dropdown>]}
             className={item.id === id ? "custom-card active" : "custom-card"}
             onClick={() => { setCategory(item) }}
         >
+            <Text type={item.count > 0 ? "success" : "secondary"}><b className="px-2">{item.count}</b></Text>
             <List.Item.Meta
-                title={item.name}
-            // description={`Created on ${moment(item.startDate).format("Do MMM YY")}`}
+                title={<Text type={item.count > 0 ? "success" : "secondary"}><b>{item.name}</b></Text>}
             />
         </List.Item>
     );
