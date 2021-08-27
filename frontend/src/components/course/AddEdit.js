@@ -24,7 +24,7 @@ function AddEditCourse() {
             id: contextData.selectedItem.id,
             categoryId: contextData.categoryId,
         }
-        contextData.selectedItem.id ? update(updatedValues) : create(updatedValues)
+        create(updatedValues)
     }
 
     const create = (values) => {
@@ -36,17 +36,6 @@ function AddEditCourse() {
             })
             .catch((error) => {
                 message.error(error.response.data.message);
-            });;
-    }
-
-    const update = (values) => {
-        console.log(values)
-        apiService.update(api.COURSE, values.id, values)
-            .then((response) => {
-                resetContextData()
-            })
-            .catch((error) => {
-                message.error(error.response.message);
             });;
     }
 
@@ -126,7 +115,7 @@ function AddEditCourse() {
                             <Form.Item><Button type="default" htmlType="reset" block onClick={onCancel}>Cancel</Button></Form.Item>
                         </Col>
                         <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                            <Form.Item><Button type="primary" htmlType="submit" block>{ }Create</Button></Form.Item>
+                            <Form.Item><Button type="primary" htmlType="submit" block>{contextData.selectedItem?.id ? "Update" : "Create"} Course</Button></Form.Item>
                         </Col>
                     </Row>
                 </Form>
