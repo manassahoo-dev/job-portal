@@ -11,10 +11,12 @@ import com.dbs.uwh.backend.model.Batch;
 @Repository
 public interface BatchDao extends GenericDao<Batch, Long> {
 
-	boolean existsBatchByCourses_courseIdAndCourses_batchId(Long courseId, Long batchId);	
-	boolean existsBatchByVolunteerings_volunteeringIdAndVolunteerings_batchId(Long volunteeringId, Long batchId);
-	boolean existsBatchByQuizes_quizIdAndQuizes_batchId(Long volunteeringId, Long batchId);
-	
+	boolean existsBatchByCoursesBatchIdAndCoursesCourseId(Long batchId, Long courseId);
+	boolean existsBatchByVolunteeringsBatchIdAndVolunteeringsVolunteeringId(Long batchId, Long volunteeringId);
+	boolean existsBatchByQuizesBatchIdAndQuizesQuizId(Long batchId, Long quizId);
+	boolean existsBatchByCounsellingsBatchIdAndCounsellingsCounsellingId(Long batchId, Long counsellingId);
+	boolean existsBatchBySkillSetsBatchIdAndSkillSetsSkillSetId(Long batchId, Long skillSetId);
+
 	@Modifying
 	@Transactional
 	@Query(value = "DELETE FROM quiz_category WHERE quiz_id = ?1", nativeQuery = true)
@@ -22,18 +24,27 @@ public interface BatchDao extends GenericDao<Batch, Long> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "INSERT INTO batch_course (course_id, batch_id, created_on) VALUES (?1, ?2, current_timestamp())", nativeQuery = true)
-	public void saveBatchCourse(Long courseId, Long batchId);
-	
-	@Modifying
-	@Transactional
-	@Query(value = "INSERT INTO batch_volunteering (volunteering_id, batch_id, created_on) VALUES (?1, ?2, current_timestamp())", nativeQuery = true)
-	public void saveBatchVolunteering(Long volunteeringId, Long batchId);
-	
-	@Modifying
-	@Transactional
-	@Query(value = "INSERT INTO batch_volunteering (quiz_id, batch_id, created_on) VALUES (?1, ?2, current_timestamp())", nativeQuery = true)
-	public void saveBatchQuiz(Long quizId, Long batchId);
-	
+	@Query(value = "INSERT INTO batch_course (batch_id,course_id, created_on) VALUES (?1, ?2, NOW())", nativeQuery = true)
+	public void saveBatchCourse(Long batchId, Long courseId);
 
+	@Modifying
+	@Transactional
+	@Query(value = "INSERT INTO batch_volunteering (batch_id, volunteering_id, created_on) VALUES (?1, ?2, NOW())", nativeQuery = true)
+	public void saveBatchVolunteering(Long batchId, Long volunteeringId);
+
+	@Modifying
+	@Transactional
+	@Query(value = "INSERT INTO batch_quiz (batch_id, quiz_id, created_on) VALUES (?1, ?2, NOW())", nativeQuery = true)
+	public void saveBatchQuiz(Long batchId, Long quizId);
+	
+	@Modifying
+	@Transactional
+	@Query(value = "INSERT INTO batch_counselling (batch_id, counselling_id, created_on) VALUES (?1, ?2, NOW())", nativeQuery = true)
+	public void saveBatchCounselling(Long batchId, Long counsellingId);
+
+	@Modifying
+	@Transactional
+	@Query(value = "INSERT INTO batch_skill_set (batch_id, skill_set_id, created_on) VALUES (?1, ?2, NOW())", nativeQuery = true)
+	public void saveBatchSkillSet(Long batchId, Long skillSetId);
 }
+

@@ -11,8 +11,16 @@ import AddItem from './Add';
 function QuizCard({ quizType}) {
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/quizes?quizType=${quizType}`, contextData);
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/quizes?quizType=${quizType}`, isAdd);
 
+    const param = {
+        isAdd: isAdd,
+        setIsAdd: setIsAdd,
+        path: `${api.QUIZ}/type/${quizType}`,
+        existingIds: data.map(({ id }) => id.quizId),
+        name: "quizIds",
+        batchId: contextData.batch?.id
+    }
     return (
         <AppSpin loading={loading}>
             <Card>
@@ -23,7 +31,7 @@ function QuizCard({ quizType}) {
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ?
-                    <AddItem isAdd={isAdd} path={`${api.QUIZ}/type/${quizType}`} ids={data.map(({ id }) => id.courseId)}/>
+                    <AddItem param={param} />
                     :
 
                     <List

@@ -23,7 +23,7 @@ import lombok.Setter;
 @Setter
 public class JobCategory {
 	@EmbeddedId
-    private QuizCategoryId id;
+    private JobCategoryId id;
  
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("jobId")

@@ -27,10 +27,14 @@ public class BatchService extends GenericService<Batch, Long> {
 	@Autowired
 	BatchDao batchDao;
 
-	@Autowired BatchCourseDao batchCourseDao;
-	@Autowired BatchQuizDao batchQuizDao;
-	@Autowired BatchSkillSetDao batchSkillSetDao;
-	@Autowired BatchCounsellingDao batchCounsellingDao;
+	@Autowired
+	BatchCourseDao batchCourseDao;
+	@Autowired
+	BatchQuizDao batchQuizDao;
+	@Autowired
+	BatchSkillSetDao batchSkillSetDao;
+	@Autowired
+	BatchCounsellingDao batchCounsellingDao;
 
 	public HashMap<String, Integer> BatchStats() {
 		HashMap<String, Integer> batchStats = new HashMap<String, Integer>();
@@ -65,30 +69,48 @@ public class BatchService extends GenericService<Batch, Long> {
 		Set<Long> courseIds = request.getCourseIds();
 		Set<Long> volunteeringIds = request.getVolunteeringIds();
 		Set<Long> quizIds = request.getQuizIds();
+		Set<Long> counsellingIds = request.getCounsellingIds();
+		Set<Long> skillTestIds = request.getSkillTestIds();
+		
+		Long batchId = request.getBatchId();
 
 		if (courseIds != null) {
 			for (Long courseId : courseIds) {
-				boolean isExists = batchDao.existsBatchByCourses_courseIdAndCourses_batchId(request.getBatchId(),
-						courseId);
+				boolean isExists = batchDao.existsBatchByCoursesBatchIdAndCoursesCourseId(batchId, courseId);
 				if (!isExists)
-					batchDao.saveBatchCourse(request.getBatchId(), courseId);
+					batchDao.saveBatchCourse(batchId, courseId);
 			}
 		}
 
 		if (volunteeringIds != null) {
-			for (Long vId : volunteeringIds) {
-				boolean isExists = batchDao
-						.existsBatchByVolunteerings_volunteeringIdAndVolunteerings_batchId(request.getBatchId(), vId);
+			for (Long volunteeringId : volunteeringIds) {
+				boolean isExists = batchDao.existsBatchByVolunteeringsBatchIdAndVolunteeringsVolunteeringId(batchId, volunteeringId);
 				if (!isExists)
-					batchDao.saveBatchVolunteering(request.getBatchId(), vId);
+					batchDao.saveBatchVolunteering(batchId, volunteeringId);
+			}
+		}
+
+		if (quizIds != null) {
+			for (Long quizId : quizIds) {
+				boolean isExists = batchDao.existsBatchByQuizesBatchIdAndQuizesQuizId(batchId, quizId);
+				if (!isExists)
+					batchDao.saveBatchQuiz(batchId, quizId);
 			}
 		}
 		
-		if (quizIds != null) {
-			for (Long quizId : quizIds) {
-				boolean isExists = batchDao.existsBatchByQuizes_quizIdAndQuizes_batchId(request.getBatchId(), quizId);
+		if (counsellingIds != null) {
+			for (Long counsellingId : counsellingIds) {
+				boolean isExists = batchDao.existsBatchByCounsellingsBatchIdAndCounsellingsCounsellingId(batchId, counsellingId);
 				if (!isExists)
-					batchDao.saveBatchQuiz(request.getBatchId(), quizId);
+					batchDao.saveBatchCounselling(batchId, counsellingId);
+			}
+		}
+		
+		if (skillTestIds != null) {
+			for (Long skillTestId : skillTestIds) {
+				boolean isExists = batchDao.existsBatchBySkillSetsBatchIdAndSkillSetsSkillSetId(batchId, skillTestId);
+				if (!isExists)
+					batchDao.saveBatchSkillSet(batchId, skillTestId);
 			}
 		}
 	}
