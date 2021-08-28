@@ -71,7 +71,7 @@ public class BatchService extends GenericService<Batch, Long> {
 		Set<Long> quizIds = request.getQuizIds();
 		Set<Long> counsellingIds = request.getCounsellingIds();
 		Set<Long> skillTestIds = request.getSkillTestIds();
-		
+
 		Long batchId = request.getBatchId();
 
 		if (courseIds != null) {
@@ -84,7 +84,8 @@ public class BatchService extends GenericService<Batch, Long> {
 
 		if (volunteeringIds != null) {
 			for (Long volunteeringId : volunteeringIds) {
-				boolean isExists = batchDao.existsBatchByVolunteeringsBatchIdAndVolunteeringsVolunteeringId(batchId, volunteeringId);
+				boolean isExists = batchDao.existsBatchByVolunteeringsBatchIdAndVolunteeringsVolunteeringId(batchId,
+						volunteeringId);
 				if (!isExists)
 					batchDao.saveBatchVolunteering(batchId, volunteeringId);
 			}
@@ -97,15 +98,16 @@ public class BatchService extends GenericService<Batch, Long> {
 					batchDao.saveBatchQuiz(batchId, quizId);
 			}
 		}
-		
+
 		if (counsellingIds != null) {
 			for (Long counsellingId : counsellingIds) {
-				boolean isExists = batchDao.existsBatchByCounsellingsBatchIdAndCounsellingsCounsellingId(batchId, counsellingId);
+				boolean isExists = batchDao.existsBatchByCounsellingsBatchIdAndCounsellingsCounsellingId(batchId,
+						counsellingId);
 				if (!isExists)
 					batchDao.saveBatchCounselling(batchId, counsellingId);
 			}
 		}
-		
+
 		if (skillTestIds != null) {
 			for (Long skillTestId : skillTestIds) {
 				boolean isExists = batchDao.existsBatchBySkillSetsBatchIdAndSkillSetsSkillSetId(batchId, skillTestId);
@@ -113,6 +115,22 @@ public class BatchService extends GenericService<Batch, Long> {
 					batchDao.saveBatchSkillSet(batchId, skillTestId);
 			}
 		}
+	}
+
+	public void deleteBatchCourse(BatchCourse batchCourse) {
+		batchCourseDao.delete(batchCourse);
+	}
+
+	public void deleteBatchQuiz(BatchQuiz batchQuiz) {
+		batchQuizDao.delete(batchQuiz);
+	}
+
+	public void deleteBatchSkillSet(BatchSkillSet batchSkillSet) {
+		batchSkillSetDao.delete(batchSkillSet);
+	}
+
+	public void deleteBatchCounselling(BatchCounselling batchCounselling) {
+		batchCounsellingDao.delete(batchCounselling);
 	}
 
 	public List<BatchCourse> findCoursesByBatchId(Long batchId) {

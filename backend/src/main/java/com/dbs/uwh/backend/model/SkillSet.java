@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -27,6 +28,9 @@ public class SkillSet extends BaseEntity {
 	@NotNull
 	private String name;
 
+	@Column(columnDefinition = "TEXT")
+	private String description;
+	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "skill_set_id")
 	private Set<Skill> skills = new HashSet<>();

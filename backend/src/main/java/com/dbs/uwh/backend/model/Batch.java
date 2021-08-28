@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
@@ -46,7 +45,6 @@ public class Batch extends BaseEntity {
 	private Date endDate;
 
 	@JsonIgnore
-
 	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BatchCourse> courses = new HashSet<>();
 
@@ -66,9 +64,4 @@ public class Batch extends BaseEntity {
 	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BatchSkillSet> skillSets = new HashSet<>();
 	
-	@Transient
-	private Set<Long> courseIds;
-	
-	@Transient
-	private Set<Long> volunteeringIds;
 }

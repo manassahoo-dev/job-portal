@@ -38,6 +38,10 @@ class ApiService {
         return axios.post(path, data);
     }
 
+    deleteBatchMapping(path, data){
+        return axios.delete(path, data);
+    }
+
 }
 
 export default new ApiService();
