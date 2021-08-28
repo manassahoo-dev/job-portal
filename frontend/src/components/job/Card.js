@@ -1,6 +1,7 @@
-import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined, SettingOutlined, EllipsisOutlined } from '@ant-design/icons';
-import { Button, Card, Dropdown, List, Menu, message, Modal, Popover, Rate, Typography } from "antd";
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Dropdown, Menu, message, Modal, Popover, Typography } from "antd";
 import { useContext } from "react";
+import { FiBriefcase } from "react-icons/fi";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
@@ -56,10 +57,28 @@ function JobCard({ job }) {
         </Menu.Item>
     </Menu>);
 
-    const content = (
+
+    const basicContent = (
         <div>
-            <p>Content</p>
-            <p>Content</p>
+            <FiBriefcase /><Text >  {job.salaryRange}</Text><br />
+            <FiBriefcase /><Text >  {job.jobLocation}</Text><br />
+            <FiBriefcase /><Text >  {job.experience}</Text><br />
+        </div>
+
+    )
+
+    const content = (
+        <div style={{ maxWidth: 500 }}>
+            {basicContent}
+            <Meta
+                title="Job Description"
+            /><Text type='secondary'>{job.jobDescription}</Text>
+            <Meta
+                title="Roles and Responsibilities"
+            /><Text type='secondary'>{job.rolesAndResponsibilities}</Text>
+            <Meta
+                title="Eligibility Criteria"
+            /><Text type='secondary'>{job.eligibilityCriteria}</Text>
         </div>
     );
 
@@ -69,14 +88,11 @@ function JobCard({ job }) {
             className={contextData.selectedItem?.id === job.id && "active"}
             title={job.jobTitle}
             actions={[
-                <Popover content={content} title="Title">
-                    <Button type="primary">Hover me</Button>
-                </Popover>,
-                // <Button type="default" block onClick={viewDetails()}>Details</Button>,
+                <Popover content={content} placement='rightTop' title={job.jobTitle}>
+                    <Button type="default" block>Details</Button>
+                </Popover>
+                ,
                 <Button type="primary" block>Apply</Button>
-                // <SettingOutlined key="setting" />,
-                // <EditOutlined key="edit" />,
-                // <EllipsisOutlined key="ellipsis" />,
             ]}
             extra={
                 <a><Dropdown overlay={actions} placement="bottomRight">
@@ -84,17 +100,10 @@ function JobCard({ job }) {
                 </Dropdown></a>
             }>
             <Meta
-                title="Company Name"
-                description={job.companyName}
+                title={job.companyName}
             />
-            <Meta
-                title="Description"
-                description={job.jobDescription}
-            />
-            <Meta
-                title="Responsibilities"
-                description={job.rolesAndResponsibilities}
-            />
+            {basicContent}
+            <FiBriefcase /><Text >  {job.jobDescription}</Text><br />
         </Card>
     );
 }

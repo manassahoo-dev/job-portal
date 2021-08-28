@@ -25,25 +25,35 @@ public class Job extends BaseEntity {
 
 	@NotNull
 	private String jobTitle;
+	
+	@NotNull
+	@Column
+	private String experience;
 
 	@NotNull
-	@Column(columnDefinition = "TEXT")
-	private String jobDescription;
-
+	@Column
+	private String jobLocation;
+	
 	@NotNull
-	@Column(columnDefinition = "TEXT")
+	@Column
 	private String companyName;
+	
+	@Column(columnDefinition = "TEXT")
+	private String aboutCompany;
 
 	@NotNull
 	@Column(columnDefinition = "TEXT")
 	private String eligibilityCriteria;
 
-	@NotNull
 	@Column(columnDefinition = "TEXT")
 	private String rolesAndResponsibilities;
+	
+	@Column(columnDefinition = "TEXT")
+	private String jobDescription;
+
 
 	@NotNull
-	@Column(columnDefinition = "TEXT")
+	@Column
 	private String salaryRange;
 	
 	@JsonIgnore

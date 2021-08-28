@@ -21,7 +21,7 @@ function AddEditCourse() {
         console.log('selectedItem', contextData.selectedItem.id)
         const updatedValues = {
             ...values,
-            id: contextData.selectedItem.id,
+            id: contextData.selectedItem?.id,
             categoryId: contextData.categoryId,
         }
         create(updatedValues)
