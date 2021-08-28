@@ -64,7 +64,6 @@ function CourseCard({ course }) {
                     <MoreOutlined />
                 </Dropdown>
             }
-            hoverable
         >
             <Meta
                 title="Duration"
