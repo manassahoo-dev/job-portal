@@ -12,6 +12,15 @@ function SkillTestCard() {
     const [isAdd, setIsAdd] = useState(false);
     const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/skills`, contextData);
 
+    const param = {
+        isAdd: isAdd,
+        setIsAdd: setIsAdd,
+        path: api.SKILLSET,
+        existingIds: data.map(({ id }) => id.skillSetId),
+        name: "skillTestIds",
+        batchId: contextData.batch?.id
+    }
+
     return (
         <AppSpin loading={loading}>
             <Card>
@@ -22,7 +31,7 @@ function SkillTestCard() {
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ?
-                    <AddItem isAdd={isAdd} path={api.SKILLSET}  ids={data.map(({ id }) => id.courseId)}/>
+                    <AddItem param={param} />
                     :
 
                     <List

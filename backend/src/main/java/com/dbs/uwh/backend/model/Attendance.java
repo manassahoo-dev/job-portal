@@ -1,6 +1,6 @@
 package com.dbs.uwh.backend.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -21,7 +21,7 @@ public class Attendance extends BaseEntity {
 	private boolean isPresent;
 
 	@NotNull
-	private Date date;
+	private LocalDate date;
 
 	private Long batchId;
 

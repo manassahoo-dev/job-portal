@@ -30,7 +30,6 @@ function BatchList({ setBatch }) {
     const { data, error, loading } = ApiRequest('GET', api.BATCH, isAddBatch);
     const { contextData } = useContext(AppContext);
 
-    console.log(contextData);
     return (
         <AppSpin loading={loading}>
             <Card>

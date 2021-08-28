@@ -23,7 +23,7 @@ import lombok.Setter;
 public class BatchSkillSet {
 
 	@EmbeddedId
-	private BatchCourseId id;
+	private BatchSkillSetId id;
 
 	@ManyToOne
 	@MapsId("batchId")

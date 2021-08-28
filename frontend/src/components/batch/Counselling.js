@@ -10,7 +10,16 @@ import AddItem from './Add';
 function CounsellingCard() {
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/counselling`, contextData);
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/counselling`, isAdd);
+    
+    const param = {
+        isAdd: isAdd,
+        setIsAdd: setIsAdd,
+        path: api.COUNSELLING,
+        existingIds: data.map(({ id }) => id.counsellingId),
+        name: "counsellingIds",
+        batchId: contextData.batch?.id
+    }
 
     return (
         <AppSpin loading={loading}>
@@ -22,7 +31,7 @@ function CounsellingCard() {
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ?
-                    <AddItem isAdd={isAdd} path={api.COUNSELLING}  ids={data.map(({ id }) => id.courseId)}/>
+                    <AddItem param={param} />
                     :
 
                     <List

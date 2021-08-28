@@ -30,6 +30,14 @@ class ApiService {
         return axios.post(`${path}/exists`, data);
     }
 
+    find(path, data) {
+        return axios.post(`${path}/find`, data);
+    }
+
+    post(path, data){
+        return axios.post(path, data);
+    }
+
 }
 
 export default new ApiService();

@@ -15,8 +15,10 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.dbs.uwh.backend.model.mapping.BatchCounselling;
 import com.dbs.uwh.backend.model.mapping.BatchCourse;
 import com.dbs.uwh.backend.model.mapping.BatchQuiz;
+import com.dbs.uwh.backend.model.mapping.BatchSkillSet;
 import com.dbs.uwh.backend.model.mapping.BatchVolunteering;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -55,7 +57,15 @@ public class Batch extends BaseEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BatchQuiz> quizes = new HashSet<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<BatchCounselling> counsellings = new HashSet<>();
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<BatchSkillSet> skillSets = new HashSet<>();
+	
 	@Transient
 	private Set<Long> courseIds;
 	

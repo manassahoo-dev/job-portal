@@ -10,7 +10,16 @@ import AddItem from './Add';
 function CourseCard() {
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/courses`, contextData);
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/courses`, isAdd);
+
+    const param = {
+        isAdd: isAdd,
+        setIsAdd: setIsAdd,
+        path: api.COURSE,
+        existingIds: data.map(({ id }) => id.courseId),
+        name: "courseIds",
+        batchId: contextData.batch?.id
+    }
 
     return (
         <AppSpin loading={loading}>
@@ -18,11 +27,11 @@ function CourseCard() {
                 <PageHeader
                     className="p-0 mb-1"
                     onBack={isAdd ? () => setIsAdd(false) : ""}
-                    title="Courses"
+                    title={isAdd ? "Add Course" : "Courses"}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ?
-                    <AddItem isAdd={isAdd} path={api.COURSE} ids={data.map(({ id }) => id.courseId)}/>
+                    <AddItem param={param} />
                     :
 
                     <List
@@ -32,7 +41,7 @@ function CourseCard() {
                             <List.Item className="px-0">
                                 <List.Item.Meta
                                     title={<b>{item.course.name}</b>}
-                                    description={<Paragraph type="secondary" ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
+                                    description={<Paragraph className="m-0" type="secondary" ellipsis>
                                         {item.course.description}
                                     </Paragraph>}
                                 />
