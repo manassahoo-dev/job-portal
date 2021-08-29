@@ -11,17 +11,20 @@ const Counselling = React.lazy(() => import('./pages/admin/counselling'))
 const Skills = React.lazy(() => import('./pages/admin/skills'))
 const Jobs = React.lazy(() => import('./pages/admin/jobs'))
 const Enquiry = React.lazy(() => import('./pages/admin/enquiry'))
+const StudentView = React.lazy(() => import('./components/student/StudentView'))
+
 const routes = [
   { path: '/admin/dashboard', name: 'Dashboard', component: DashBoard },
   { path: '/admin/courses', name: 'Courses', component: Courses },
   { path: '/admin/batches', name: 'Batches', component: Batches },
-  { path: '/admin/students', name: 'Students', component: Students },
   { path: '/admin/aptitudes', name: 'Aptitude Test', component: Quiz },
   { path: '/admin/exams', name: 'Exams', component: Quiz },
   { path: '/admin/counselling', name: 'Counseling', component: Counselling },
   { path: '/admin/skills', name: 'Skills', component: Skills },
   { path: '/admin/jobs', name: 'Jobs', component: Jobs },
   { path: '/admin/enquiry', name: 'Jobs', component: Enquiry },
+  { path: '/admin/students/:id', name: 'StudentView', component: StudentView },
+  { path: '/admin/students', name: 'Students', component: Students },
   { path: '/', name: 'Home', component: Home },
 ]
 

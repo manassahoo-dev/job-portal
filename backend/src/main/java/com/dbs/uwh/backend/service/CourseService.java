@@ -31,7 +31,7 @@ public class CourseService extends GenericService<Course, Long> {
 
 		HashMap<String, Integer> courseStats = new HashMap<String, Integer>();
 
-		courseStats.put("totalCourses", courses.size());
+		courseStats.put("total", courses.size());
 		courseStats.put("active", 5);
 		courseStats.put("reserve", 5);
 		return courseStats;

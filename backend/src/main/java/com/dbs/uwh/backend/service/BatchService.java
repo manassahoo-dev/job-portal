@@ -48,7 +48,7 @@ public class BatchService extends GenericService<Batch, Long> {
 
 		for (Batch b : batches) {
 
-			if (b.getEndDate().before(date)) {
+			if (b.getEndDate()!=null && b.getEndDate().before(date)) {
 				completed++;
 			} else {
 				inProgress++;
@@ -56,9 +56,9 @@ public class BatchService extends GenericService<Batch, Long> {
 
 		}
 
-		batchStats.put("totalBatches", batches.size());
-		batchStats.put("batchesCompleted", completed);
-		batchStats.put("batchesInProgress", inProgress);
+		batchStats.put("total", batches.size());
+		batchStats.put("Completed", completed);
+		batchStats.put("InProgress", inProgress);
 
 		return batchStats;
 

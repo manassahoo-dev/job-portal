@@ -22,7 +22,7 @@ public class JobService extends GenericService<Job, Long> {
 		List<Job> jobs = jobDao.findAll();
 		HashMap<String, Integer> studentStats = new HashMap<String, Integer>();
 
-		studentStats.put("totalJobs", jobs.size());
+		studentStats.put("total", jobs.size());
 		studentStats.put("placements", 15);
 		studentStats.put("interviews", 1);
 		return studentStats;

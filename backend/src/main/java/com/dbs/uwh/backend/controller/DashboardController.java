@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dbs.uwh.backend.model.DashboardResponse;
 import com.dbs.uwh.backend.service.BatchService;
 import com.dbs.uwh.backend.service.CourseService;
+import com.dbs.uwh.backend.service.EnquiryService;
 import com.dbs.uwh.backend.service.JobService;
 import com.dbs.uwh.backend.service.StudentService;
 
@@ -26,7 +27,10 @@ public class DashboardController {
 	CourseService courseService;
 	
 	@Autowired
-	JobService jobService;
+	JobService jobService;	
+	
+	@Autowired
+	EnquiryService enquiryService;
 
 	@RequestMapping("/dashboard")
 	public DashboardResponse getDashboardStats() {
@@ -35,6 +39,7 @@ public class DashboardController {
 		dashboardResponse.setBatchStats(batchService.BatchStats());
 		dashboardResponse.setCourseStats(courseService.CourseStats());
 		dashboardResponse.setJobStats(jobService.JobStats());
+		dashboardResponse.setEnquiryStats(enquiryService.enquiryStats());
 		return dashboardResponse;
 	}
 
