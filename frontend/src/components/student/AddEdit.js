@@ -16,7 +16,7 @@ function AddEditStudent() {
     const { contextData, setContextData } = useContext(AppContext);
 
     if (contextData.isActionPerformed === ACTIONTYPES.edit) {
-        form.setFieldsValue(contextData.selectedItem)
+        form.setFieldsValue({ ...contextData.selectedItem, dateOfBirth: moment(contextData.selectedItem.dateOfBirth) })
     }
 
 
@@ -107,7 +107,7 @@ function AddEditStudent() {
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                         <Form.Item label="DOB" name="dateOfBirth">
-                            <DatePicker format='DD/MM/YYYY' onChange={e => form.setFieldsValue({ dateOfBirth: e })} />
+                            <DatePicker onChange={e => form.setFieldsValue({ dateOfBirth: e })} />
                         </Form.Item>
                         <Form.Item label="Aadhaar Number" name="idNumber"
                             rules={[{ required: true, },
@@ -135,26 +135,26 @@ function AddEditStudent() {
 
                 </Row>
                 <Form.Item
-                    name="profilePic"
+                    name="file"
                     label="Upload profile Picture"
-                    valuePropName="profilePic"
+                    valuePropName="file"
                     getValueFromEvent={normFile}
                 >
-                    <Upload name="logo" action="/upload.do" listType="picture">
+                    <Upload name="file" action={api.PROFILEUPLOAD} listType="picture">
                         <Button icon={<UploadOutlined />}>Click to upload</Button>
                     </Upload>
                 </Form.Item>
 
-                <Form.Item label="Documents">
-                    <Form.Item name="documents" valuePropName="documents" getValueFromEvent={normFile} noStyle>
-                        <Upload.Dragger name="files" action="/upload.do">
+                {/* <Form.Item label="Documents">
+                    <Form.Item name="file" valuePropName="file" getValueFromEvent={normFile} noStyle>
+                        <Upload.Dragger name="file" action={api.FILEUPLOAD}>
                             <p className="ant-upload-drag-icon">
                                 <InboxOutlined />
                             </p>
                             <p className="ant-upload-text">Click or drag file to this area to upload</p>
                         </Upload.Dragger>
                     </Form.Item>
-                </Form.Item>
+                </Form.Item> */}
                 <Form.Item><Button type="default" htmlType="reset" block onClick={onCancel}>Cancel</Button></Form.Item>
                 <Form.Item><Button type="primary" htmlType="submit" block>Save</Button></Form.Item>
 
