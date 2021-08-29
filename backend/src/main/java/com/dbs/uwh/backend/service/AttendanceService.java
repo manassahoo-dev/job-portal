@@ -1,8 +1,11 @@
 package com.dbs.uwh.backend.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,13 +41,14 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 		AttendanceResponse attendanceResponse = new AttendanceResponse();
 		int isPresentCount = 0;
 		int isAbsent = 0;
+		Long studentId = null;
 		List<Attendance> allStudentsAttendanceData = attendanceDao.findAll();
 
 		if (!CollectionUtils.isEmpty(allStudentsAttendanceData)) {
 
 			for (Attendance studentAttendanceData : allStudentsAttendanceData) {
 
-				Long studentId = studentAttendanceData.getStudentId();
+				studentId = studentAttendanceData.getStudentId();
 
 				Long batchId = studentAttendanceData.getBatchId();
 
@@ -75,19 +79,23 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 
 				if (studentAttendanceData.isPresent()) {
 					isPresentCount++;
-					System.out.println("P" + isPresentCount+"A" + isAbsent);
-					attendanceResponse.setStats("P" + isPresentCount+"A" + isAbsent);
+					System.out.println("P" + isPresentCount + "A" + isAbsent);
+					attendanceResponse.setStats("P" + isPresentCount + "A" + isAbsent);
 				} else {
 					isAbsent++;
-					attendanceResponse.setStats("P" + isPresentCount+"A" + isAbsent);
-					System.out.println("P" + isPresentCount+"A" + isAbsent);
+					attendanceResponse.setStats("P" + isPresentCount + "A" + isAbsent);
+					System.out.println("P" + isPresentCount + "A" + isAbsent);
 				}
-				
 				attendanceResponses.add(attendanceResponse);
-
 			}
+
 		}
-		return attendanceResponses;
+
+		List<AttendanceResponse> sortedList = attendanceResponses.stream()
+				.sorted(Comparator.comparing(AttendanceResponse::getDate)).collect(Collectors.toList());
+
+		return sortedList;
 
 	}
+
 }

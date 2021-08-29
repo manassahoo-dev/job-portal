@@ -1,9 +1,12 @@
 package com.dbs.uwh.backend.model;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Transient;
 
 import com.sun.istack.NotNull;
@@ -28,9 +31,8 @@ public class Attendance extends BaseEntity {
 	private Long courseId;
 
 	private Long studentId;
-	
+
 	@Transient
-	private Set<Long> studentIds;
-	
+	private List<Long> studentIds;
 
 }

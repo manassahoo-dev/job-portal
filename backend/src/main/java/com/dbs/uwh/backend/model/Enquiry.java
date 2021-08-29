@@ -1,10 +1,11 @@
 package com.dbs.uwh.backend.model;
 
-
-
 import java.util.Date;
-
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -33,12 +34,12 @@ public class Enquiry extends BaseEntity {
 	private String mailId;
 
 	private String studentType;
-	
+
 	private String studentFatherName;
-	
+
 	private String idProof;
-	
-	private String idNumber; 	
+
+	private String idNumber;
 
 	@Temporal(TemporalType.DATE)
 	private Date date;
@@ -47,10 +48,12 @@ public class Enquiry extends BaseEntity {
 
 	private Long aadhaarNumber;
 
-	@NotNull
-	private String question1;
-
 	private String state;
 
 	private Long pinCode;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "eq_id")
+	private List<Question> questions;
+
 }
