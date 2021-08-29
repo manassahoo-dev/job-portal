@@ -4,7 +4,7 @@ import { useState } from 'react';
 import OtpInput from 'react-otp-input';
 import { Link, useHistory } from 'react-router-dom';
 import API from "../services/api";
-import userService from '../services/api.service';
+import apiService from '../services/api.service';
 
 const { Title, Text } = Typography;
 function LoginOrSignUp(props) {
@@ -29,27 +29,31 @@ function LoginOrSignUp(props) {
     };
 
     const login = (values) => {
-        const data = {
-            mobile: form.getFieldValue('mobile'),
-            email: form.getFieldValue('email')
-        }
-        sessionStorage.setItem('user', JSON.stringify(userData));
-        type === 'Login' ?
-            history.push('/admin/dashboard') :
-            history.push({
-                pathname: '/register',
-                state: { Data: data }
+        
+        if (type === 'Login'){
+            apiService.find(API.USER, userData)
+            .then(response => {
+                sessionStorage.setItem('user', JSON.stringify(response.data));
+                history.push('/admin/dashboard');
+            }).catch(e => {
+                message.error(e.response.statusText);
             });
+        }else {
+            const data = {
+                mobile: form.getFieldValue('mobile'),
+                email: form.getFieldValue('email')
+            }
+            history.push({ pathname: '/register', state: { Data: data } });
+        }
     }
 
     const isExists = (values) => {
 
-        userService.exists(API.USER, values)
+        apiService.exists(API.USER, values)
             .then(response => {
                 setOTPSentState(response.data);
                 setUserExistsState(response.data);
-            })
-            .catch(e => {
+            }).catch(e => {
                 message.error(e.response.statusText);
             });
     }
@@ -73,7 +77,7 @@ function LoginOrSignUp(props) {
                     inputStyle="otp-input ant-input"
                     containerStyle="justify-content-center"
                 />
-                <Form.Item>
+                <Form.Item className="my-4">
                     <Button block type="primary" htmlType="submit">
                         {type}
                     </Button>
@@ -89,9 +93,9 @@ function LoginOrSignUp(props) {
                         <Form.Item
                             label="Email"
                             name="email"
-                            rules={[{ type: 'email', required: true, message: 'Please input your Mail Id!' }]}
+                            rules={[{ type: 'email', required: true, message: 'Please input your Email Id' }]}
                         >
-                            <Input placeholder="abc@def.com" style={{ width: '100%' }} prefix={<MailOutlined style={{ padding: '10px', align: 'right' }} />} />
+                            <Input placeholder="abc@def.com" style={{ width: '100%' }} prefix={<MailOutlined style={{ padding: '0 10px', align: 'right' }} />} />
                         </Form.Item>
                     </>
                     :
@@ -99,10 +103,9 @@ function LoginOrSignUp(props) {
                         <Form.Item
                             name="mobile"
                             label="Mobile"
-                            rules={[{ required: true, message: 'Please input your mobile number!' }]}
+                            rules={[{ required: true, message: 'Please input your Mobile Number' }]}
                         >
-                            <Input addonBefore={'+91'} minLength={10} maxLength={10}
-                                style={{ width: '100%' }} name="mobile" />
+                            <Input addonBefore={'+91'} minLength={10} maxLength={10} name="mobile" />
                         </Form.Item>
                     </>
                 }
@@ -127,9 +130,10 @@ function LoginOrSignUp(props) {
 
     return (
         <div className="card-center vh-100">
-            <Card bordered={true}>
+            <Card style={{ border: '1px solid #4c77fb' }}>
+                {!isOtpSent && <Title level={2} className="mb-4">{type}</Title>}
                 <Tabs onChange={(e) => { setTabState(e); setOTPSentState(false); setUserExistsState(true) }}
-                    defaultActiveKey="1" centered>
+                    defaultActiveKey="1" >
                     <TabPane tab="Email ID" key="Email">
                         {simpleform}
                     </TabPane>

@@ -6,11 +6,23 @@ import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
 import AppSpin from '../utility/AppSpin';
 import AddItem from './Add';
+import ListItem from './List';
 
 function SkillTestCard() {
-    const { contextData } = useContext(AppContext);
+
     const [isAdd, setIsAdd] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/skills`, contextData);
+    const [lastRefresh, setLastRefresh] = useState(new Date());
+    const { contextData } = useContext(AppContext);
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/skillSets`, lastRefresh);
+    
+    const param = {
+        setLastRefresh: setLastRefresh,
+        setIsAdd: setIsAdd,
+        path: api.SKILLSET,
+        existingIds: data.map(({ id }) => id.skillSetId),
+        name: "skillTestIds",
+        batchId: contextData.batch?.id
+    }
 
     return (
         <AppSpin loading={loading}>
@@ -21,25 +33,7 @@ function SkillTestCard() {
                     title="Skill Test"
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
-                {isAdd ?
-                    <AddItem isAdd={isAdd} path={api.SKILLSET}  ids={data.map(({ id }) => id.courseId)}/>
-                    :
-
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={data}
-                        renderItem={item => (
-                            <List.Item className="px-0">
-                                <List.Item.Meta
-                                    title={<b>{item.skillSet.name}</b>}
-                                    description={<Paragraph type="secondary" ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
-                                        {item.skillSet.description}
-                                    </Paragraph>}
-                                />
-                            </List.Item>
-                        )}
-                    />
-                }
+                {isAdd ? <AddItem param={param} /> : <ListItem param={param} data={data} name="skillSet" />}
             </Card>
         </AppSpin>
     );

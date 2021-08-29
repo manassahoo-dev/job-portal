@@ -7,12 +7,23 @@ import ApiRequest from "../../services/ApiRequest";
 import AppSpin from '../utility/AppSpin';
 import toSentenceCase from '../utility/util';
 import AddItem from './Add';
+import ListItem from './List';
 
 function QuizCard({ quizType}) {
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/quizes?quizType=${quizType}`, contextData);
+    const [lastRefresh, setLastRefresh] = useState(new Date());
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/quizes?quizType=${quizType}`, lastRefresh);
 
+    const param = {
+        setLastRefresh: setLastRefresh,
+        setIsAdd: setIsAdd,
+        path: `${api.QUIZ}/type/${quizType}`,
+        existingIds: data.map(({ id }) => id.quizId),
+        name: "quizIds",
+        batchId: contextData.batch?.id
+    }
+    
     return (
         <AppSpin loading={loading}>
             <Card>
@@ -22,25 +33,7 @@ function QuizCard({ quizType}) {
                     title={toSentenceCase(quizType)}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
-                {isAdd ?
-                    <AddItem isAdd={isAdd} path={`${api.QUIZ}/type/${quizType}`} ids={data.map(({ id }) => id.courseId)}/>
-                    :
-
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={data}
-                        renderItem={item => (
-                            <List.Item className="px-0">
-                                <List.Item.Meta
-                                    title={<b>{item.quiz.name}</b>}
-                                    description={<Paragraph type="secondary" ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}>
-                                        {item.quiz.description}
-                                    </Paragraph>}
-                                />
-                            </List.Item>
-                        )}
-                    />
-                }
+                {isAdd ? <AddItem param={param} /> : <ListItem param={param} data={data} name="quiz" />}
             </Card>
         </AppSpin>
     );

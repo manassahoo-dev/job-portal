@@ -48,6 +48,7 @@ function CourseCard({ course }) {
 
     return (
         <Card title={course.name}
+            className={contextData.selectedItem?.id === course.id && "active"}
             extra={
                 <Dropdown
                     overlay={
@@ -63,7 +64,6 @@ function CourseCard({ course }) {
                     <MoreOutlined />
                 </Dropdown>
             }
-            hoverable
         >
             <Meta
                 title="Duration"

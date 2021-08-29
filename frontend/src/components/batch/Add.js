@@ -1,37 +1,51 @@
-import { Button, Checkbox, Form, List, Row, Typography } from 'antd';
-import React from "react";
+import { Button, Checkbox, Form, List, message, Row } from 'antd';
+import React, { useState } from "react";
 import api from "../../services/api";
+import apiService from "../../services/api.service";
 import ApiRequest from "../../services/ApiRequest";
 
-const { Paragraph, Text } = Typography;
+function AddItem({ param }) {
 
-function AddItem({ isAdd, path, ids }) {
-
-    const { data, error, loading } = ApiRequest('GET', path, isAdd);
-
+    const { data, error, loading } = ApiRequest('GET', param.path, param.isAdd);
+    const [checked, setChecked] = useState([]);
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+        let body = {
+            batchId: param.batchId,
+            [param.name]: checked
+        }
+        apiService.post(`${api.BATCH}/mapping`, body).then(response => {
+            param.setIsAdd(false);
+            param.setLastRefresh(new Date());
+        }).catch(error => {
+            message.error(error);
+        }).then(function () {
+            // console.info(false);
+        });
     };
+
+    function onChange(checkedValues) {
+        setChecked(checkedValues);
+    }
 
     return (
         <Form
             layout="vertical"
             onFinish={onFinish}
         >
-            <Form.Item name="courseIds">
+            <Form.Item name="courseIds" valuePropName="checked">
                 <Row>
-                    <Checkbox.Group className="w-100">
+                    <Checkbox.Group className="w-100" onChange={onChange}>
                         <List
                             footer={
-                                <Button type="primary" htmlType="submit" block>
+                                <Button type="primary" htmlType="submit" block disabled={checked.length === 0}>
                                     Add
                                 </Button>}
                             bordered
                             dataSource={data}
-                            renderItem={course => (
+                            renderItem={item => (
                                 <List.Item>
-                                    <Checkbox value={course.id} disabled={ids.includes(course.id)}>
-                                        {course.name}
+                                    <Checkbox value={item.id} disabled={param.existingIds.includes(item.id)}>
+                                        {item.name}
                                     </Checkbox>
                                 </List.Item>
                             )}
@@ -39,7 +53,7 @@ function AddItem({ isAdd, path, ids }) {
                     </Checkbox.Group>
                 </Row>
             </Form.Item>
-            
+
         </Form>
     );
 }

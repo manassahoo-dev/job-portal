@@ -9,6 +9,7 @@ import AppContext from '../../contexts/AppContext';
 import apiService from '../../services/api.service';
 import confirm from 'antd/lib/modal/confirm';
 import Meta from 'antd/lib/card/Meta';
+import Text from 'antd/lib/typography/Text';
 
 // { isActionPerformedStudent, setIsActionPerformedStudent, setData, item }
 
@@ -31,7 +32,7 @@ function StudentList() {
         }, {
             title: 'Name',
             dataIndex: 'name',
-            render: (text, record) => <b>{`${record.firstName} ${record.lastName}`}</b>,
+            render: (text, record) => <b>{`${record.firstName} ${record?.lastName}`}</b>,
             sorter: (a, b) => (a?.name - b?.name),
         }, {
             title: 'Email',
@@ -52,13 +53,9 @@ function StudentList() {
             dataIndex: 'gender',
             key: 'gender',
         }, {
-            title: 'Mother Name',
-            dataIndex: 'motherName',
-            key: 'motherName',
-        }, {
-            title: 'Father Name',
-            dataIndex: 'fatherName',
-            key: 'fatherName',
+            title: 'Student Type',
+            dataIndex: 'studentType',
+            key: 'studentType',
         }, {
             title: 'Action',
             key: 'action',
@@ -73,6 +70,16 @@ function StudentList() {
                         <Button danger size="small" shape="circle" icon={<DeleteOutlined />} onClick={() => showDeleteConfirm(record)} />
                     </Tooltip>
                 </Space>
+            ),
+        }, {
+            title: 'View',
+            key: 'view',
+            render: (text, record) => (
+                <Space>
+                    <Button type="link" size="small" onClick={() => { }} > Profile</Button>
+                    <Button type="link" size="small" onClick={() => { }} > Student</Button>
+                </Space>
+
             ),
         },
     ];

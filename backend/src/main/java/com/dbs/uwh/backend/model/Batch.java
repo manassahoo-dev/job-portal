@@ -11,12 +11,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.dbs.uwh.backend.model.mapping.BatchCounselling;
 import com.dbs.uwh.backend.model.mapping.BatchCourse;
 import com.dbs.uwh.backend.model.mapping.BatchQuiz;
+import com.dbs.uwh.backend.model.mapping.BatchSkillSet;
 import com.dbs.uwh.backend.model.mapping.BatchVolunteering;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -44,7 +45,6 @@ public class Batch extends BaseEntity {
 	private Date endDate;
 
 	@JsonIgnore
-
 	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BatchCourse> courses = new HashSet<>();
 
@@ -55,10 +55,13 @@ public class Batch extends BaseEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BatchQuiz> quizes = new HashSet<>();
-
-	@Transient
-	private Set<Long> courseIds;
 	
-	@Transient
-	private Set<Long> volunteeringIds;
+	@JsonIgnore
+	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<BatchCounselling> counsellings = new HashSet<>();
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<BatchSkillSet> skillSets = new HashSet<>();
+	
 }
