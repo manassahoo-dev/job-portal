@@ -9,4 +9,5 @@ export default {
     SKILLSET: '/skillsets',
     DASHBOARD: '/dashboard',
     JOB: '/jobs',
+    ENQUIRY: '/enquiry',
 }

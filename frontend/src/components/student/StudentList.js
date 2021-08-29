@@ -1,23 +1,42 @@
-import { EditOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Button, Card, Col, message, Row, Space, Table, Tooltip } from 'antd';
-import DeleteEntity from '../DeleteEntity';
+import Meta from 'antd/lib/card/Meta';
+import confirm from 'antd/lib/modal/confirm';
+import Modal from 'antd/lib/modal/Modal';
+import { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import AppContext from '../../contexts/AppContext';
 import api from '../../services/api';
+import apiService from '../../services/api.service';
 import ApiRequest from '../../services/ApiRequest';
 import ACTIONTYPES from '../utility/ACTIONTYPES';
-import { useContext } from 'react';
-import AppContext from '../../contexts/AppContext';
-import apiService from '../../services/api.service';
-import confirm from 'antd/lib/modal/confirm';
-import Meta from 'antd/lib/card/Meta';
-import Text from 'antd/lib/typography/Text';
 
 // { isActionPerformedStudent, setIsActionPerformedStudent, setData, item }
 
 function StudentList() {
 
+    const history = useHistory()
     const { contextData, setContextData } = useContext(AppContext);
-
     const { data, error, loading } = ApiRequest('GET', api.STUDENT, contextData);
+    const [isProfileView, setIsProfileView] = useState(false);
+
+    const hideModal = () => {
+        setIsProfileView(false)
+    };
+    const profileView = (record) => {
+        console.log(record)
+        setIsProfileView(true)
+    }
+
+
+    const StudentView = (record) => {
+        console.log(record)
+        history.push({
+            pathname: `/admin/students/${record.id}`,
+            state: { selectedItem: record }
+        })
+    }
+
     const columns = [
         {
             title: 'SL No',
@@ -74,13 +93,25 @@ function StudentList() {
         }, {
             title: 'View',
             key: 'view',
-            render: (text, record) => (
+            render: (text, record) => ([
                 <Space>
-                    <Button type="link" size="small" onClick={() => { }} > Profile</Button>
-                    <Button type="link" size="small" onClick={() => { }} > Student</Button>
-                </Space>
+                    <Button type="link" size="small" onClick={() => profileView(record)} > Profile</Button>
+                    <Button type="link" size="small" onClick={() => StudentView(record)} > Student</Button>
+                </Space>,
+                <Modal
+                    title="Basic Modal"
+                    visible={isProfileView}
+                    onOk={hideModal}
+                    onCancel={hideModal}
+                    okText="OK"
+                    cancelText=""
+                >
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Modal>
 
-            ),
+            ]),
         },
     ];
 
@@ -92,7 +123,7 @@ function StudentList() {
         confirm({
             title: <Card>
                 <Meta
-                    title={'Are you sure delete this user?'}
+                    title={'Are you sure delete user?'}
                     description={`${item.firstName} ${item.lastName}`}
                 />
             </Card>,
