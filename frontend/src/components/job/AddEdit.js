@@ -19,32 +19,21 @@ function JobAddEdit(params) {
     const onFinish = (values) => {
         const updatedValues = {
             ...values,
-            id: contextData.selectedItem.id,
+            id: contextData.selectedItem?.id,
             categoryId: contextData.categoryId,
         }
-        contextData.selectedItem.id ? update(updatedValues) : create(updatedValues)
+        create(updatedValues)
     }
 
     const create = (values) => {
         apiService.create(api.JOB, values)
             .then((response) => {
-                message.success('Job added successfully');
+                message.success(`Job ${values.id ? 'updated' : 'created'} successfully`);
                 form.resetFields();
                 resetContextData()
             })
             .catch((error) => {
                 message.error(error.response.data.message);
-            });;
-    }
-
-    const update = (values) => {
-        console.log(values)
-        apiService.update(api.JOB, values.id, values)
-            .then((response) => {
-                resetContextData()
-            })
-            .catch((error) => {
-                message.error(error.response.message);
             });;
     }
 
@@ -77,32 +66,15 @@ function JobAddEdit(params) {
             >
                 <Row gutter={[16, 16]}>
                     <Col xs={24} md={12} lg={12}>
-                        <Form.Item label="Enter Job Name" name='name' rules={[{ required: true }]}>
+                        <Form.Item label="Enter Job Name" name='jobTitle' rules={[{ required: true }]}>
                             <Input placeholder="Job Sub-Category Name" />
                         </Form.Item>
 
-                        <Form.Item label="Select Location" name='name' rules={[{ required: true }]}>
-                            <Input placeholder="Location Name" />
-                        </Form.Item>
-                        <Form.Item label="Company Name" name='name' rules={[{ required: true }]}>
-                            <Input placeholder="Company Name" />
-                        </Form.Item>
-                    </Col>
-                    <Col xs={24} md={12} lg={12}>
-                        <Form.Item label="Enter Job Name" name='name' rules={[{ required: true }]}>
-                            <Input placeholder="Job Sub-Category Name" />
+                        <Form.Item label="Select Location" name='jobLocation' rules={[{ required: true }]}>
+                            <Input placeholder="Enter Location" />
                         </Form.Item>
 
-                        <Form.Item label="Select Location" name='name' rules={[{ required: true }]}>
-                            <Input placeholder="Location Name" />
-                        </Form.Item>
-                        <Form.Item label="Company Name" name='name' rules={[{ required: true }]}>
-                            <Input placeholder="Company Name" />
-                        </Form.Item>
                     </Col>
-                </Row>
-
-                <Row gutter={[16, 16]}>
                     <Col xs={24} md={12} lg={12}>
                         <Form.Item label="Select Experience" name='experience' rules={[{ required: true }]}>
                             <Select>
@@ -111,43 +83,67 @@ function JobAddEdit(params) {
                                 <Option value="5+ Years">5+ Years</Option>
                             </Select>
                         </Form.Item>
-                    </Col>
-                    <Col xs={24} md={12} lg={12}>
-                        <Form.Item label="Days" name='days' rules={[{ required: true }]}>
-                            <Select>
-                                <Option value="Mon-Fri">Mon-Fri</Option>
-                                <Option value="Sat-Sun">Sat-Sun</Option>
-                            </Select>
+
+                        <Form.Item label="Salary" name='salaryRange' rules={[{ required: true }]}>
+                            <Input placeholder="Enter Salary" />
                         </Form.Item>
                     </Col>
-                </Row>
-                <Form.Item
-                    label="Course Syllabus"
-                    name="syllabus"
-                    rules={[{ required: true }]}
-                    tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
-                >
-                    <TextArea
-                        placeholder="Type here.."
-                        autoSize={{ minRows: 2, maxRows: 6 }}
-                    />
-                </Form.Item>
-                <Form.Item
-                    label="Short Description"
-                    name="description"
-                    tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
-                >
-                    <TextArea
-                        placeholder="Type here.."
-                        autoSize={{ minRows: 2, maxRows: 6 }}
-                    />
-                </Form.Item>
-                <Row gutter={[16, 16]}>
+
+                    <Col xs={24} md={24} lg={24}>
+                        <Form.Item label="Company Name" name='companyName' rules={[{ required: true }]}>
+                            <Input placeholder="Company Name" />
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Eligibility Criteria"
+                            name="eligibilityCriteria"
+                            rules={[{ required: true }]}
+                            tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
+                        >
+                            <TextArea
+                                placeholder="Type here.."
+                                autoSize={{ minRows: 2, maxRows: 6 }}
+                            />
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Job Description"
+                            name="jobDescription"
+                            tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
+                        >
+                            <TextArea
+                                placeholder="Type here.."
+                                autoSize={{ minRows: 2, maxRows: 6 }}
+                            />
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Roles and Responsibilities "
+                            name="rolesAndResponsibilities"
+                            tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
+                        >
+                            <TextArea
+                                placeholder="Type here.."
+                                autoSize={{ minRows: 2, maxRows: 6 }}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            label="About Company"
+                            name="aboutCompany"
+                            tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
+                        >
+                            <TextArea
+                                placeholder="Type here.."
+                                autoSize={{ minRows: 2, maxRows: 6 }}
+                            />
+                        </Form.Item>
+                    </Col>
+
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                         <Form.Item><Button type="default" htmlType="reset" block onClick={onCancel}>Cancel</Button></Form.Item>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                        <Form.Item><Button type="primary" htmlType="submit" block>Create</Button></Form.Item>
+                        <Form.Item><Button type="primary" htmlType="submit" block>{contextData.selectedItem?.id ? "Update" : "Create"} Job</Button></Form.Item>
                     </Col>
                 </Row>
             </Form>
