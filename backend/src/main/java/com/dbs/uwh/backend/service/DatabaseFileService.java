@@ -7,29 +7,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dbs.uwh.backend.dao.DatabaseFileDao;
-import com.dbs.uwh.backend.model.DatabaseFile;
+import com.dbs.uwh.backend.dao.DocumentDao;
+import com.dbs.uwh.backend.model.Document;
 
 @Service
-public class DatabaseFileService extends GenericService<DatabaseFile, Long> {
+public class DatabaseFileService extends GenericService<Document, Long> {
 
 	@Autowired
-	private DatabaseFileDao filesDao;
+	private DocumentDao documentDao;
 
-	public DatabaseFile uploadFile(MultipartFile file) {
+	public Document uploadFile(MultipartFile file) {
 
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
+		Document profilePic;
 		try {
-
-			DatabaseFile dbFile = new DatabaseFile(fileName, file.getContentType(), file.getBytes());
-
-			return filesDao.save(dbFile);
-		} catch (IOException io) {
-
-			io.getStackTrace();
+			profilePic = Document.builder().documentType(file.getContentType()).documentName(fileName).data(file.getBytes()).build();
+			return documentDao.save(profilePic);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
-		return null;
+
+		
 
 	}
 
