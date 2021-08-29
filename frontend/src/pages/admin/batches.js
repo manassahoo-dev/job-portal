@@ -57,7 +57,7 @@ function Batches() {
                                                         <Button className="w-50" onClick={() => setIsEdit(false)}>Cancel</Button>
                                                     </> :
                                                     <Tooltip title="Edit Batch">
-                                                    <Button type="primary" shape="circle" icon={<FiEdit2 />} className="float-end" onClick={() => setIsEdit(true)} />
+                                                    <Button type="link" icon={<FiEdit2 />} className="float-end" onClick={() => setIsEdit(true)} />
                                                     </Tooltip>
                                             }
 

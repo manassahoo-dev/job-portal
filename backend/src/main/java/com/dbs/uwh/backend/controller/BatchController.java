@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +51,7 @@ public class BatchController extends GenericRestController<Batch, Long> {
 		return batchService.findByQuizQuizTypeAndBatchId(id, QuizType.valueOf(quizType));
 	}
 	
-	@GetMapping("/{id}/skills")
+	@GetMapping("/{id}/skillSets")
 	public List<BatchSkillSet> findSkillSets(@PathVariable("id") Long id) {
 		return batchService.findAllSkillSetByBatchId(id);
 	}
@@ -58,5 +59,29 @@ public class BatchController extends GenericRestController<Batch, Long> {
 	@GetMapping("/{id}/counselling")
 	public List<BatchCounselling> findCounselling(@PathVariable("id") Long id) {
 		return batchService.findAllCounsellingByBatchId(id);
+	}
+	
+	@DeleteMapping(value = "/course")
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@RequestBody @Valid BatchCourse batchCourse) {
+		batchService.deleteBatchCourse(batchCourse);
+	}
+	
+	@DeleteMapping(value = "/quiz")
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@RequestBody @Valid BatchQuiz batchQuiz) {
+		batchService.deleteBatchQuiz(batchQuiz);
+	}
+	
+	@DeleteMapping(value = "/counselling")
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@RequestBody @Valid BatchCounselling batchCounselling) {
+		batchService.deleteBatchCounselling(batchCounselling);
+	}
+	
+	@DeleteMapping(value = "/skillSet")
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@RequestBody @Valid BatchSkillSet batchSkillSet) {
+		batchService.deleteBatchSkillSet(batchSkillSet);
 	}
 }

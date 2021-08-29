@@ -1,10 +1,8 @@
-import { Button, Checkbox, Form, List, message, Row, Typography } from 'antd';
+import { Button, Checkbox, Form, List, message, Row } from 'antd';
 import React, { useState } from "react";
-import ApiRequest from "../../services/ApiRequest";
-import apiService from "../../services/api.service";
 import api from "../../services/api";
-
-const { Paragraph, Text } = Typography;
+import apiService from "../../services/api.service";
+import ApiRequest from "../../services/ApiRequest";
 
 function AddItem({ param }) {
 
@@ -17,6 +15,7 @@ function AddItem({ param }) {
         }
         apiService.post(`${api.BATCH}/mapping`, body).then(response => {
             param.setIsAdd(false);
+            param.setLastRefresh(new Date());
         }).catch(error => {
             message.error(error);
         }).then(function () {
