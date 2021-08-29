@@ -24,13 +24,20 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 
-public class DatabaseFile extends BaseEntity {
+public class ProfilePic extends BaseEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createdOn;
+
+	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modifiedOn;
+	
+	
 	@NotNull
 	private boolean isActive;
 
@@ -41,15 +48,9 @@ public class DatabaseFile extends BaseEntity {
 
 	private String fileType;
 
-	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdOn;
+	
 
-	@UpdateTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date modifiedOn;
-
-	public DatabaseFile(String fileName, String fileType, byte[] data) {
+	public ProfilePic(String fileName, String fileType, byte[] data) {
 		this.fileName = fileName;
 		this.fileType = fileType;
 		this.data = data;
