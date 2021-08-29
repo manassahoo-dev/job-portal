@@ -1,10 +1,15 @@
 package com.dbs.uwh.backend.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -60,5 +65,13 @@ public class Student extends User {
 	private boolean placement;
 
 	private boolean counselling;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "uploadDoc_id")
+	private List<Document> documents;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "profilePic_id")
+	private DatabaseFile profilePic;
 
 }
