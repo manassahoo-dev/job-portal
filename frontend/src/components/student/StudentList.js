@@ -1,8 +1,10 @@
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Card, Col, message, Row, Space, Table, Tooltip } from 'antd';
+import { Button, Card, Col, Descriptions, Image, message, Row, Space, Table, Tooltip } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import confirm from 'antd/lib/modal/confirm';
 import Modal from 'antd/lib/modal/Modal';
+import Text from 'antd/lib/typography/Text';
+import Title from 'antd/lib/typography/Title';
 import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../../contexts/AppContext';
@@ -10,6 +12,7 @@ import api from '../../services/api';
 import apiService from '../../services/api.service';
 import ApiRequest from '../../services/ApiRequest';
 import ACTIONTYPES from '../utility/ACTIONTYPES';
+import ProfileView from './ProfileView';
 
 // { isActionPerformedStudent, setIsActionPerformedStudent, setData, item }
 
@@ -51,7 +54,7 @@ function StudentList() {
         }, {
             title: 'Name',
             dataIndex: 'name',
-            render: (text, record) => <b>{`${record.firstName} ${record?.lastName}`}</b>,
+            render: (text, record) => <b>{`${record.firstName} ${record?.lastName || ''}`}</b>,
             sorter: (a, b) => (a?.name - b?.name),
         }, {
             title: 'Email',
@@ -95,22 +98,9 @@ function StudentList() {
             key: 'view',
             render: (text, record) => ([
                 <Space>
-                    <Button type="link" size="small" onClick={() => profileView(record)} > Profile</Button>
+                    <ProfileView record={record} />
                     <Button type="link" size="small" onClick={() => StudentView(record)} > Student</Button>
-                </Space>,
-                <Modal
-                    title="Basic Modal"
-                    visible={isProfileView}
-                    onOk={hideModal}
-                    onCancel={hideModal}
-                    okText="OK"
-                    cancelText=""
-                >
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                </Modal>
-
+                </Space>
             ]),
         },
     ];

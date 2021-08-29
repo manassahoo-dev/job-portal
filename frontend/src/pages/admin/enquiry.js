@@ -1,15 +1,15 @@
+import { PlusOutlined } from "@ant-design/icons";
 import { Button, Col, PageHeader, Row } from "antd";
 import { useEffect, useState } from "react";
-import EnquiryList from "../../components/enquiry"
 import EnquiryAddEdit from "../../components/enquiry/AddEdit";
+import EnquiryCard from "../../components/enquiry/Card";
 import EnquiryCategories from "../../components/enquiry/Category";
 import AppContext from "../../contexts/AppContext";
-import { PlusOutlined } from "@ant-design/icons";
 
 function Enquiry(params) {
 
     const object = {
-        selectedItem: null,
+        selectedItem: {},
         isAddEdit: false,
     }
 
@@ -24,7 +24,7 @@ function Enquiry(params) {
                 <Col xs={24} sm={12} md={8}>
                     <EnquiryCategories />
                 </Col>
-                <Col xs={24} sm={12} md={16}>
+                <Col xs={24} sm={12} md={16} lg={16}>
                     <>
                         <PageHeader
                             className="p-0 mb-2"
@@ -33,17 +33,15 @@ function Enquiry(params) {
                                 <Button type="primary" icon={<PlusOutlined />} block onClick={() => setContextData({ ...contextData, isAddEdit: true })}>Register Now</Button>,
                             ]}
                         />
-                        <Row gutter={[16, 16]}>
-                            {contextData.isAddEdit ?
-                                <Col xs={24} sm={12}><EnquiryAddEdit /></Col>
-                                :
-                                <>
-                                    {contextData.selectedItem?.id &&
-                                        <EnquiryList />
-                                    }
-                                </>
-                            }
-                        </Row>
+                        {contextData.isAddEdit ?
+                            <EnquiryAddEdit />
+                            :
+                            <>
+                                {contextData.selectedItem?.id &&
+                                    <EnquiryCard />
+                                }
+                            </>
+                        }
                     </>
                 </Col>
             </Row>
