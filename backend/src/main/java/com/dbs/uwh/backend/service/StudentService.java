@@ -37,9 +37,9 @@ public class StudentService extends GenericService<Student, Long> {
 
 		HashMap<String, Integer> studentStats = new HashMap<String, Integer>();
 
-		studentStats.put("totalStudents", students.size());
-		studentStats.put("maleStudents", maleStudents);
-		studentStats.put("femaleStudents",femaleStudents );
+		studentStats.put("total", students.size());
+		studentStats.put("male", maleStudents);
+		studentStats.put("female",femaleStudents );
 		return studentStats;
 
 	}

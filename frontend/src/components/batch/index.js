@@ -25,10 +25,10 @@ function BatchList({ setBatch }) {
         console.error(errorInfo);
     };
 
+    const { contextData } = useContext(AppContext);
     const [form] = Form.useForm();
     const [isAddBatch, setIsAddBatch] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', api.BATCH, isAddBatch);
-    const { contextData } = useContext(AppContext);
+    const { data, error, loading } = ApiRequest('GET', api.BATCH, contextData.lastRefresh);
 
     return (
         <AppSpin loading={loading}>

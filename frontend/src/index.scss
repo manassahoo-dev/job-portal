@@ -33,13 +33,22 @@ input[type="number"] {
   font-weight: bold;
 }
 .logo {
-    height: 32px;
-    margin: 16px;
-    background: #fa7879;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    padding: 5px;
+  height: 32px;
+  margin: 16px;
+  background: #fa7879;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+}
+.profile-picture {
+  height: 300px;
+  margin: 16px;
+  text-align: center;
+  color: white;
+  padding: 5px;
+  border-radius: 50%;
+  align-self: center;
 }
 ::-webkit-scrollbar {
   width: 3px;

@@ -1,4 +1,4 @@
-import { Button, Calendar, Card, Col, DatePicker, Form, Input, message, Row, Select } from "antd"
+import { Button, Calendar, Card, Col, DatePicker, Form, Input, message, Row, Select, Upload } from "antd"
 import { Option } from "antd/lib/mentions";
 import { useContext } from "react";
 import AppContext from "../../contexts/AppContext";
@@ -6,6 +6,8 @@ import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ACTIONTYPES from "../utility/ACTIONTYPES";
 import ValidationMessage from "../utility/ValidationMessage";
+import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
+
 import * as moment from "moment";
 
 function AddEditStudent() {
@@ -69,6 +71,14 @@ function AddEditStudent() {
         })
     }
 
+    const normFile = (e) => {
+        console.log('Upload event:', e);
+        if (Array.isArray(e)) {
+            return e;
+        }
+        return e && e.fileList;
+    };
+
     return (
         <Card hoverable>
             <Form
@@ -94,7 +104,6 @@ function AddEditStudent() {
                             <Option value="F">Female</Option>
                             <Option value="O">Other</Option>
                         </Select></Form.Item>
-                        <Form.Item><Button type="default" htmlType="reset" block onClick={onCancel}>Cancel</Button></Form.Item>
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                         <Form.Item label="DOB" name="dateOfBirth">
@@ -120,9 +129,35 @@ function AddEditStudent() {
                                 <Option value="Job">Job</Option>
                             </Select>
                         </Form.Item>
-                        <Form.Item><Button type="primary" htmlType="submit" block>Save</Button></Form.Item>
+
+
                     </Col>
+
                 </Row>
+                <Form.Item
+                    name="profilePic"
+                    label="Upload profile Picture"
+                    valuePropName="profilePic"
+                    getValueFromEvent={normFile}
+                >
+                    <Upload name="logo" action="/upload.do" listType="picture">
+                        <Button icon={<UploadOutlined />}>Click to upload</Button>
+                    </Upload>
+                </Form.Item>
+
+                <Form.Item label="Documents">
+                    <Form.Item name="documents" valuePropName="documents" getValueFromEvent={normFile} noStyle>
+                        <Upload.Dragger name="files" action="/upload.do">
+                            <p className="ant-upload-drag-icon">
+                                <InboxOutlined />
+                            </p>
+                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                        </Upload.Dragger>
+                    </Form.Item>
+                </Form.Item>
+                <Form.Item><Button type="default" htmlType="reset" block onClick={onCancel}>Cancel</Button></Form.Item>
+                <Form.Item><Button type="primary" htmlType="submit" block>Save</Button></Form.Item>
+
             </Form>
         </Card>
     )
