@@ -21,4 +21,8 @@ public class AttendanceResponse {
 
 	private String stats;
 
+	private String presentCount;
+
+	private String absentCount;
+
 }

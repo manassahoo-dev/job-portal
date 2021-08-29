@@ -25,6 +25,11 @@ import lombok.Setter;
 @Builder
 public class Document extends BaseEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String documentName;
 
 	private String documentType;
