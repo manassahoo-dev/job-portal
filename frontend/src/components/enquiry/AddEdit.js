@@ -1,7 +1,7 @@
 import {
     InfoCircleOutlined
 } from '@ant-design/icons';
-import { Button, Card, Col, DatePicker, Form, Input, message, Row, Select } from "antd";
+import { Button, Card, Col, DatePicker, Divider, Form, Input, message, Row, Select } from "antd";
 import Meta from 'antd/lib/card/Meta';
 import TextArea from "antd/lib/input/TextArea";
 import { Option } from "antd/lib/mentions";
@@ -11,6 +11,7 @@ import AppContext from '../../contexts/AppContext';
 import api from '../../services/api';
 import apiService from '../../services/api.service';
 import ValidationMessage from '../utility/ValidationMessage';
+import Questions from './Questions';
 
 
 function EnquiryAddEdit() {
@@ -24,7 +25,6 @@ function EnquiryAddEdit() {
         console.log('selectedItem', contextData.selectedItem.id)
         const updatedValues = {
             ...values,
-            questions: { question_desc: values.questions },
             id: contextData.selectedItem?.id,
         }
         create(updatedValues)
@@ -108,34 +108,15 @@ function EnquiryAddEdit() {
                             </Col>
                         </Row>
                     </Col>
+                    {/* <Divider type="vertical" /> */}
 
                     <Col xs={24} sm={24} md={12} lg={12}>
                         <Meta
                             title={<Text>Other Details</Text>}
                         />
-                        <Form.Item>
 
-                        </Form.Item>
-                        <Form.Item
-                            label="Questions"
-                            name="questions"
-                            rules={[{ required: true }]}
-                            tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
-                        >
-                            <TextArea
-                                placeholder="Type here.."
-                                autoSize={{ minRows: 2, maxRows: 6 }}
-                            />
-                        </Form.Item>
-                        <Form.Item
-                            label="Comments"
-                            name="comments"
-                            tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
-                        >
-                            <TextArea
-                                placeholder="Type here.."
-                                autoSize={{ minRows: 2, maxRows: 6 }}
-                            />
+                        <Form.Item label='Question'>
+                            <Questions />
                         </Form.Item>
                         <Row gutter={[16, 16]}>
                             <Col lg={12}>
