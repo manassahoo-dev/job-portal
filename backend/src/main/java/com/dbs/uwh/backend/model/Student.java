@@ -3,6 +3,7 @@ package com.dbs.uwh.backend.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -72,6 +73,8 @@ public class Student extends User {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "profilePic_id")
-	private DatabaseFile profilePic;
+	private Document profilePic;
+	
+	
 
 }

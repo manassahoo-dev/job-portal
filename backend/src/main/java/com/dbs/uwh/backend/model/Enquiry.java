@@ -53,7 +53,9 @@ public class Enquiry extends BaseEntity {
 	private Long pinCode;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "eq_id")
-	private List<Question> questions;
+	@JoinColumn(name = "enq_id")
+	private List<EnquiryQuestion> questions;
+	
+	
 
 }
