@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -75,6 +74,7 @@ public class Student extends User {
 	@JoinColumn(name = "profilePic_id")
 	private Document profilePic;
 	
-	
-
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "batch_id")
+	private Batch batch;
 }
