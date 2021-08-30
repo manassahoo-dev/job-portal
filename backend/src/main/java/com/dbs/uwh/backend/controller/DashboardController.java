@@ -35,11 +35,11 @@ public class DashboardController {
 	@RequestMapping("/dashboard")
 	public DashboardResponse getDashboardStats() {
 		DashboardResponse dashboardResponse = new DashboardResponse();
-		dashboardResponse.setStudentStats(studentService.StudentsStats());
-		dashboardResponse.setBatchStats(batchService.BatchStats());
-		dashboardResponse.setCourseStats(courseService.CourseStats());
-		dashboardResponse.setJobStats(jobService.JobStats());
-		dashboardResponse.setEnquiryStats(enquiryService.enquiryStats());
+		dashboardResponse.setStudent(studentService.StudentsStats());
+		dashboardResponse.setBatch(batchService.BatchStats());
+		dashboardResponse.setCourse(courseService.CourseStats());
+		dashboardResponse.setJob(jobService.JobStats());
+		dashboardResponse.setEnquiry(enquiryService.enquiryStats());
 		return dashboardResponse;
 	}
 

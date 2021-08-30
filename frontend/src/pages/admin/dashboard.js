@@ -12,12 +12,11 @@ import ApiRequest from '../../services/ApiRequest';
 const { TabPane } = Tabs;
 
 const statItems = [
-    { name: 'Student', icon: <UserOutlined />, category1: { name: 'Male', count: 230 }, category2: { name: 'Female', count: 130 } },
-    { name: 'Student', icon: <UserOutlined />, category1: { name: 'Male', count: 230 }, category2: { name: 'Female', count: 130 } },
-    { name: 'Batch', icon: <TeamOutlined />, category1: { name: 'Completed', count: 161 }, category2: { name: 'Inprogress', count: 12 } },
-    { name: 'Course', icon: <BookOutlined />, category1: { name: 'Reserve', count: 88 }, category2: { name: 'Active', count: 32 } },
-    { name: 'Aptitude', icon: <FileOutlined />, category1: { name: 'Attempted', count: 2650 }, category2: { name: 'Success', count: 2545 } },
-    { name: 'Job', icon: <HomeOutlined />, category1: { name: 'Interview', count: 1250 }, category2: { name: 'Placements', count: 1188 } },
+    { name: 'student', icon: <UserOutlined />, items: {category1: 'male', category2: 'female'} },
+    { name: 'batch', icon: <TeamOutlined />, category1: { name: 'Completed', count: 161 }, category2: { name: 'Inprogress', count: 12 } },
+    { name: 'course', icon: <BookOutlined />, category1: { name: 'Reserve', count: 88 }, category2: { name: 'Active', count: 32 } },
+    { name: 'aptitude', icon: <FileOutlined />, category1: { name: 'Attempted', count: 2650 }, category2: { name: 'Success', count: 2545 } },
+    { name: 'job', icon: <HomeOutlined />, category1: { name: 'Interview', count: 1250 }, category2: { name: 'Placements', count: 1188 } },
 ]
 
 const contentStyle = {
@@ -153,16 +152,16 @@ function AdminDashBoard(params) {
                             <Row>
                                 <Col span={18} className="mb-4">
                                     <Title level={3} className="m-0" type="success">{item.name}</Title>
-                                    <Text> {item.name} {item.category1.count + item.category2.count}</Text>
+                                    <Text> {item.name} {data[item.name]?.total}</Text>
                                 </Col>
                                 <Col span={6} className="mb-4">
                                     <span style={avatar}>{item.icon}</span>
                                 </Col>
                                 <Col span={12}>
-                                    <Statistic title={item.category1.name} value={item.category1.count} prefix={item.category1.icon} />
+                                    <Statistic title={item.items.category1} value={data[item.name]?.[item.items.category1]} />
                                 </Col>
                                 <Col span={12}>
-                                    <Statistic title={item.category2.name} value={item.category2.count} prefix={item.category2.icon} />
+                                    <Statistic title={item.items.category2} value={data[item.name]?.[item.items.category2]}  />
                                 </Col>
                             </Row>
                         </Card>

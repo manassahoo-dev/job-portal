@@ -11,16 +11,11 @@ import lombok.ToString;
 @ToString
 public class DashboardResponse {
 
-	private HashMap<String, Integer> studentStats = new HashMap<String, Integer>();
+	private HashMap<String, Integer> student = new HashMap<String, Integer>();
+	private HashMap<String, Integer> batch = new HashMap<String, Integer>();
+	private HashMap<String, Integer> course = new HashMap<String, Integer>();
+	private HashMap<String, Integer> aptitude = new HashMap<String, Integer>();
+	private HashMap<String, Integer> job = new HashMap<String, Integer>();
+	private HashMap<String, Integer> enquiry = new HashMap<String, Integer>();
 
-	private HashMap<String, Integer> batchStats = new HashMap<String, Integer>();
-
-	private HashMap<String, Integer> courseStats = new HashMap<String, Integer>();
-	
-	private HashMap<String, Integer> aptitudeStats = new HashMap<String, Integer>();
-	
-	private HashMap<String, Integer> jobStats = new HashMap<String, Integer>();
-	private HashMap<String, Integer> enquiryStats = new HashMap<String, Integer>();
-
-	
 }
