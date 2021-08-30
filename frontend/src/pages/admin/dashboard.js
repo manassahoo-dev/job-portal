@@ -1,22 +1,23 @@
-import {
-    BookOutlined, FileOutlined, HomeOutlined, TeamOutlined,
-    UserOutlined
-} from '@ant-design/icons';
-import { Card, Col, List, Row, Statistic, Table, Tabs, Timeline, Avatar } from 'antd';
+import { Card, Col, Row, Statistic, Table, Tabs, Timeline } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import Text from 'antd/lib/typography/Text';
 import Title from 'antd/lib/typography/Title';
+import {
+    FiBarChart2, FiBookOpen, FiBriefcase, FiCheckSquare, FiSend, FiUser
+} from "react-icons/fi";
+import toSentenceCase from '../../components/utility/util';
 import api from '../../services/api';
 import ApiRequest from '../../services/ApiRequest';
 
 const { TabPane } = Tabs;
 
 const statItems = [
-    { name: 'student', icon: <UserOutlined />, items: {category1: 'male', category2: 'female'} },
-    { name: 'batch', icon: <TeamOutlined />, category1: { name: 'Completed', count: 161 }, category2: { name: 'Inprogress', count: 12 } },
-    { name: 'course', icon: <BookOutlined />, category1: { name: 'Reserve', count: 88 }, category2: { name: 'Active', count: 32 } },
-    { name: 'aptitude', icon: <FileOutlined />, category1: { name: 'Attempted', count: 2650 }, category2: { name: 'Success', count: 2545 } },
-    { name: 'job', icon: <HomeOutlined />, category1: { name: 'Interview', count: 1250 }, category2: { name: 'Placements', count: 1188 } },
+    { name: 'student', icon: <FiUser />, category1: 'male', category2: 'female' },
+    { name: 'batch', icon: <FiBarChart2 />, category1: 'completed', category2: 'inProgress' },
+    { name: 'course', icon: <FiBookOpen />, category1: 'reserve', category2: 'active' },
+    { name: 'aptitude', icon: <FiCheckSquare />, category1: 'attempted', category2: 'success' },
+    { name: 'job', icon: <FiBriefcase />, category1: 'interviews', category2: 'placements' },
+    { name: 'enquiry', icon: <FiSend />, category1: 'completed', category2: 'inProgress' },
 ]
 
 const contentStyle = {
@@ -151,17 +152,17 @@ function AdminDashBoard(params) {
                         <Card hoverable>
                             <Row>
                                 <Col span={18} className="mb-4">
-                                    <Title level={3} className="m-0" type="success">{item.name}</Title>
-                                    <Text> {item.name} {data[item.name]?.total}</Text>
+                                    <Title level={3} className="m-0" type="success">{toSentenceCase(item.name)}</Title>
+                                    <Text>Total {toSentenceCase(item.name)} {data[item.name]?.total}</Text>
                                 </Col>
                                 <Col span={6} className="mb-4">
                                     <span style={avatar}>{item.icon}</span>
                                 </Col>
                                 <Col span={12}>
-                                    <Statistic title={item.items.category1} value={data[item.name]?.[item.items.category1]} />
+                                    <Statistic title={toSentenceCase(item.category1)} value={data[item.name]?.[item.category1]} />
                                 </Col>
                                 <Col span={12}>
-                                    <Statistic title={item.items.category2} value={data[item.name]?.[item.items.category2]}  />
+                                    <Statistic title={toSentenceCase(item.category2)} value={data[item.name]?.[item.category2]} />
                                 </Col>
                             </Row>
                         </Card>
