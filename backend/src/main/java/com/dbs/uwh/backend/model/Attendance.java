@@ -4,9 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Transient;
 
 import com.sun.istack.NotNull;
@@ -24,7 +21,7 @@ public class Attendance extends BaseEntity {
 	private boolean isPresent;
 
 	@NotNull
-	private LocalDate date;
+	private LocalDate attendanceDate;
 
 	private Long batchId;
 

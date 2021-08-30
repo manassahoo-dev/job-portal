@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 
 				Long batchId = studentAttendanceData.getBatchId();
 
-				attendanceResponse.setDate(studentAttendanceData.getDate());
+				attendanceResponse.setDate(studentAttendanceData.getAttendanceDate());
 
 				attendanceResponse.setPresent(studentAttendanceData.isPresent());
 
@@ -95,6 +94,37 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 				.sorted(Comparator.comparing(AttendanceResponse::getDate)).collect(Collectors.toList());
 
 		return sortedList;
+
+	}
+
+	public List<AttendanceResponse> getStudentAttendanceDataByBatchAndCourse(Long batchId, Long courseId) {
+		List<AttendanceResponse> attendanceResponses = new ArrayList<>();
+		AttendanceResponse attendanceResponse = new AttendanceResponse();
+
+		int presentCount = 0;
+		int absentCount = 0;
+
+		List<Attendance> studentsDataByDate = attendanceDao.findByBatchIdAndCourseId(batchId, courseId);
+		//findAllByBatchIdAndCourseIdGroupByDate
+		if (!CollectionUtils.isEmpty(studentsDataByDate)) {
+
+			for (Attendance attendance : studentsDataByDate) {
+				if (!attendance.isPresent()) {
+					absentCount++;
+					attendanceResponse.setAbsentCount(String.valueOf(absentCount));
+					attendanceResponse.setPresentCount(String.valueOf(presentCount));
+					attendanceResponse.setDate(attendance.getAttendanceDate());
+				} else {
+					presentCount++;
+					attendanceResponse.setPresentCount(String.valueOf(presentCount));
+					attendanceResponse.setAbsentCount(String.valueOf(absentCount));
+					attendanceResponse.setDate(attendance.getAttendanceDate());
+				}
+				attendanceResponses.add(attendanceResponse);
+			}
+
+		}
+		return attendanceResponses;
 
 	}
 
