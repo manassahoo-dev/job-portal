@@ -42,6 +42,10 @@ class ApiService {
         return axios.delete(path, data);
     }
 
+    updateBatch(path, data){
+        return axios.post(path, data);
+    }
+
 }
 
 export default new ApiService();

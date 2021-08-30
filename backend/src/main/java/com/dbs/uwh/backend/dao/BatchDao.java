@@ -12,9 +12,13 @@ import com.dbs.uwh.backend.model.Batch;
 public interface BatchDao extends GenericDao<Batch, Long> {
 
 	boolean existsBatchByCoursesBatchIdAndCoursesCourseId(Long batchId, Long courseId);
+
 	boolean existsBatchByVolunteeringsBatchIdAndVolunteeringsVolunteeringId(Long batchId, Long volunteeringId);
+
 	boolean existsBatchByQuizesBatchIdAndQuizesQuizId(Long batchId, Long quizId);
+
 	boolean existsBatchByCounsellingsBatchIdAndCounsellingsCounsellingId(Long batchId, Long counsellingId);
+
 	boolean existsBatchBySkillSetsBatchIdAndSkillSetsSkillSetId(Long batchId, Long skillSetId);
 
 	@Modifying
@@ -36,7 +40,7 @@ public interface BatchDao extends GenericDao<Batch, Long> {
 	@Transactional
 	@Query(value = "INSERT INTO batch_quiz (batch_id, quiz_id, created_on) VALUES (?1, ?2, NOW())", nativeQuery = true)
 	public void saveBatchQuiz(Long batchId, Long quizId);
-	
+
 	@Modifying
 	@Transactional
 	@Query(value = "INSERT INTO batch_counselling (batch_id, counselling_id, created_on) VALUES (?1, ?2, NOW())", nativeQuery = true)
@@ -46,5 +50,5 @@ public interface BatchDao extends GenericDao<Batch, Long> {
 	@Transactional
 	@Query(value = "INSERT INTO batch_skill_set (batch_id, skill_set_id, created_on) VALUES (?1, ?2, NOW())", nativeQuery = true)
 	public void saveBatchSkillSet(Long batchId, Long skillSetId);
-}
 
+}

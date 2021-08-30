@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
-import { Card, Dropdown, Menu, message, Rate } from "antd";
+import { Button, Card, Dropdown, Menu, message, Rate } from "antd";
 import Meta from 'antd/lib/card/Meta';
 import confirm from 'antd/lib/modal/confirm';
 import Text from 'antd/lib/typography/Text';
@@ -79,6 +79,7 @@ function CourseCard({ course }) {
                 title="Syllabus"
                 description={`${course.syllabus}`}
             />
+            <Button type="primary" className="w-50 m-auto d-block mt-4">Start</Button>
         </Card>
     )
 }

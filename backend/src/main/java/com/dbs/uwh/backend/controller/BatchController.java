@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dbs.uwh.backend.model.Batch;
+import com.dbs.uwh.backend.model.Student;
 import com.dbs.uwh.backend.model.constant.QuizType;
 import com.dbs.uwh.backend.model.mapping.BatchCounselling;
 import com.dbs.uwh.backend.model.mapping.BatchCourse;
@@ -34,6 +35,17 @@ public class BatchController extends GenericRestController<Batch, Long> {
 
 	@Autowired
 	private BatchService batchService;
+	
+	@PostMapping(value = "/update")
+	@ResponseStatus(HttpStatus.OK)
+	public void update(@RequestBody Batch batch) {
+		batchService.updateBatch(batch);
+	}
+	
+	@PostMapping("/{id}/students")
+	public void addStudents(@PathVariable("id") Long id) {
+//		return null;
+	}
 
 	@PostMapping("/mapping")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -59,6 +71,11 @@ public class BatchController extends GenericRestController<Batch, Long> {
 	@GetMapping("/{id}/counselling")
 	public List<BatchCounselling> findCounselling(@PathVariable("id") Long id) {
 		return batchService.findAllCounsellingByBatchId(id);
+	}
+	
+	@GetMapping("/{id}/students")
+	public List<Student> findStudents(@PathVariable("id") Long id) {
+		return batchService.findAllStudentsByBatchId(id);
 	}
 	
 	@DeleteMapping(value = "/course")

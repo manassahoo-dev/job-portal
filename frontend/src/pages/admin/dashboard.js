@@ -13,10 +13,10 @@ const { TabPane } = Tabs;
 
 const statItems = [
     { name: 'student', icon: <UserOutlined />, items: {category1: 'male', category2: 'female'} },
-    { name: 'batch', icon: <TeamOutlined />, category1: { name: 'Completed', count: 161 }, category2: { name: 'Inprogress', count: 12 } },
-    { name: 'course', icon: <BookOutlined />, category1: { name: 'Reserve', count: 88 }, category2: { name: 'Active', count: 32 } },
-    { name: 'aptitude', icon: <FileOutlined />, category1: { name: 'Attempted', count: 2650 }, category2: { name: 'Success', count: 2545 } },
-    { name: 'job', icon: <HomeOutlined />, category1: { name: 'Interview', count: 1250 }, category2: { name: 'Placements', count: 1188 } },
+    // { name: 'batch', icon: <TeamOutlined />, category1: { name: 'Completed', count: 161 }, category2: { name: 'Inprogress', count: 12 } },
+    // { name: 'course', icon: <BookOutlined />, category1: { name: 'Reserve', count: 88 }, category2: { name: 'Active', count: 32 } },
+    // { name: 'aptitude', icon: <FileOutlined />, category1: { name: 'Attempted', count: 2650 }, category2: { name: 'Success', count: 2545 } },
+    // { name: 'job', icon: <HomeOutlined />, category1: { name: 'Interview', count: 1250 }, category2: { name: 'Placements', count: 1188 } },
 ]
 
 const contentStyle = {
