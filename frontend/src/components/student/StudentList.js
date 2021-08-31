@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Card, Col, message, Row, Space, Tooltip } from 'antd';
+import { Button, Card, Col, message, Pagination, Row, Space, Tooltip } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import confirm from 'antd/lib/modal/confirm';
 import { useContext, useState } from 'react';
@@ -47,12 +47,7 @@ function StudentList() {
                 return record?.firstName + " " + record?.lastName;
             },
         },
-        batch: {
-            header: "Batch",
-            formatter: (_fieldValue, record) => {
-                return record.batch?.name;
-            },
-        },
+        batchName: 'Batch',
         email: 'Email Address',
         mobile: 'Mobile Number',
         age: 'Age',
@@ -80,9 +75,8 @@ function StudentList() {
             sorter: (a, b) => (a?.name - b?.name),
         }, {
             title: 'Batch',
-            dataIndex: 'batch.id',
-            key: 'batch',
-            render: (text, record) => <b>{text?.name}</b>,
+            dataIndex: 'batchName',
+            key: 'batchName',
         },
         {
             title: 'Email',
@@ -174,7 +168,7 @@ function StudentList() {
             <Card className="overflow-auto">
                 <Row>
                     <Col span={24}>
-                        <Table loading={loading} columns={columns} pagination={data.length > 10} 
+                        <Table loading={loading} columns={columns} pagination={{ hideOnSinglePage: true, showSizeChanger: true }}
                             exportable exportableProps={{ fields, showColumnPicker: true, fileName: "students" }}
                             searchable
                             dataSource={data} size="small" rowKey="id"

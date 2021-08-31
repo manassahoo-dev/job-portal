@@ -17,6 +17,15 @@ public class StudentService extends GenericService<Student, Long> {
 
 	@Autowired
 	StudentDao studentDao;
+	
+	public List<Student> findAll() {
+		List<Student> students = studentDao.findAll();
+		for(Student student: students) {
+			if(student.getBatch() != null)
+			student.setBatchName(student.getBatch().getName());
+		}
+		return students;
+	}
 
 	public HashMap<String, Integer> StudentsStats() {
 		Gender gender = null;

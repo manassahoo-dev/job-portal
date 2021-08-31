@@ -1,4 +1,4 @@
-import { Button, Calendar, Card, Col, DatePicker, Form, Input, message, Row, Select, Upload } from "antd"
+import { Button, Calendar, Card, Col, DatePicker, Form, Input, message, Row, Select, Space, Upload } from "antd"
 import { Option } from "antd/lib/mentions";
 import { useContext } from "react";
 import AppContext from "../../contexts/AppContext";
@@ -155,8 +155,10 @@ function AddEditStudent() {
                         </Upload.Dragger>
                     </Form.Item>
                 </Form.Item> */}
-                <Form.Item><Button type="default" htmlType="reset" block onClick={onCancel}>Cancel</Button></Form.Item>
-                <Form.Item><Button type="primary" htmlType="submit" block>Save</Button></Form.Item>
+                <Space className="float-end">
+                    <Button type="primary" htmlType="submit">Save</Button>
+                    <Button type="default" htmlType="reset" onClick={onCancel}>Cancel</Button>
+                </Space>
 
             </Form>
         </Card>

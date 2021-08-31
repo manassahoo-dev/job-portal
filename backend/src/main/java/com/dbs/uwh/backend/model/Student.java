@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.dbs.uwh.backend.model.constant.Gender;
 import com.dbs.uwh.backend.model.constant.IdProof;
@@ -78,4 +79,6 @@ public class Student extends User {
 	@JoinColumn(name = "batch_id")
 	private Batch batch;
 
+	@Transient
+	private String batchName;
 }
