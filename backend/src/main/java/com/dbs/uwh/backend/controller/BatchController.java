@@ -42,11 +42,6 @@ public class BatchController extends GenericRestController<Batch, Long> {
 		batchService.updateBatch(batch);
 	}
 	
-	@PostMapping("/{id}/students")
-	public void addStudents(@PathVariable("id") Long id) {
-//		return null;
-	}
-
 	@PostMapping("/mapping")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void insertMapping(@RequestBody @Valid BatchRequest request) {
@@ -100,5 +95,11 @@ public class BatchController extends GenericRestController<Batch, Long> {
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@RequestBody @Valid BatchSkillSet batchSkillSet) {
 		batchService.deleteBatchSkillSet(batchSkillSet);
+	}
+	
+	@DeleteMapping(value = "/student")
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@RequestBody @Valid Student student) {
+		batchService.deleteBatchStudent(student);
 	}
 }

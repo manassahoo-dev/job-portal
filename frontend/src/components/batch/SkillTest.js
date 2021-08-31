@@ -10,6 +10,7 @@ import ListItem from './List';
 
 function SkillTestCard() {
 
+    const name = "skillSet";
     const [isAdd, setIsAdd] = useState(false);
     const [lastRefresh, setLastRefresh] = useState(new Date());
     const { contextData } = useContext(AppContext);
@@ -33,7 +34,7 @@ function SkillTestCard() {
                     title="Skill Test"
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
-                {isAdd ? <AddItem param={param} /> : <ListItem param={param} data={data} name="skillSet" />}
+                {isAdd ? <AddItem param={param} name={name} /> : <ListItem param={param} data={data} name={name} />}
             </Card>
         </AppSpin>
     );

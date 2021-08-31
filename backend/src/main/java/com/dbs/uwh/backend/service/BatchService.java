@@ -37,10 +37,10 @@ public class BatchService extends GenericService<Batch, Long> {
 	BatchSkillSetDao batchSkillSetDao;
 	@Autowired
 	BatchCounsellingDao batchCounsellingDao;
-	
+
 	@Autowired
 	private StudentDao studentDao;
-	
+
 	public void updateBatch(Batch batch) {
 		Batch dbBatch = batchDao.findById(batch.getId()).get();
 		dbBatch.setName(batch.getName());
@@ -63,7 +63,7 @@ public class BatchService extends GenericService<Batch, Long> {
 
 		for (Batch b : batches) {
 
-			if (b.getEndDate()!=null && b.getEndDate().before(date)) {
+			if (b.getEndDate() != null && b.getEndDate().before(date)) {
 				completed++;
 			} else {
 				inProgress++;
@@ -86,6 +86,7 @@ public class BatchService extends GenericService<Batch, Long> {
 		Set<Long> quizIds = request.getQuizIds();
 		Set<Long> counsellingIds = request.getCounsellingIds();
 		Set<Long> skillTestIds = request.getSkillTestIds();
+		Set<Long> studentIds = request.getStudentIds();
 
 		Long batchId = request.getBatchId();
 
@@ -130,6 +131,12 @@ public class BatchService extends GenericService<Batch, Long> {
 					batchDao.saveBatchSkillSet(batchId, skillTestId);
 			}
 		}
+
+		if (studentIds != null) {
+			for (Long studentId : studentIds) {
+				batchDao.saveBatchStudent(batchId, studentId);
+			}
+		}
 	}
 
 	public void deleteBatchCourse(BatchCourse batchCourse) {
@@ -142,6 +149,10 @@ public class BatchService extends GenericService<Batch, Long> {
 
 	public void deleteBatchSkillSet(BatchSkillSet batchSkillSet) {
 		batchSkillSetDao.delete(batchSkillSet);
+	}
+	
+	public void deleteBatchStudent(Student student) {
+		batchDao.deleteBatchStudent(student.getId());
 	}
 
 	public void deleteBatchCounselling(BatchCounselling batchCounselling) {
@@ -163,9 +174,9 @@ public class BatchService extends GenericService<Batch, Long> {
 	public List<BatchCounselling> findAllCounsellingByBatchId(Long id) {
 		return batchCounsellingDao.findByBatchId(id);
 	}
-	
-	public List<Student> findAllStudentsByBatchId(Long id){
+
+	public List<Student> findAllStudentsByBatchId(Long id) {
 		return studentDao.findByBatchId(id);
 	}
-	
+
 }

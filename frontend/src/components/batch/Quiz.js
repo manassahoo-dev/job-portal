@@ -9,7 +9,8 @@ import toSentenceCase from '../utility/util';
 import AddItem from './Add';
 import ListItem from './List';
 
-function QuizCard({ quizType}) {
+function QuizCard({ quizType }) {
+    const name = "quiz";
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
     const [lastRefresh, setLastRefresh] = useState(new Date());
@@ -23,7 +24,7 @@ function QuizCard({ quizType}) {
         name: "quizIds",
         batchId: contextData.batch?.id
     }
-    
+
     return (
         <AppSpin loading={loading}>
             <Card>
@@ -33,7 +34,7 @@ function QuizCard({ quizType}) {
                     title={toSentenceCase(quizType)}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
-                {isAdd ? <AddItem param={param} /> : <ListItem param={param} data={data} name="quiz" />}
+                {isAdd ? <AddItem param={param} name={name} /> : <ListItem param={param} data={data} name={name} />}
             </Card>
         </AppSpin>
     );
