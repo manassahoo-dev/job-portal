@@ -5,7 +5,7 @@ import apiService from "../../services/api.service";
 import ApiRequest from "../../services/ApiRequest";
 
 const { Text, Link } = Typography;
-function AddItem({ param }) {
+function AddItem({ param, name }) {
 
     const { data, error, loading } = ApiRequest('GET', param.path, param.isAdd);
     const [checked, setChecked] = useState([]);
@@ -17,6 +17,7 @@ function AddItem({ param }) {
         apiService.post(`${api.BATCH}/mapping`, body).then(response => {
             param.setIsAdd(false);
             param.setLastRefresh(new Date());
+            message.success(`${name} added successfully`);
         }).catch(error => {
             message.error(error);
         }).then(function () {

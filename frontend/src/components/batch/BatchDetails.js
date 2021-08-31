@@ -26,10 +26,6 @@ function BatchDetails({ batch, items }) {
 
     form.setFieldsValue(formValue);
 
-    const onGenderChange = (value) => {
-        console.log(value);
-    };
-
     const onFinish = (values) => {
         console.log('Success:', values);
         apiService.updateBatch(`${api.BATCH}/update`, values)
@@ -73,8 +69,8 @@ function BatchDetails({ batch, items }) {
                                 <Col span="6">
                                     <Form.Item name="status" label="Status" rules={[{ required: true }]}>
                                         <Select placeholder="Batch Status">
-                                            <Option value="NOT STARTED">Non Started</Option>
-                                            <Option value="IN PROGRESS">In Progress</Option>
+                                            <Option value="NOTSTARTED">Non Started</Option>
+                                            <Option value="INPROGRESS">In Progress</Option>
                                             <Option value="COMPLETED">Completed</Option>
                                         </Select>
                                     </Form.Item>

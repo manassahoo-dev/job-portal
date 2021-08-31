@@ -50,5 +50,14 @@ public interface BatchDao extends GenericDao<Batch, Long> {
 	@Transactional
 	@Query(value = "INSERT INTO batch_skill_set (batch_id, skill_set_id, created_on) VALUES (?1, ?2, NOW())", nativeQuery = true)
 	public void saveBatchSkillSet(Long batchId, Long skillSetId);
-
+	
+	@Modifying
+	@Transactional
+	@Query(value = "UPDATE student SET batch_id = ?1 WHERE id = ?2", nativeQuery = true)
+	public void saveBatchStudent(Long batchId, Long studentId);
+	
+	@Modifying
+	@Transactional
+	@Query(value = "UPDATE student SET batch_id = null WHERE id = ?1", nativeQuery = true)
+	public void deleteBatchStudent(Long studentId);
 }

@@ -9,6 +9,7 @@ import AddItem from './Add';
 import DeleteItem from './Delete';
 
 function StudentCard() {
+    const name = "student";
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
     const [lastRefresh, setLastRefresh] = useState(new Date());
@@ -18,7 +19,7 @@ function StudentCard() {
         setLastRefresh: setLastRefresh,
         setIsAdd: setIsAdd,
         path: api.STUDENT,
-        existingIds: data.map(({ id }) => id.courseId),
+        existingIds: data.map(({ id }) => id),
         name: "studentIds",
         batchId: contextData.batch?.id
     }
@@ -32,13 +33,13 @@ function StudentCard() {
                     title={isAdd ? "Add Student" : "Students"}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
-                {isAdd ? <AddItem param={param} /> :
+                {isAdd ? <AddItem param={param} name={name} /> :
 
                     <List
                         itemLayout="horizontal"
                         dataSource={data}
                         renderItem={item => (
-                            <List.Item className="px-0" actions={[<DeleteItem param={param} data={item} />]}>
+                            <List.Item className="px-0" actions={[<DeleteItem param={param} data={item} name={name} />]}>
                                 <List.Item.Meta
                                     title={<b>{item.firstName}&nbsp; {item.lastName}</b>}
                                     description={<Paragraph className="m-0" type="secondary" ellipsis>

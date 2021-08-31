@@ -10,11 +10,12 @@ import AddItem from './Add';
 import ListItem from './List';
 
 function CourseCard() {
+    const name = "course";
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
     const [lastRefresh, setLastRefresh] = useState(new Date());
     const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/courses`, lastRefresh);
-    
+
     const param = {
         setLastRefresh: setLastRefresh,
         setIsAdd: setIsAdd,
@@ -33,7 +34,7 @@ function CourseCard() {
                     title={isAdd ? "Add Course" : "Courses"}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
-                {isAdd ? <AddItem param={param} /> : <ListItem param = {param} data={data} name="course"/>}
+                {isAdd ? <AddItem param={param} name={name} /> : <ListItem param={param} data={data} name={name} />}
             </Card>
         </AppSpin>
     );

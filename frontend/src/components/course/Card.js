@@ -79,7 +79,6 @@ function CourseCard({ course }) {
                 title="Syllabus"
                 description={`${course.syllabus}`}
             />
-            <Button type="primary" className="w-50 m-auto d-block mt-4">Start</Button>
         </Card>
     )
 }

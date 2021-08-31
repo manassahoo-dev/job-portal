@@ -15,7 +15,7 @@ function DeleteItem({ param, data, name }) {
     const showDeleteConfirm = (item) => {
         confirm({
             title: `Are you sure delete this ${name}?`,
-            content: `${data[name].name}`,
+            content: `${name!== 'student' ? data[name].name : data.firstName + ' '+data.lastName}`,
             icon: <ExclamationCircleOutlined />,
             okText: 'Yes',
             okType: 'danger',
@@ -32,7 +32,7 @@ function DeleteItem({ param, data, name }) {
     const deleteEntity = (item) => {
         apiService.deleteBatchMapping(`${api.BATCH}/${name}`, { "data": item })
             .then((response) => {
-                message.success(`${name} deleted successfully!!`);
+                message.success(`${name} deleted successfully`);
                 param.setLastRefresh(new Date());
             }).catch((error) => {
                 message.error(error.response.message);

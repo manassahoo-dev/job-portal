@@ -73,8 +73,9 @@ public class Student extends User {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "profilePic_id")
 	private Document profilePic;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "batch_id")
 	private Batch batch;
+
 }

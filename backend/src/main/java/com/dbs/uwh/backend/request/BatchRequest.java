@@ -18,4 +18,5 @@ public class BatchRequest {
 	private Set<Long> counsellingIds;
 	private Set<Long> quizIds;
 	private Set<Long> skillTestIds;
+	private Set<Long> studentIds;
 }
