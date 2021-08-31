@@ -2,6 +2,8 @@
 package com.dbs.uwh.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,10 +26,18 @@ public class FileUploadController extends GenericRestController<Document, Long> 
 	DatabaseFileService fileService;
 
 	@PostMapping("/profilepic")
-	public Document fileUpload(@RequestParam("file") MultipartFile file) {
+	public Document fileUpload(@RequestParam("file") MultipartFile file,Long stId) {
 
-		return fileService.uploadFile(file);
+		return fileService.uploadFile(file,stId);
 
 	}
 
+	
+	@GetMapping("/getprofilepic/{stId}")
+	public byte[] getProfilePicUploaded(@PathVariable Long stId) {
+
+		return fileService.getProfilePicUploaded(stId);
+
+	}
+	
 }

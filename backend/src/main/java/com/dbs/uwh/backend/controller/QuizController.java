@@ -35,7 +35,7 @@ public class QuizController extends GenericRestController<Quiz, Long> {
 	}
 	
 	@GetMapping(value = "/category/{id}")
-	public List<Quiz> findByCategoryId(@PathVariable("id") Long id, @RequestParam(required = false) String quizType) {
+	public List<Quiz> findByCategoryId(@PathVariable("id") Long id,@RequestParam(required = false) String quizType ) {
 		if(quizType != null) {
 			return quizService.findByQuizTypeAndCategoryId(QuizType.valueOf(quizType), id);
 		}

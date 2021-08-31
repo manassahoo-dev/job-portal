@@ -21,6 +21,7 @@ import lombok.Setter;
 @Entity
 @Builder
 public class Document extends BaseEntity {
+	//Document() {};
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,5 +43,11 @@ public class Document extends BaseEntity {
 	@NotNull
 	@Lob
 	private byte[] data;
+
+	private Long uploadDoc_id;
+	
+	public void setUploadDocId(Long uploadDocId) { this.uploadDoc_id = uploadDocId; } 
+	
+	public void getUploadDocId(Long uploadDocId) { this.uploadDoc_id = uploadDocId; } 
 
 }
