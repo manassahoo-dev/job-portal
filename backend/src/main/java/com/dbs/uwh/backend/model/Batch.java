@@ -29,11 +29,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-
 @Getter
-
 @Setter
-
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "name" }, name = "uk_name") })
 public class Batch extends BaseEntity {
 

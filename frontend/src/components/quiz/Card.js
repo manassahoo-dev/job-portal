@@ -81,7 +81,6 @@ function QuizCard({ quiz }) {
                     </List.Item>
                 )}
             />
-            <Button type="primary" className="w-50 m-auto d-block mt-4">Start</Button>
         </Card>
     );
 }

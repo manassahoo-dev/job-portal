@@ -1,5 +1,4 @@
-import { Button, Card, Checkbox, Col, Form, List, PageHeader, Row } from 'antd';
-import Paragraph from 'antd/lib/typography/Paragraph';
+import { Button, Card, PageHeader } from 'antd';
 import React, { useContext, useState } from "react";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
