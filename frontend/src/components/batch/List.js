@@ -12,7 +12,7 @@ function ListItem({ param, data, name }) {
             dataSource={data}
             renderItem={item => (
                 <List.Item className="px-0" actions={[
-                    <MapItem param={param} data={item} name={name} />,
+                    <MapItem param={param} item={item} name={name} />,
                     <DeleteItem param={param} data={item} name={name} />
                 ]}>
                     <List.Item.Meta
