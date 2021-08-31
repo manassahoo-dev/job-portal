@@ -1,10 +1,7 @@
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Descriptions, Image, message, Row, Space, Table, Tooltip } from 'antd';
+import { Button, Card, Col, message, Row, Space, Tooltip } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import confirm from 'antd/lib/modal/confirm';
-import Modal from 'antd/lib/modal/Modal';
-import Text from 'antd/lib/typography/Text';
-import Title from 'antd/lib/typography/Title';
 import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../../contexts/AppContext';
@@ -13,6 +10,7 @@ import apiService from '../../services/api.service';
 import ApiRequest from '../../services/ApiRequest';
 import ACTIONTYPES from '../utility/ACTIONTYPES';
 import ProfileView from './ProfileView';
+import { Table } from "ant-table-extensions";
 
 // { isActionPerformedStudent, setIsActionPerformedStudent, setData, item }
 
@@ -40,6 +38,27 @@ function StudentList() {
         })
     }
 
+    const fields = {
+        id: 'SL No',
+        idNumber: 'Aadhar Number',
+        Name: {
+            header: "Name",
+            formatter: (_fieldValue, record) => {
+                return record?.firstName + " " + record?.lastName;
+            },
+        },
+        batch: {
+            header: "Batch",
+            formatter: (_fieldValue, record) => {
+                return record.batch?.name;
+            },
+        },
+        email: 'Email Address',
+        mobile: 'Mobile Number',
+        age: 'Age',
+        gender: 'Gender',
+    };
+
     const columns = [
         {
             title: 'SL No',
@@ -48,15 +67,24 @@ function StudentList() {
             defaultSortOrder: 'descend',
             sorter: (a, b) => a.id - b.id,
         }, {
-            title: 'UID (Adhar)',
+            title: 'UID (Aadhar)',
             dataIndex: 'idNumber',
             key: 'idNumber',
         }, {
             title: 'Name',
             dataIndex: 'name',
+            formatter: (_fieldValue, record) => {
+                return record?.firstName + " " + record?.lastName;
+            },
             render: (text, record) => <b>{`${record.firstName} ${record?.lastName || ''}`}</b>,
             sorter: (a, b) => (a?.name - b?.name),
         }, {
+            title: 'Batch',
+            dataIndex: 'batch.id',
+            key: 'batch',
+            render: (text, record) => <b>{text?.name}</b>,
+        },
+        {
             title: 'Email',
             dataIndex: 'email',
             key: 'email',
@@ -146,7 +174,9 @@ function StudentList() {
             <Card className="overflow-auto">
                 <Row>
                     <Col span={24}>
-                        <Table loading={loading} columns={columns} pagination={data.length > 10}
+                        <Table loading={loading} columns={columns} pagination={data.length > 10} 
+                            exportable exportableProps={{ fields, showColumnPicker: true, fileName: "students" }}
+                            searchable
                             dataSource={data} size="small" rowKey="id"
                             rowClassName={(record, index) => (record.id === contextData.selectedItem?.id) ? 'ant-table-row-selected' : ''}
                             bordered

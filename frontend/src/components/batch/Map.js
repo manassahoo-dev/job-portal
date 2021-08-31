@@ -16,7 +16,7 @@ function MapItem({ param, data, name }) {
     };
 
     const handleCancel = () => {
-        setIsModalVisible(false);
+    setIsModalVisible(false);
     };
 
     return (
