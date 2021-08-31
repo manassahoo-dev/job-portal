@@ -7,6 +7,7 @@ import CounsellingCard from '../../components/batch/Counselling';
 import CourseCard from '../../components/batch/Course';
 import QuizCard from '../../components/batch/Quiz';
 import SkillTestCard from '../../components/batch/SkillTest';
+import StudentCard from '../../components/batch/Student';
 import AppContext from "../../contexts/AppContext";
 
 const { Title, Text, Link } = Typography;
@@ -20,7 +21,13 @@ function Batches() {
         setLastRefresh: setLastRefresh
     }
 
-    const items = [<CourseCard />, <QuizCard quizType="APTITUDE" />, <CounsellingCard />, <QuizCard quizType="EXAM" />, <SkillTestCard />];
+    const items = [<CourseCard />,
+    <QuizCard quizType="APTITUDE" />,
+    <CounsellingCard />,
+    <QuizCard quizType="EXAM" />,
+    <SkillTestCard />,
+    <StudentCard />];
+
     const [contextData, setContextData] = useState(object);
     useEffect(() => {
         setContextData({ ...contextData, batch })
@@ -30,10 +37,10 @@ function Batches() {
         <AppContext.Provider value={{ contextData, setContextData }}>
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8}>
-                    <BatchList setBatch={setBatch}/>
+                    <BatchList setBatch={setBatch} />
                 </Col>
                 <Col xs={24} sm={12} md={16}>
-                    {batch && <BatchDetails batch={batch} items={items}/>}
+                    {batch && <BatchDetails batch={batch} items={items} />}
                 </Col>
             </Row>
         </AppContext.Provider>

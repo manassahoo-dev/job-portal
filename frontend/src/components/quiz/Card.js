@@ -1,5 +1,5 @@
 import { CheckCircleOutlined, DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
-import { Card, Dropdown, List, Menu, message, Modal, Tag, Typography } from "antd";
+import { Button, Card, Dropdown, List, Menu, message, Modal, Tag, Typography } from "antd";
 import React, { useContext } from 'react';
 import AppContext from '../../contexts/AppContext';
 import api from "../../services/api";
@@ -81,6 +81,7 @@ function QuizCard({ quiz }) {
                     </List.Item>
                 )}
             />
+            <Button type="primary" className="w-50 m-auto d-block mt-4">Start</Button>
         </Card>
     );
 }

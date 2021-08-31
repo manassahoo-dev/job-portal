@@ -1,9 +1,10 @@
-import { Button, Checkbox, Form, List, message, Row } from 'antd';
+import { Button, Checkbox, Form, List, message, Row, Typography } from 'antd';
 import React, { useState } from "react";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ApiRequest from "../../services/ApiRequest";
 
+const { Text, Link } = Typography;
 function AddItem({ param }) {
 
     const { data, error, loading } = ApiRequest('GET', param.path, param.isAdd);
@@ -36,6 +37,7 @@ function AddItem({ param }) {
                 <Row>
                     <Checkbox.Group className="w-100" onChange={onChange}>
                         <List
+                            pagination={true}
                             footer={
                                 <Button type="primary" htmlType="submit" block disabled={checked.length === 0}>
                                     Add
@@ -45,7 +47,10 @@ function AddItem({ param }) {
                             renderItem={item => (
                                 <List.Item>
                                     <Checkbox value={item.id} disabled={param.existingIds.includes(item.id)}>
-                                        {item.name}
+                                        {param.name === 'studentIds' ? <>
+                                            <Text strong>{item.firstName + ' ' + item.lastName}</Text><br />
+                                            <Text type="secondary">{item.idNumber}</Text>
+                                        </> : item.name}
                                     </Checkbox>
                                 </List.Item>
                             )}

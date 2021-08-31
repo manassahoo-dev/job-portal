@@ -1,8 +1,6 @@
 
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import {
-    Button, Card, Col, DatePicker, Form,
-    Input, message, Row, Tooltip, Typography
+    Button, Card, Col, DatePicker, Form, Input, message, Row, Select, Space, Tooltip, Typography
 } from 'antd';
 import moment from 'moment';
 import { default as React, useContext, useState } from "react";
@@ -12,6 +10,7 @@ import api from '../../services/api';
 import apiService from '../../services/api.service';
 import ValidationMessage from '../utility/ValidationMessage';
 
+const { Option } = Select;
 const { Title, Text, Link } = Typography;
 function BatchDetails({ batch, items }) {
 
@@ -27,9 +26,13 @@ function BatchDetails({ batch, items }) {
 
     form.setFieldsValue(formValue);
 
+    const onGenderChange = (value) => {
+        console.log(value);
+    };
+
     const onFinish = (values) => {
         console.log('Success:', values);
-        apiService.update(api.BATCH, batch.id, values)
+        apiService.updateBatch(`${api.BATCH}/update`, values)
             .then((response) => {
                 message.success('Batch updated successfully');
                 setContextData({ ...contextData, lastRefresh: new Date() })
@@ -56,24 +59,31 @@ function BatchDetails({ batch, items }) {
                             onFinishFailed={onFinishFailed}
                             validateMessages={ValidationMessage}
                         >
-                            <Row align="middle">
+                            <Row align="middle" gutter={[16]}>
                                 <Col span="6">
                                     <Form.Item label="id" name="id" hidden><Input /></Form.Item>
                                     <Form.Item label="Batch" name="name" rules={[{ required: true }]}><Input /></Form.Item>
                                 </Col>
                                 <Col span="6">
-                                    <Form.Item label="Start Date" name="startDate" rules={[{ required: true }]}><DatePicker /></Form.Item>
+                                    <Form.Item label="Start Date" name="startDate" rules={[{ required: true }]}><DatePicker className="w-100" /></Form.Item>
                                 </Col>
                                 <Col span="6">
-                                    <Form.Item label="End Date" name="endDate" rules={[{ required: true }]}><DatePicker /></Form.Item>
+                                    <Form.Item label="End Date" name="endDate" rules={[{ required: true }]}><DatePicker className="w-100" /></Form.Item>
                                 </Col>
                                 <Col span="6">
-                                    <Tooltip title="Update">
-                                        <Button type="link" shape="circle" htmlType="submit" icon={<CheckOutlined />} />
-                                    </Tooltip>
-                                    <Tooltip title="Cancel">
-                                        <Button type="link" danger shape="circle" icon={<CloseOutlined />} onClick={() => setIsEdit(false)} />
-                                    </Tooltip>
+                                    <Form.Item name="status" label="Status" rules={[{ required: true }]}>
+                                        <Select placeholder="Batch Status">
+                                            <Option value="NOT STARTED">Non Started</Option>
+                                            <Option value="IN PROGRESS">In Progress</Option>
+                                            <Option value="COMPLETED">Completed</Option>
+                                        </Select>
+                                    </Form.Item>
+                                </Col>
+                                <Col span="24" className="d-flex justify-content-end">
+                                    <Space>
+                                        <Button type="primary" htmlType="submit" >Update</Button>
+                                        <Button onClick={() => setIsEdit(false)} >Cancel</Button>
+                                    </Space>
                                 </Col>
                             </Row>
                         </Form>
@@ -85,16 +95,19 @@ function BatchDetails({ batch, items }) {
                             </Col>
                             <Col span={6}>
                                 <Text type="secondary">Start Date</Text><br />
-                                <Text strong>{batch.startDate}</Text>
+                                <Text strong>{batch.startDate || '-'}</Text>
                             </Col>
                             <Col span={6}>
                                 <Text type="secondary">End Date</Text><br />
-                                <Text strong>{batch.endDate}</Text>
+                                <Text strong>{batch.endDate || '-'}</Text>
                             </Col>
                             <Col span={6}>
+                                <Text type="secondary">Status</Text><br />
+                                <Text strong>{batch.status}</Text>
                                 <Tooltip title="Edit Batch">
                                     <Button type="link" icon={<FiEdit2 />} className="float-end" onClick={() => setIsEdit(true)} />
-                                </Tooltip>                                </Col>
+                                </Tooltip>
+                            </Col>
                         </Row>
                     }
                 </Card>

@@ -13,7 +13,9 @@ import com.dbs.uwh.backend.dao.BatchCourseDao;
 import com.dbs.uwh.backend.dao.BatchDao;
 import com.dbs.uwh.backend.dao.BatchQuizDao;
 import com.dbs.uwh.backend.dao.BatchSkillSetDao;
+import com.dbs.uwh.backend.dao.StudentDao;
 import com.dbs.uwh.backend.model.Batch;
+import com.dbs.uwh.backend.model.Student;
 import com.dbs.uwh.backend.model.constant.QuizType;
 import com.dbs.uwh.backend.model.mapping.BatchCounselling;
 import com.dbs.uwh.backend.model.mapping.BatchCourse;
@@ -35,6 +37,19 @@ public class BatchService extends GenericService<Batch, Long> {
 	BatchSkillSetDao batchSkillSetDao;
 	@Autowired
 	BatchCounsellingDao batchCounsellingDao;
+	
+	@Autowired
+	private StudentDao studentDao;
+	
+	public void updateBatch(Batch batch) {
+		Batch dbBatch = batchDao.findById(batch.getId()).get();
+		dbBatch.setName(batch.getName());
+		dbBatch.setStartDate(batch.getStartDate());
+		dbBatch.setEndDate(batch.getEndDate());
+		dbBatch.setStatus(batch.getStatus());
+
+		batchDao.save(dbBatch);
+	}
 
 	public HashMap<String, Integer> BatchStats() {
 		HashMap<String, Integer> batchStats = new HashMap<String, Integer>();
@@ -148,4 +163,9 @@ public class BatchService extends GenericService<Batch, Long> {
 	public List<BatchCounselling> findAllCounsellingByBatchId(Long id) {
 		return batchCounsellingDao.findByBatchId(id);
 	}
+	
+	public List<Student> findAllStudentsByBatchId(Long id){
+		return studentDao.findByBatchId(id);
+	}
+	
 }
