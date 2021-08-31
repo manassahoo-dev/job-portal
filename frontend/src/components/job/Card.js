@@ -5,6 +5,7 @@ import { FiBriefcase } from "react-icons/fi";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
+import StudentList from './Students';
 
 const { confirm } = Modal;
 const { Meta } = Card;
@@ -88,11 +89,10 @@ function JobCard({ job }) {
             className={contextData.selectedItem?.id === job.id && "active"}
             title={job.jobTitle}
             actions={[
-                <Popover content={content} placement='rightTop' title={job.jobTitle}>
+                <Popover content={content} placement='right' title={job.jobTitle}>
                     <Button type="default" block>Details</Button>
-                </Popover>
-                ,
-                <Button type="primary" block>Apply</Button>
+                </Popover>,
+                <StudentList job={job} />
             ]}
             extra={
                 <a><Dropdown overlay={actions} placement="bottomRight">
