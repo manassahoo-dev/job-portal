@@ -30,7 +30,7 @@ function StudentCard() {
                 <PageHeader
                     className="p-0 mb-1"
                     onBack={isAdd ? () => setIsAdd(false) : ""}
-                    title={isAdd ? "Add Student" : "Students"}
+                    title={isAdd ? <span class="ant-page-header-heading-title text-success">Add Student</span> : <span class="ant-page-header-heading-title text-success">Students</span>}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ? <AddItem param={param} name={name} /> :
