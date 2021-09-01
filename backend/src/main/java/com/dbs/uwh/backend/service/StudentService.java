@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.dbs.uwh.backend.dao.StudentDao;
+import com.dbs.uwh.backend.dao.StudentJobDao;
 import com.dbs.uwh.backend.dao.StudentQuizDao;
 import com.dbs.uwh.backend.model.Student;
+import com.dbs.uwh.backend.model.StudentJob;
 import com.dbs.uwh.backend.model.constant.Gender;
 import com.dbs.uwh.backend.model.mapping.StudentQuiz;
 
@@ -20,8 +22,8 @@ public class StudentService extends GenericService<Student, Long> {
 	@Autowired
 	StudentDao studentDao;
 	
-	@Autowired
-	private StudentQuizDao studentQuizDao;
+	@Autowired private StudentQuizDao studentQuizDao;
+	@Autowired private StudentJobDao studentJobDao;
 	
 	public List<Student> findAll() {
 		List<Student> students = studentDao.findAll();
@@ -84,6 +86,14 @@ public class StudentService extends GenericService<Student, Long> {
 	
 	public void saveStudentQuiz(StudentQuiz studentQuiz) {
 		studentQuizDao.save(studentQuiz);
+	}
+	
+	public List<StudentJob> findJobByStudentId(Long studentId){
+		return studentJobDao.findByStudentId(studentId);
+	}
+	
+	public List<StudentQuiz> findQuizByStudentId(Long studentId){
+		return studentQuizDao.findByStudentId(studentId);
 	}
 
 }

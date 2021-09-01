@@ -1,4 +1,4 @@
-import { Card, Col, Divider, Form, InputNumber, List, message, Modal, Row } from 'antd';
+import { Card, Col, Divider, Form, InputNumber, List, message, Modal, Row, Tooltip } from 'antd';
 import Paragraph from 'antd/lib/typography/Paragraph';
 import Text from 'antd/lib/typography/Text';
 import moment from 'moment';
@@ -16,9 +16,7 @@ function AddQuiz({ isModalVisible, setIsModalVisible, item }) {
     const [form] = Form.useForm();
 
     const handleOk = () => {
-        console.log(item);
         let values = form.getFieldsValue();
-        console.log(values);
         Object.keys(values).forEach(function (key) {
             if (values[key]){
                 let request = {
@@ -103,8 +101,8 @@ function AddQuiz({ isModalVisible, setIsModalVisible, item }) {
                                                 </Paragraph>
                                             </Col>
                                             <Col span={8}>
-                                                <span className="float-end"><b>{item.score}</b>/ 100</span><br/>
-                                                <Text className="float-end">{moment(item.createdOn).fromNow()}</Text>
+                                                <span className="float-end"><b>{item.score}</b> / 100</span><br/>                                                
+                                                <Tooltip title={item.createdOn}><p className="float-end">{moment(item.createdOn).fromNow()}</p></Tooltip>
                                             </Col>
                                         </Row>
                                     }

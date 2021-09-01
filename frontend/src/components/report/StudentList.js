@@ -1,16 +1,13 @@
 import { Card, Col, List, Row } from 'antd';
 import Paragraph from 'antd/lib/typography/Paragraph';
-import { useContext } from 'react';
-import AppContext from '../../contexts/AppContext';
+import { FiMail, FiPhone } from "react-icons/fi";
 import api from '../../services/api';
 import ApiRequest from '../../services/ApiRequest';
-import { FiMail, FiPhone } from "react-icons/fi";
 import AppSpin from '../utility/AppSpin';
 
-function StudentList() {
+function StudentList({ student, setStudent }) {
 
-    const { contextData, setContextData } = useContext(AppContext);
-    const { data, error, loading } = ApiRequest('GET', api.STUDENT, contextData);
+    const { data, error, loading } = ApiRequest('GET', api.STUDENT, null);
 
     return (
         <AppSpin loading={loading}>
@@ -20,14 +17,17 @@ function StudentList() {
                     itemLayout="horizontal"
                     dataSource={data}
                     renderItem={item => (
-                        <List.Item className="px-0">
+                        <List.Item className={item === student ? "active" : "null"}>
                             <List.Item.Meta
                                 title={
-                                    <Row className="align-items-center">
+                                    <Row className="align-items-center pointer" onClick={() => setStudent(item)}>
                                         <Col span={16}>
                                             <b>{item.firstName}&nbsp;{item.lastName}</b>
                                             <Paragraph className="m-0 d-flex align-items-center" type="secondary" ellipsis>
-                                                <FiMail />&nbsp;{item.email}  &nbsp;&nbsp;<FiPhone />&nbsp;{item.mobile}
+                                                <FiMail />&nbsp;&nbsp;{item.email}
+                                            </Paragraph>
+                                            <Paragraph className="m-0 d-flex align-items-center" type="secondary" ellipsis>
+                                                <FiPhone />&nbsp;&nbsp;{item.mobile}
                                             </Paragraph>
                                         </Col>
                                         <Col span={8}>

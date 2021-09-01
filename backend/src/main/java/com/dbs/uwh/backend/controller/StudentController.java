@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dbs.uwh.backend.model.Student;
+import com.dbs.uwh.backend.model.StudentJob;
 import com.dbs.uwh.backend.model.mapping.StudentQuiz;
 import com.dbs.uwh.backend.service.StudentService;
 
@@ -47,5 +48,15 @@ public class StudentController extends GenericRestController<Student, Long> {
 	@PostMapping("quiz")
 	public void saveStudentQuiz(@RequestBody @Valid StudentQuiz studentQuiz) {
 		studentService.saveStudentQuiz(studentQuiz);
+	}
+	
+	@GetMapping("/{studentId}/jobs")
+	public List<StudentJob> findJobByStudentId(@PathVariable("studentId") Long studentId) {
+		return studentService.findJobByStudentId(studentId);
+	}
+	
+	@GetMapping("/{studentId}/quizes")
+	public List<StudentQuiz> findQuizByStudentId(@PathVariable("studentId") Long studentId) {
+		return studentService.findQuizByStudentId(studentId);
 	}
 }

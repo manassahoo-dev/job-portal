@@ -1,9 +1,8 @@
 
 package com.dbs.uwh.backend.model.mapping;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -33,8 +32,7 @@ public class StudentQuiz {
 	
 	private Long batchId;
 
-	@Column(name = "created_on")
-	private Date createdOn = new Date();
+	private LocalDate createdOn;
 	
 	private Double score;
 }
