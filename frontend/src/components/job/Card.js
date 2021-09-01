@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
-import { Button, Card, Dropdown, Menu, message, Modal, Popover, Typography } from "antd";
+import { Button, Card, Col, Dropdown, Menu, message, Modal, Popover, Row, Space, Typography } from "antd";
 import { useContext } from "react";
 import { FiBriefcase, FiDollarSign, FiMapPin } from "react-icons/fi";
 import AppContext from "../../contexts/AppContext";
@@ -61,9 +61,9 @@ function JobCard({ job }) {
 
     const basicContent = (
         <div>
-            <FiDollarSign /><Text >  {job.salaryRange}</Text><br />
-            <FiMapPin /><Text >  {job.jobLocation}</Text><br />
-            <FiBriefcase /><Text >  {job.experience}</Text><br />
+            <Row className="m-1 align-items-center"><FiDollarSign />&nbsp;<Text>{job.salaryRange}</Text></Row>
+            <Row className="m-1 align-items-center"><FiMapPin />&nbsp;<Text >{job.jobLocation}</Text></Row>
+            <Row className="m-1 align-items-center"><FiBriefcase />&nbsp;<Text >{job.experience}</Text></Row>
         </div>
 
     )
@@ -83,18 +83,27 @@ function JobCard({ job }) {
             bordered={false}
             className={contextData.selectedItem?.id === job.id && "active"}
             title={job.jobTitle}
-            actions={[
-                <Popover content={content} placement='right'>
-                    <Button type="default">Details</Button>
-                </Popover>,
-                <StudentList job={job} />
-            ]}
             extra={
                 <a><Dropdown overlay={actions} placement="bottomRight">
                     <MoreOutlined />
                 </Dropdown></a>
             }>
-            <Meta title={job.companyName} className="mb-2"/>
+            <Meta title={
+
+                <Row>
+                    <Col span={16}>
+                        {job.companyName}
+                    </Col>
+                    <Col span={8}>
+                        <Space>
+                            <Popover content={content} placement='right'>
+                                <Button type="default" shape="round" >Details</Button>
+                            </Popover>
+                            <StudentList job={job} />
+                        </Space>
+                    </Col>
+                </Row>
+            } />
             {basicContent}
             <br /><Text className="mt-4">  {job.jobDescription}</Text>
         </Card>

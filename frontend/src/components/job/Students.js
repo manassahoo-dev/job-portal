@@ -28,7 +28,7 @@ function StudentList({ job }) {
     ]
     return (
         <>
-            <Button type="primary" onClick={() => setIsVisible(true)}>Apply</Button>
+            <Button type="primary" shape="round" onClick={() => setIsVisible(true)}>Apply</Button>
             <Modal
                 title={job?.companyName}
                 centered
