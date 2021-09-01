@@ -1,5 +1,6 @@
-import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Card, Col, message, Pagination, Row, Space, Tooltip } from 'antd';
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, FileExcelOutlined } from '@ant-design/icons';
+import { Table } from "ant-table-extensions";
+import { Button, Card, Col, message, Row, Space, Tooltip } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import confirm from 'antd/lib/modal/confirm';
 import { useContext, useState } from 'react';
@@ -10,9 +11,6 @@ import apiService from '../../services/api.service';
 import ApiRequest from '../../services/ApiRequest';
 import ACTIONTYPES from '../utility/ACTIONTYPES';
 import ProfileView from './ProfileView';
-import { Table } from "ant-table-extensions";
-
-// { isActionPerformedStudent, setIsActionPerformedStudent, setData, item }
 
 function StudentList() {
 
@@ -163,10 +161,20 @@ function StudentList() {
 
             <Card className="overflow-auto">
                 <Row>
-                    <Col span={24}>
+                    <Col span={24} className="student-table">
                         <Table loading={loading} columns={columns} pagination={{ hideOnSinglePage: true, showSizeChanger: true }}
-                            exportable exportableProps={{ fields, showColumnPicker: true, fileName: "students" }}
-                            searchable
+                            exportable exportableProps={{
+                                fields, showColumnPicker: true, fileName: "students", btnProps: {
+                                    type: "primary",
+                                    icon: <FileExcelOutlined />,
+                                    children: <span>Export to CSV</span>,
+                                }, }}
+                            searchable searchableProps={{
+                                inputProps: {
+                                    placeholder: "Search Student",
+                                    style: { width: '500px', border: '1px solid #4a73ff'},
+                                },
+                            }}
                             dataSource={data} size="small" rowKey="id"
                             rowClassName={(record, index) => (record.id === contextData.selectedItem?.id) ? 'ant-table-row-selected' : ''}
                             bordered

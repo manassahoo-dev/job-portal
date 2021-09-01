@@ -3,11 +3,6 @@ import { Col, Row, Typography } from 'antd';
 import React, { useEffect, useState } from "react";
 import BatchList from '../../components/batch';
 import BatchDetails from '../../components/batch/BatchDetails';
-import CounsellingCard from '../../components/batch/Counselling';
-import CourseCard from '../../components/batch/Course';
-import QuizCard from '../../components/batch/Quiz';
-import SkillTestCard from '../../components/batch/SkillTest';
-import StudentCard from '../../components/batch/Student';
 import AppContext from "../../contexts/AppContext";
 
 const { Title, Text, Link } = Typography;
@@ -21,12 +16,7 @@ function Batches() {
         setLastRefresh: setLastRefresh
     }
 
-    const items = [<CourseCard />,
-    <QuizCard quizType="APTITUDE" />,
-    <CounsellingCard />,
-    <QuizCard quizType="EXAM" />,
-    <SkillTestCard />,
-    <StudentCard />];
+
 
     const [contextData, setContextData] = useState(object);
     useEffect(() => {
@@ -40,7 +30,7 @@ function Batches() {
                     <BatchList setBatch={setBatch} />
                 </Col>
                 <Col xs={24} sm={12} md={16}>
-                    {batch && <BatchDetails batch={batch} items={items} />}
+                    {batch && <BatchDetails batch={batch} />}
                 </Col>
             </Row>
         </AppContext.Provider>

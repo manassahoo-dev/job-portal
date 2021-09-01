@@ -40,7 +40,7 @@ function AddItem({ param, name }) {
                         <List
                             pagination={{hideOnSinglePage: true}}
                             footer={
-                                <Button type="primary" htmlType="submit" block disabled={checked.length === 0}>
+                                <Button type="primary" htmlType="submit" className="w-50 m-auto d-block" disabled={checked.length === 0}>
                                     Add
                                 </Button>}
                             bordered

@@ -50,8 +50,9 @@ function JobCategory({ job }) {
     }
     return (
         <>
-            <Button type="primary" onClick={onClickApply} block>Apply</Button>
+            <Button type="primary" className="w-50" onClick={onClickApply}>Apply</Button>
             <Modal
+                width="50vw"
                 title={job?.companyName}
                 centered
                 visible={isVisible}

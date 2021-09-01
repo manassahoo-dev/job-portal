@@ -7,6 +7,7 @@ import { FiMail, FiPhone, FiCheck } from "react-icons/fi";
 import StudentList from "../../components/report/StudentList";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
+import { SmileTwoTone, HeartTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
 
 function AdminReport() {
 
@@ -70,21 +71,21 @@ function AdminReport() {
                                         </Col>
 
                                         <Col span={1}>
-                                            {job.applied && <FiCheck className="text-success" />}
+                                            {job.applied && <CheckCircleTwoTone twoToneColor="#52c41a" />}
                                         </Col>
                                         <Col span={5}>
                                             <h3 className={job.applied ? "m-0 text-success" : "m-0"}>Applied</h3>
                                             <h4>{job.appliedDate}</h4>
                                         </Col>
                                         <Col span={1}>
-                                            {job.interviewed && <FiCheck className="text-success" />}
+                                            {job.interviewed && <CheckCircleTwoTone twoToneColor="#52c41a" />}
                                         </Col>
                                         <Col span={5}>
                                             <h3 className={job.interviewed ? "m-0 text-success" : "m-0"}>Interviewed</h3>
                                             <h4>{job.interviewedDate}</h4>
                                         </Col>
                                         <Col span={1}>
-                                            {job.placed && <FiCheck className="text-success" />}
+                                            {job.placed && <CheckCircleTwoTone twoToneColor="#52c41a" />}
                                         </Col>
                                         <Col span={5}>
                                             <h3 className={job.placed ? "m-0 text-success" : "m-0"}>Placed</h3>

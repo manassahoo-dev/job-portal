@@ -15,7 +15,7 @@ function SkillTestCard() {
     const [lastRefresh, setLastRefresh] = useState(new Date());
     const { contextData } = useContext(AppContext);
     const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/skillSets`, lastRefresh);
-    
+
     const param = {
         setLastRefresh: setLastRefresh,
         setIsAdd: setIsAdd,
@@ -27,7 +27,7 @@ function SkillTestCard() {
 
     return (
         <AppSpin loading={loading}>
-            <Card>
+            <Card className="mb-2">
                 <PageHeader
                     className="p-0 mb-1"
                     onBack={isAdd ? () => setIsAdd(false) : ""}

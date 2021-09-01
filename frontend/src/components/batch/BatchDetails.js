@@ -5,14 +5,19 @@ import {
 import moment from 'moment';
 import { default as React, useContext, useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
+import CounsellingCard from '../../components/batch/Counselling';
+import CourseCard from '../../components/batch/Course';
+import QuizCard from '../../components/batch/Quiz';
+import SkillTestCard from '../../components/batch/SkillTest';
+import StudentCard from '../../components/batch/Student';
 import AppContext from '../../contexts/AppContext';
 import api from '../../services/api';
 import apiService from '../../services/api.service';
 import ValidationMessage from '../utility/ValidationMessage';
-
 const { Option } = Select;
 const { Title, Text, Link } = Typography;
-function BatchDetails({ batch, items }) {
+
+function BatchDetails({ batch }) {
 
     const [isEdit, setIsEdit] = useState(false);
     const [form] = Form.useForm();
@@ -108,10 +113,16 @@ function BatchDetails({ batch, items }) {
                     }
                 </Card>
             </Col>
-            {items.map((item, index) =>
-                <Col xs={24} sm={12} key={index}>
-                    {item}
-                </Col>)}
+            <Col xs={24} sm={12}>
+                <CourseCard />
+                <StudentCard />
+            </Col>
+            <Col xs={24} sm={12}>
+                <QuizCard quizType="APTITUDE" />
+                <CounsellingCard />
+                <QuizCard quizType="EXAM" />
+                <SkillTestCard />
+            </Col>
         </Row>
     );
 }

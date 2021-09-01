@@ -26,7 +26,7 @@ function StudentCard() {
 
     return (
         <AppSpin loading={loading}>
-            <Card>
+            <Card className="mb-2">
                 <PageHeader
                     className="p-0 mb-1"
                     onBack={isAdd ? () => setIsAdd(false) : ""}

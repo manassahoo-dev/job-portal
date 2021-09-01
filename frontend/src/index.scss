@@ -88,3 +88,6 @@ input[type="number"] {
     color: #52c41a !important;
 }
 .pointer{cursor: pointer;}
+.student-table + span.ant-input-affix-wrapper{
+  width: 500px !important;
+} 

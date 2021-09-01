@@ -105,7 +105,7 @@ function JobCard({ job }) {
             title={job.jobTitle}
             actions={[
                 <Popover content={content} placement='right' title={job.jobTitle}>
-                    <Button type="default" block>Details</Button>
+                    <Button type="default" className="w-50">Details</Button>
                 </Popover>,
                 <JobCategory job={job} />
             ]}

@@ -17,6 +17,7 @@ import com.dbs.uwh.backend.dao.StudentDao;
 import com.dbs.uwh.backend.model.Batch;
 import com.dbs.uwh.backend.model.Student;
 import com.dbs.uwh.backend.model.constant.QuizType;
+import com.dbs.uwh.backend.model.constant.Status;
 import com.dbs.uwh.backend.model.mapping.BatchCounselling;
 import com.dbs.uwh.backend.model.mapping.BatchCourse;
 import com.dbs.uwh.backend.model.mapping.BatchQuiz;
@@ -61,11 +62,10 @@ public class BatchService extends GenericService<Batch, Long> {
 
 		List<Batch> batches = batchDao.findAll();
 
-		for (Batch b : batches) {
-
-			if (b.getEndDate() != null && b.getEndDate().before(date)) {
+		for (Batch batch : batches) {
+			if (batch.getStatus() == Status.COMPLETED) {
 				completed++;
-			} else {
+			} else if(batch.getStatus() == Status.INPROGRESS){
 				inProgress++;
 			}
 
