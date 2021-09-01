@@ -1,7 +1,7 @@
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Dropdown, Menu, message, Modal, Popover, Typography } from "antd";
+import { Button, Card, Dropdown, Menu, message, Modal, Popover, Typography } from "antd";
 import { useContext } from "react";
-import { FiBriefcase } from "react-icons/fi";
+import { FiBriefcase, FiDollarSign, FiMapPin } from "react-icons/fi";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
@@ -61,26 +61,21 @@ function JobCard({ job }) {
 
     const basicContent = (
         <div>
-            <FiBriefcase /><Text >  {job.salaryRange}</Text><br />
-            <FiBriefcase /><Text >  {job.jobLocation}</Text><br />
+            <FiDollarSign /><Text >  {job.salaryRange}</Text><br />
+            <FiMapPin /><Text >  {job.jobLocation}</Text><br />
             <FiBriefcase /><Text >  {job.experience}</Text><br />
         </div>
 
     )
 
     const content = (
-        <div style={{ maxWidth: 500 }}>
+        <Card style={{ maxWidth: 500, maxHeight: 500, overflow: 'auto' }}>
+            <b>{job.jobTitle}</b>
             {basicContent}
-            <Meta
-                title="Job Description"
-            /><Text type='secondary'>{job.jobDescription}</Text>
-            <Meta
-                title="Roles and Responsibilities"
-            /><Text type='secondary'>{job.rolesAndResponsibilities}</Text>
-            <Meta
-                title="Eligibility Criteria"
-            /><Text type='secondary'>{job.eligibilityCriteria}</Text>
-        </div>
+            <Meta title="Job Description" className="my-2" /><Text type='secondary'>{job.jobDescription}</Text>
+            <Meta title="Roles and Responsibilities" className="my-2" /><Text type='secondary'>{job.rolesAndResponsibilities}</Text>
+            <Meta title="Eligibility Criteria" className="my-2" /><Text type='secondary'>{job.eligibilityCriteria}</Text>
+        </Card>
     );
 
     return (
@@ -89,8 +84,8 @@ function JobCard({ job }) {
             className={contextData.selectedItem?.id === job.id && "active"}
             title={job.jobTitle}
             actions={[
-                <Popover content={content} placement='right' title={job.jobTitle}>
-                    <Button type="default" block>Details</Button>
+                <Popover content={content} placement='right'>
+                    <Button type="default">Details</Button>
                 </Popover>,
                 <StudentList job={job} />
             ]}
@@ -99,11 +94,9 @@ function JobCard({ job }) {
                     <MoreOutlined />
                 </Dropdown></a>
             }>
-            <Meta
-                title={job.companyName}
-            />
+            <Meta title={job.companyName} className="mb-2"/>
             {basicContent}
-            <FiBriefcase /><Text >  {job.jobDescription}</Text><br />
+            <br /><Text className="mt-4">  {job.jobDescription}</Text>
         </Card>
     );
 }

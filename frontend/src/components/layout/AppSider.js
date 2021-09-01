@@ -23,7 +23,7 @@ const AppLayout = () => {
         { name: 'Exam', icon: <FiEdit3 />, path: '/admin/exams' },
         { name: 'Job', icon: <FiBriefcase />, path: '/admin/jobs' },
         { name: 'Report', icon: <FiFileText />, path: '/admin/reports' },
-        { name: 'Settings', icon: <FiSettings />, path: '/admin/settings' },
+        // { name: 'Settings', icon: <FiSettings />, path: '/admin/settings' },
     ]
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)} >

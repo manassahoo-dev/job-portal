@@ -37,8 +37,8 @@ public class JobController extends GenericRestController<Job, Long> {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Job create(@RequestBody @Valid Job quiz) {
-		return jobService.create(quiz);
+	public Job create(@RequestBody @Valid Job job) {
+		return jobService.create(job);
 	}
 
 	@DeleteMapping(value = "/{id}")

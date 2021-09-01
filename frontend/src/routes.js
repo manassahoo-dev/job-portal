@@ -10,6 +10,7 @@ const Quiz = React.lazy(() => import('./pages/admin/quizes'))
 const Counselling = React.lazy(() => import('./pages/admin/counselling'))
 const Skills = React.lazy(() => import('./pages/admin/skills'))
 const Jobs = React.lazy(() => import('./pages/admin/jobs'))
+const Report = React.lazy(() => import('./pages/admin/reports'))
 const Enquiry = React.lazy(() => import('./pages/admin/enquiry'))
 const StudentView = React.lazy(() => import('./components/student/StudentView'))
 
@@ -22,6 +23,7 @@ const routes = [
   { path: '/admin/counselling', name: 'Counseling', component: Counselling },
   { path: '/admin/skills', name: 'Skills', component: Skills },
   { path: '/admin/jobs', name: 'Jobs', component: Jobs },
+  { path: '/admin/reports', name: 'Report', component: Report },
   { path: '/admin/enquiry', name: 'Jobs', component: Enquiry },
   { path: '/admin/students/:id', name: 'StudentView', component: StudentView },
   { path: '/admin/students', name: 'Students', component: Students },
