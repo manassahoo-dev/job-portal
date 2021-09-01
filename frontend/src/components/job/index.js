@@ -8,7 +8,7 @@ import JobCard from "./Card";
 
 function JobList() {
     const { contextData } = useContext(AppContext);
-    const { data, error, loading } = ApiRequest('GET', `${api.JOB}/category/${contextData.categoryId}`, contextData);
+    const { data, error, loading } = ApiRequest('GET', `${api.JOB}/category/${contextData?.categoryId}`, contextData);
 
     return (
         <>

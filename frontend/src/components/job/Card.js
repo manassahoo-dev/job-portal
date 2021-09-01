@@ -1,11 +1,12 @@
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Dropdown, Menu, message, Modal, Popover, Row, Space, Typography } from "antd";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FiBriefcase, FiDollarSign, FiMapPin } from "react-icons/fi";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
-import StudentList from './Students';
+import JobCategory from './JobCategory';
+import StudentList from './Student';
 
 const { confirm } = Modal;
 const { Meta } = Card;
@@ -14,11 +15,30 @@ const { Text, Link } = Typography;
 function JobCard({ job }) {
 
     const { contextData, setContextData } = useContext(AppContext);
-
+    const [applied, setApplied] = useState(0);
+    const [interviewed, setInterviewed] = useState(0);
+    const [placed, setPlaced] = useState(0);
     const handleMenuClick = (e) => {
         e.key === "edit" ? setContextData({ ...contextData, isAddEdit: true, selectedItem: job }) : showConfirmDelete();
 
     }
+
+    apiService.get(`${api.JOB}/jobstudentbyjobidandtype/${job?.id}?type=Applied`).then((response) => {
+        setApplied(response.data.length)
+    }).catch((response) => {
+        message.error(response.error)
+    })
+    apiService.get(`${api.JOB}/jobstudentbyjobidandtype/${job?.id}?type=Interviewed`).then((response) => {
+        setInterviewed(response.data.length)
+    }).catch((response) => {
+        message.error(response.error)
+    })
+    apiService.get(`${api.JOB}/jobstudentbyjobidandtype/${job?.id}?type=Placed`).then((response) => {
+        setPlaced(response.data.length)
+    }).catch((response) => {
+        message.error(response.error)
+    })
+
 
 
     const showConfirmDelete = () => {
@@ -83,29 +103,33 @@ function JobCard({ job }) {
             bordered={false}
             className={contextData.selectedItem?.id === job.id && "active"}
             title={job.jobTitle}
+            actions={[
+                <Popover content={content} placement='right' title={job.jobTitle}>
+                    <Button type="default" block>Details</Button>
+                </Popover>,
+                <JobCategory job={job} />
+            ]}
             extra={
                 <a><Dropdown overlay={actions} placement="bottomRight">
                     <MoreOutlined />
                 </Dropdown></a>
-            }>
+            }
+        >
             <Meta title={
 
                 <Row>
                     <Col span={16}>
                         {job.companyName}
                     </Col>
-                    <Col span={8}>
-                        <Space>
-                            <Popover content={content} placement='right'>
-                                <Button type="default" shape="round" >Details</Button>
-                            </Popover>
-                            <StudentList job={job} />
-                        </Space>
-                    </Col>
                 </Row>
             } />
             {basicContent}
             <br /><Text className="mt-4">  {job.jobDescription}</Text>
+            <Space>
+                <Text strong>Applied - </Text>{applied}
+                <Text strong>InterViews - </Text>{interviewed}
+                <Text strong>Placements - </Text>{placed}
+            </Space>
         </Card>
     );
 }

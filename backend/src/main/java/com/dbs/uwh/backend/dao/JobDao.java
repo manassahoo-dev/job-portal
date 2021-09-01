@@ -41,12 +41,12 @@ public interface JobDao extends GenericDao<Job, Long> {
 	@Query(value = "INSERT INTO student_job (job_id,student_id,is_placed,placed_date) VALUES (?1, ?2,true,Now()) ", nativeQuery = true)
 	public void saveStudentJobPlaced(Long jobId, Long studentId);
 	
-	@Query(value = "select student_id from student_job where job_id=?1 and is_applied=true)", nativeQuery = true)
+	@Query(value = "select student_id from student_job where job_id=?1 and is_applied=true", nativeQuery = true)
 	public List<Long> getStudentJobDetailByJobIdAndJobApplied(Long jobId);
 
-	@Query(value = "select student_id from student_job where job_id=?1 and is_interviewed=true)", nativeQuery = true)
+	@Query(value = "select student_id from student_job where job_id=?1 and is_interviewed=true", nativeQuery = true)
 	public List<Long> getStudentJobDetailByJobIdAndInterviewed(Long jobId);
 	
-	@Query(value = "select student_id from student_job where job_id=?1 and is_placed=true)", nativeQuery = true)
+	@Query(value = "select student_id from student_job where job_id=?1 and is_placed=true", nativeQuery = true)
 	public List<Long> getStudentJobDetailByJobIdAndPlaced(Long jobId);
 }
