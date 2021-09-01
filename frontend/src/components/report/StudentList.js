@@ -1,18 +1,24 @@
-import { Card, Col, List, Row } from 'antd';
+import { Card, Col, List, PageHeader, Row } from 'antd';
 import Paragraph from 'antd/lib/typography/Paragraph';
+import { useState } from 'react';
 import { FiMail, FiPhone } from "react-icons/fi";
 import api from '../../services/api';
 import ApiRequest from '../../services/ApiRequest';
 import AppSpin from '../utility/AppSpin';
 
 function StudentList({ student, setStudent }) {
-
-    const { data, error, loading } = ApiRequest('GET', api.STUDENT, null);
+    const [lastRefresh, setLastRefresh] = useState(new Date());
+    const { data, error, loading } = ApiRequest('GET', api.STUDENT, lastRefresh);
 
     return (
         <AppSpin loading={loading}>
-            <Card className="overflow-auto" style={{ maxHeight: '80vh' }}>
+            <Card >
+                <PageHeader
+                    className="p-0 mb-2 mx-3"
+                    title={<span class="ant-page-header-heading-title text-success">Student Report</span>}
+                />
                 <List
+                    className="overflow-auto" style={{ maxHeight: '80vh' }}
                     size="small"
                     itemLayout="horizontal"
                     dataSource={data}
