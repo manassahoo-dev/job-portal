@@ -1,5 +1,5 @@
 
-package com.dbs.uwh.backend.model;
+package com.dbs.uwh.backend.model.mapping;
 
 import java.util.Date;
 
@@ -8,6 +8,9 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+
+import com.dbs.uwh.backend.model.Quiz;
+import com.dbs.uwh.backend.model.User;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dbs.uwh.backend.model.Student;
+import com.dbs.uwh.backend.model.mapping.StudentQuiz;
 import com.dbs.uwh.backend.service.StudentService;
 
 import io.swagger.annotations.Api;
@@ -37,4 +39,13 @@ public class StudentController extends GenericRestController<Student, Long> {
 		return studentService.findAll();
 	}
 	
+	@GetMapping("quiz/{batchId}/{quizId}")
+	public List<StudentQuiz> findByBatchIdAndQuizId(@PathVariable("batchId") Long batchId, @PathVariable("quizId") Long quizId) {
+		return studentService.findByBatchIdAndQuizId(batchId, quizId);
+	}
+	
+	@PostMapping("quiz")
+	public void saveStudentQuiz(@RequestBody @Valid StudentQuiz studentQuiz) {
+		studentService.saveStudentQuiz(studentQuiz);
+	}
 }

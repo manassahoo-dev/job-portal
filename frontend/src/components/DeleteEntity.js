@@ -40,7 +40,7 @@ function DeleteEntity({ entityName, item, url, setActionPerformed }) {
             })
             .catch((error) => {
                 message.error(error.response.message);
-            });;;
+            });
     }
 
     return (

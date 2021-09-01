@@ -8,7 +8,7 @@ import api from '../../services/api';
 import apiService from '../../services/api.service';
 import ApiRequest from '../../services/ApiRequest';
 
-function AddQuiz({ isModalVisible, setIsModalVisible, item }) {
+function AddSkill({ isModalVisible, setIsModalVisible, item }) {
     const { contextData } = useContext(AppContext);
     const [existingStudentIds, setExistingStudentIds] = useState([]);
     const [existingStudents, setExistingStudents] = useState([]);
@@ -20,28 +20,25 @@ function AddQuiz({ isModalVisible, setIsModalVisible, item }) {
         let values = form.getFieldsValue();
         console.log(values);
         Object.keys(values).forEach(function (key) {
-            if (values[key]){
-                let request = {
-                    "batchId": item.id.batchId,
-                    "id": {
-                        "quizId": item.id.quizId,
-                        "studentId": key
-                    },
-                    "quiz": {
-                        "id": item.id.quizId
-                    },
-                    "student": {
-                        "id": key
-                    },
-                    "score": values[key]
-                }
-                saveStudentsByBatchAndQuiz(request);
+            let request = {
+                "batchId": item.id.batchId,
+                "id": {
+                    "quizId": item.id.quizId,
+                    "studentId": key
+                },
+                "quiz": {
+                    "id": item.id.quizId
+                },
+                "student": {
+                    "id": key
+                },
+                "score": values[key]
             }
+            saveStudentsByBatchAndQuiz(request);
             console.log('Key : ' + key + ', Value : ' + values[key])
         })
 
         setIsModalVisible(false);
-        message.success('Student details have been saved successfully');
     };
 
     const handleCancel = () => {
@@ -142,4 +139,4 @@ function AddQuiz({ isModalVisible, setIsModalVisible, item }) {
         </>
     );
 }
-export default AddQuiz;
+export default AddSkill;

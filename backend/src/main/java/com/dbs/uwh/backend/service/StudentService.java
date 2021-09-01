@@ -9,14 +9,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.dbs.uwh.backend.dao.StudentDao;
+import com.dbs.uwh.backend.dao.StudentQuizDao;
 import com.dbs.uwh.backend.model.Student;
 import com.dbs.uwh.backend.model.constant.Gender;
+import com.dbs.uwh.backend.model.mapping.StudentQuiz;
 
 @Service
 public class StudentService extends GenericService<Student, Long> {
 
 	@Autowired
 	StudentDao studentDao;
+	
+	@Autowired
+	private StudentQuizDao studentQuizDao;
 	
 	public List<Student> findAll() {
 		List<Student> students = studentDao.findAll();
@@ -71,6 +76,14 @@ public class StudentService extends GenericService<Student, Long> {
 		System.out.println(String.valueOf(currentYear) + "-" + String.valueOf(nextYear).substring(2));
 		return String.valueOf(currentYear) + "-" + String.valueOf(nextYear).substring(2)+"/";
 		
+	}
+	
+	public List<StudentQuiz> findByBatchIdAndQuizId(Long batchId, Long quizId) {
+		return studentQuizDao.findByBatchIdAndQuizId(batchId, quizId);
+	}
+	
+	public void saveStudentQuiz(StudentQuiz studentQuiz) {
+		studentQuizDao.save(studentQuiz);
 	}
 
 }

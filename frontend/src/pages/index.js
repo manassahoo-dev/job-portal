@@ -1,6 +1,5 @@
-import { Typography, Row, Col, Card, Button } from 'antd';
-import { Link, Redirect } from 'react-router-dom';
-import routes from '../routes';
+import { Typography } from 'antd';
+import { Redirect } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
