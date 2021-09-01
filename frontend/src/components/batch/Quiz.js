@@ -30,7 +30,8 @@ function QuizCard({ quizType }) {
                 <PageHeader
                     className="p-0 mb-1"
                     onBack={isAdd ? () => setIsAdd(false) : ""}
-                    title={toSentenceCase(quizType)}
+                    title={isAdd ? <span class="ant-page-header-heading-title text-success">Add {toSentenceCase(quizType)}</span> : 
+                        <span class="ant-page-header-heading-title text-success">{toSentenceCase(quizType)}</span>}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ? <AddItem param={param} name={name} /> : <ListItem param={param} data={data} name={name} />}

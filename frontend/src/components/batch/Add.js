@@ -38,7 +38,7 @@ function AddItem({ param, name }) {
                 <Row>
                     <Checkbox.Group className="w-100" onChange={onChange}>
                         <List
-                            pagination={true}
+                            pagination={{hideOnSinglePage: true}}
                             footer={
                                 <Button type="primary" htmlType="submit" block disabled={checked.length === 0}>
                                     Add

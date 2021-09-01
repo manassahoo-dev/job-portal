@@ -59,7 +59,6 @@ function StudentList() {
             title: 'SL No',
             dataIndex: 'id',
             key: 'id',
-            defaultSortOrder: 'descend',
             sorter: (a, b) => a.id - b.id,
         }, {
             title: 'UID (Aadhar)',
@@ -72,7 +71,6 @@ function StudentList() {
                 return record?.firstName + " " + record?.lastName;
             },
             render: (text, record) => <b>{`${record.firstName} ${record?.lastName || ''}`}</b>,
-            sorter: (a, b) => (a?.name - b?.name),
         }, {
             title: 'Batch',
             dataIndex: 'batchName',
@@ -90,8 +88,6 @@ function StudentList() {
             title: 'Age',
             dataIndex: 'age',
             key: 'age',
-            defaultSortOrder: 'descend',
-            sorter: (a, b) => a.age - b.age,
         }, {
             title: 'Gender',
             dataIndex: 'gender',
@@ -150,7 +146,7 @@ function StudentList() {
                             ...contextData,
                             isActionPerformed: ACTIONTYPES.none
                         })
-                        message.info(`${item.id} deleted successfully!!`);
+                        message.info(`${item.firstName} deleted successfully!`);
                     })
                     .catch((error) => {
                         message.error(error.response.message);
