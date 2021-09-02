@@ -3,10 +3,11 @@ package com.dbs.uwh.backend.service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -15,9 +16,6 @@ import com.dbs.uwh.backend.dao.BatchDao;
 import com.dbs.uwh.backend.dao.CourseDao;
 import com.dbs.uwh.backend.dao.StudentDao;
 import com.dbs.uwh.backend.model.Attendance;
-import com.dbs.uwh.backend.model.Batch;
-import com.dbs.uwh.backend.model.Course;
-import com.dbs.uwh.backend.model.Student;
 import com.dbs.uwh.backend.request.AttendanceRequest;
 import com.dbs.uwh.backend.response.AttendanceResponse;
 
@@ -124,17 +122,21 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 	}
 
 	public void createAttendanceRecords(AttendanceRequest attendanceRequest) {
+		for (Long studentId : attendanceRequest.getStudentIds()) {
+			Attendance attendance = new Attendance();
+			attendance.setAttendanceDate(attendanceRequest.getDate());
+			attendance.setBatchId(attendanceRequest.getBatchId());
+			attendance.setCourseId(attendanceRequest.getCourseId());
+			attendance.setStudentId(studentId);
+			attendance.setPresent(attendanceRequest.isPresent());
 
-		for (Long stId : attendanceRequest.getStudentIds()) {
-			Attendance att = new Attendance();
-			att.setAttendanceDate(attendanceRequest.getDate());
-			att.setBatchId(attendanceRequest.getBatchId());
-			att.setCourseId(attendanceRequest.getCourseId());
-			att.setStudentId(stId);
-			att.setPresent(attendanceRequest.isPresent());
-			attendanceDao.save(att);
+			ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll().withIgnoreCase();
+			Example<Attendance> example = Example.of(attendance, exampleMatcher);
+
+			boolean isExists = attendanceDao.exists(example);
+			if (!isExists)
+				attendanceDao.save(attendance);
 		}
-
 	}
 
 }
