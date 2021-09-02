@@ -29,7 +29,7 @@ function CounsellingCard() {
                 <PageHeader
                     className="p-0 mb-1"
                     onBack={isAdd ? () => setIsAdd(false) : ""}
-                    title={isAdd ? <span class="ant-page-header-heading-title text-success">Add Counselling</span> : <span class="ant-page-header-heading-title text-success">Counselling</span>}
+                    title={isAdd ? <span className="ant-page-header-heading-title text-success">Add Counselling</span> : <span className="ant-page-header-heading-title text-success">Counselling</span>}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ? <AddItem param={param} name={name} /> : <ListItem param={param} data={data} name={name} />}

@@ -8,7 +8,7 @@ import ApiRequest from "../../services/ApiRequest";
 import AppError from "../utility/AppError";
 import AppSpin from "../utility/AppSpin";
 
-function EnquiryCategories(params) {
+function EnquiryList() {
 
     const { contextData, setContextData } = useContext(AppContext);
     const { data, error, loading } = ApiRequest('GET', api.ENQUIRY, contextData);
@@ -61,4 +61,4 @@ function EnquiryCategories(params) {
         </AppSpin>
     )
 }
-export default EnquiryCategories
+export default EnquiryList

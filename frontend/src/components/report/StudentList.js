@@ -15,7 +15,7 @@ function StudentList({ student, setStudent }) {
             <Card >
                 <PageHeader
                     className="p-0 mb-2 mx-3"
-                    title={<span class="ant-page-header-heading-title text-success">Student Report</span>}
+                    title={<span className="ant-page-header-heading-title text-success">Student Report</span>}
                 />
                 <List
                     className="overflow-auto" style={{ maxHeight: '80vh' }}

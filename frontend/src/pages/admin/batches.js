@@ -1,10 +1,11 @@
 
-import { Col, Row } from 'antd';
+import { Col, Row, Typography } from 'antd';
 import React, { useEffect, useState } from "react";
 import BatchList from '../../components/batch';
 import BatchDetails from '../../components/batch/BatchDetails';
 import AppContext from "../../contexts/AppContext";
 
+const { Title, Text, Link } = Typography;
 function Batches() {
 
     const [batch, setBatch] = useState(null);
@@ -14,8 +15,6 @@ function Batches() {
         lastRefresh: lastRefresh,
         setLastRefresh: setLastRefresh
     }
-
-
 
     const [contextData, setContextData] = useState(object);
     useEffect(() => {
@@ -29,7 +28,7 @@ function Batches() {
                     <BatchList setBatch={setBatch} />
                 </Col>
                 <Col xs={24} sm={12} md={16}>
-                    {batch && <BatchDetails batch={batch} />}
+                    {batch && <BatchDetails batch={batch} setBatch={setBatch}/>}
                 </Col>
             </Row>
         </AppContext.Provider>

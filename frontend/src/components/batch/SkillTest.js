@@ -30,8 +30,8 @@ function SkillTestCard() {
                 <PageHeader
                     className="p-0 mb-1"
                     onBack={isAdd ? () => setIsAdd(false) : ""}
-                    title={isAdd ? <span class="ant-page-header-heading-title text-success">Add Skill Test</span> :
-                        <span class="ant-page-header-heading-title text-success">Skill Tests</span>}
+                    title={isAdd ? <span className="ant-page-header-heading-title text-success">Add Skill Test</span> :
+                        <span className="ant-page-header-heading-title text-success">Skill Tests</span>}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ? <AddItem param={param} name={name} /> : <ListItem param={param} data={data} name={name} />}

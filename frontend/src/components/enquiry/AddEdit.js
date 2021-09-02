@@ -1,7 +1,7 @@
-import { Button, Card, Col, DatePicker, Form, Input, message, Row, Select } from "antd";
+import { Button, Card, Col, DatePicker, Divider, Form, Input, message, Row, Select } from "antd";
 import Meta from 'antd/lib/card/Meta';
 import { Option } from "antd/lib/mentions";
-import Text from 'antd/lib/typography/Text';
+import Title from "antd/lib/typography/Title";
 import { useContext } from 'react';
 import AppContext from '../../contexts/AppContext';
 import api from '../../services/api';
@@ -9,9 +9,7 @@ import apiService from '../../services/api.service';
 import ValidationMessage from '../utility/ValidationMessage';
 import Questions from './Questions';
 
-
 function EnquiryAddEdit() {
-
 
     const [form] = Form.useForm();
     const { contextData, setContextData } = useContext(AppContext);
@@ -57,7 +55,7 @@ function EnquiryAddEdit() {
     };
 
     return (
-        <Card hoverable>
+        <Card>
             <Form
                 layout="vertical"
                 form={form}
@@ -66,9 +64,9 @@ function EnquiryAddEdit() {
                 validateMessages={ValidationMessage}
             >
                 <Row gutter={[16, 16]}>
-                    <Col xs={24} sm={24} md={12} lg={12}>
+                    <Col xs={24} sm={24} md={11}>
                         <Meta
-                            title={<Text>Personal Details</Text>}
+                            title={<Title level={3} className="mb-4">Personal Details</Title>}
                         />
                         <Row gutter={[16, 16]}>
                             <Col xs={24} sm={24} md={12} lg={12} >
@@ -84,7 +82,7 @@ function EnquiryAddEdit() {
                                 </Select>
                                 </Form.Item>
                                 <Form.Item label="Email Id" name="mailId"><Input allowClear /></Form.Item>
-                                <Form.Item label="Skills" name="state"><Input allowClear /></Form.Item>
+                                <Form.Item label="Skills" name="skills"><Input allowClear /></Form.Item>
                                 <Form.Item label="State" name="state"><Input allowClear /></Form.Item>
 
                             </Col>
@@ -104,11 +102,12 @@ function EnquiryAddEdit() {
                             </Col>
                         </Row>
                     </Col>
-                    {/* <Divider type="vertical" /> */}
-
-                    <Col xs={24} sm={24} md={12} lg={12}>
+                    <Col md={1}>
+                        <Divider type="vertical" className="h-100" />
+                    </Col>
+                    <Col xs={24} sm={24} md={11}>
                         <Meta
-                            title={<Text>Other Details</Text>}
+                            title={<Title level={3} className="mb-4">Additional Details</Title>}
                         />
 
                         <Form.Item label='Question'>
