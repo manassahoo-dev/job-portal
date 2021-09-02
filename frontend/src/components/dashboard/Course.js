@@ -1,14 +1,15 @@
 import { Table, Tabs } from "antd";
 import Paragraph from "antd/lib/typography/Paragraph";
 import Text from "antd/lib/typography/Text";
+import moment from "moment";
 import { useContext, useEffect, useState } from "react";
-import { FiMail, FiPhone } from "react-icons/fi";
+import { FiClock, FiMail, FiPhone } from "react-icons/fi";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
 import toSentenceCase from "../utility/util";
 
-function Students(params) {
+function Courses(params) {
     const { TabPane } = Tabs;
     const contentStyle = {
         height: '500px',
@@ -22,22 +23,23 @@ function Students(params) {
         setSelectedBatchId(contextData?.initialLoadBatch?.id)
     }, [contextData])
 
-    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${selectedBatchId}/students`, selectedBatchId);
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${selectedBatchId}/courses`, selectedBatchId);
 
     const columns = [
         {
-            title: 'Name',
+            title: 'Corse Name',
             dataIndex: 'name',
             render: (text, record) => <>
-                <Text type="success" strong>{`${toSentenceCase(record.firstName)} ${toSentenceCase(record?.lastName || '')}`}</Text>
+                <Text type="success" strong>{`${toSentenceCase(record.course.name)} `}</Text>
                 <Paragraph className="m-0 d-flex align-items-center" >
-                    <FiMail />&nbsp;&nbsp;{record.email}
-                </Paragraph>
-                <Paragraph className="m-0 d-flex align-items-center" >
-                    <FiPhone />&nbsp;&nbsp;{record.mobile}
+                    <FiClock />&nbsp;&nbsp;{record.course.days}
                 </Paragraph>
             </>,
-        }
+        }, {
+            title: 'Date',
+            dataIndex: 'date',
+            render: (text, record) => <>{(record.createdOn && toSentenceCase(moment(`${record.createdOn}`).fromNow())) || " "}</>,
+        },
     ];
     return (
         <Tabs type="card" style={contentStyle} onChange={(e) => setSelectedBatchId(e)}>
@@ -49,4 +51,4 @@ function Students(params) {
         </Tabs>
     )
 }
-export default Students;
+export default Courses;
