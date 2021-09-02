@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.sun.istack.NotNull;
 
@@ -14,6 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "job_id","student_id" }, name = "uk_name") })
 public class StudentJob extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -26,7 +29,7 @@ public class StudentJob extends BaseEntity {
 	@NotNull
 	@OneToOne
 	@JoinColumn(name = "student_id")
-	private Student student;
+	private User student;
 
 	private boolean isApplied=false;
 

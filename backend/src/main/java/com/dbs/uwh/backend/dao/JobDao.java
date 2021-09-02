@@ -28,17 +28,17 @@ public interface JobDao extends GenericDao<Job, Long> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "INSERT INTO student_job (job_id,student_id,is_applied,applied_date) VALUES (?1, ?2,true,Now()) ", nativeQuery = true)
+	@Query(value = "INSERT INTO student_job (job_id,student_id,is_applied,applied_date,is_interviewed,is_placed) VALUES (?1, ?2,true,Now(),false,false) ", nativeQuery = true)
 	public void saveStudentJobApplied(Long jobId, Long studentId);
 
 	@Modifying
 	@Transactional
-	@Query(value = "INSERT INTO student_job (job_id,student_id,is_interviewed,interviewed_date) VALUES (?1, ?2,true,Now()) ", nativeQuery = true)
+	@Query(value = "INSERT INTO student_job (job_id,student_id,is_interviewed,interviewed_date,is_applied,is_placed) VALUES (?1, ?2,true,Now(),false,false) ", nativeQuery = true)
 	public void saveStudentInterviewed(Long jobId, Long studentId);
 
 	@Modifying
 	@Transactional
-	@Query(value = "INSERT INTO student_job (job_id,student_id,is_placed,placed_date) VALUES (?1, ?2,true,Now()) ", nativeQuery = true)
+	@Query(value = "INSERT INTO student_job (job_id,student_id,is_placed,placed_date,is_applied,is_interviewed) VALUES (?1, ?2,true,Now(),false,false) ", nativeQuery = true)
 	public void saveStudentJobPlaced(Long jobId, Long studentId);
 	
 	@Query(value = "select student_id from student_job where job_id=?1 and is_applied=true", nativeQuery = true)
