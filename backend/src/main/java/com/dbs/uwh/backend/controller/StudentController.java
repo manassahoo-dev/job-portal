@@ -40,9 +40,14 @@ public class StudentController extends GenericRestController<Student, Long> {
 		return studentService.findAll();
 	}
 	
-	@GetMapping("quiz/{batchId}/{quizId}")
+	@GetMapping("/quiz/{batchId}/{quizId}")
 	public List<StudentQuiz> findByBatchIdAndQuizId(@PathVariable("batchId") Long batchId, @PathVariable("quizId") Long quizId) {
 		return studentService.findByBatchIdAndQuizId(batchId, quizId);
+	}
+	
+	@GetMapping("/quiz/{batchId}")
+	public List<StudentQuiz> findByBatchId(@PathVariable("batchId") Long batchId) {
+		return studentService.findByBatchId(batchId);
 	}
 	
 	@PostMapping("quiz")

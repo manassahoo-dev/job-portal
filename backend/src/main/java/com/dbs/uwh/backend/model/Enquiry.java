@@ -45,10 +45,10 @@ public class Enquiry extends BaseEntity {
 	private Date date;
 
 	private Long phoneNumber;
-
 	private Long aadhaarNumber;
 
 	private String state;
+	private String skills;
 
 	private Long pinCode;
 

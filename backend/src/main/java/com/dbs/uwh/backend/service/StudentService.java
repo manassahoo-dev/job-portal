@@ -90,6 +90,11 @@ public class StudentService extends GenericService<Student, Long> {
 	public List<StudentQuiz> findByBatchIdAndQuizId(Long batchId, Long quizId) {
 		return studentQuizDao.findByBatchIdAndQuizId(batchId, quizId);
 	}
+	
+	public List<StudentQuiz> findByBatchId(Long batchId) {
+		return studentQuizDao.findByBatchId(batchId);
+	}
+	
 
 	public void saveStudentQuiz(StudentQuiz studentQuiz) {
 		studentQuizDao.save(studentQuiz);
