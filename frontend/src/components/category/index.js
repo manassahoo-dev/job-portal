@@ -30,7 +30,7 @@ function CategoryList({ id, setCategory, groupBy }) {
                 />
 
                 {isAdd ?
-                    <CategoryAdd setIsAdd={setIsAdd} /> :
+                    <CategoryAdd setIsAdd={setIsAdd} setLastRefresh={setLastRefresh}/> :
                     <>
                         {error ? <AppError
                             className="vh65 card-center"

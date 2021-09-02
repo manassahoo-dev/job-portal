@@ -64,7 +64,7 @@ function JobAddEdit(params) {
                 onFinishFailed={onFinishFailed}
                 validateMessages={ValidationMessage}
             >
-                <Row gutter={[16, 16]}>
+                <Row gutter={[16, 0]}>
                     <Col xs={24} md={12} lg={12}>
                         <Form.Item label="Enter Job Name" name='jobTitle' rules={[{ required: true }]}>
                             <Input placeholder="Job Sub-Category Name" />
@@ -80,7 +80,8 @@ function JobAddEdit(params) {
                             <Select>
                                 <Option value="0-2 Years">0-2 Years</Option>
                                 <Option value="3-5 Years">3-5 Years</Option>
-                                <Option value="5+ Years">5+ Years</Option>
+                                <Option value="5-10 Years">5-10 Years</Option>
+                                <Option value="10+ Years">10+ Years</Option>
                             </Select>
                         </Form.Item>
 
@@ -98,7 +99,6 @@ function JobAddEdit(params) {
                             label="Eligibility Criteria"
                             name="eligibilityCriteria"
                             rules={[{ required: true }]}
-                            tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
                         >
                             <TextArea
                                 placeholder="Type here.."
@@ -109,7 +109,6 @@ function JobAddEdit(params) {
                         <Form.Item
                             label="Job Description"
                             name="jobDescription"
-                            tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
                         >
                             <TextArea
                                 placeholder="Type here.."
@@ -120,7 +119,6 @@ function JobAddEdit(params) {
                         <Form.Item
                             label="Roles and Responsibilities "
                             name="rolesAndResponsibilities"
-                            tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
                         >
                             <TextArea
                                 placeholder="Type here.."
@@ -130,12 +128,18 @@ function JobAddEdit(params) {
                         <Form.Item
                             label="About Company"
                             name="aboutCompany"
-                            tooltip={{ title: '200 Characters in Words', icon: <InfoCircleOutlined /> }}
                         >
                             <TextArea
                                 placeholder="Type here.."
                                 autoSize={{ minRows: 2, maxRows: 6 }}
                             />
+                        </Form.Item>
+                        <Form.Item name="status" label="Status" rules={[{ required: true }]}>
+                            <Select placeholder="Job Status">
+                                <Option value="NOTSTARTED">Non Started</Option>
+                                <Option value="INPROGRESS">In Progress</Option>
+                                <Option value="COMPLETED">Completed</Option>
+                            </Select>
                         </Form.Item>
                     </Col>
 
