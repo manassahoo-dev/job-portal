@@ -18,9 +18,9 @@ function CategoryList({ id, setCategory, groupBy }) {
         <AppSpin loading={loading} size="large" tip="Fetching categories...">
             <Card className={loading ? 'vh65' : 'overflow-auto'}>
                 <PageHeader
-                    className="p-0 mb-2"
+                    className="p-0 mb-2 mx-3"
                     onBack={isAdd ? () => setIsAdd(false) : ""}
-                    title={isAdd ? "Add New Category" : "Category"}
+                    title={isAdd ? <span className="ant-page-header-heading-title text-success">Add Category</span> : <span className="ant-page-header-heading-title text-success">Category</span>}
                     extra={!isAdd && [
                         <Tooltip title="Refresh">
                             <Button type="link" icon={<SyncOutlined />} onClick={() => setLastRefresh(new Date())} />

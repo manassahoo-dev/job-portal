@@ -102,11 +102,11 @@ function AdminReport() {
                             {quizes.map((item, index) =>
                                 <>
                                     <Row gutter={[16, 16]} className="d-flex align-items-center">
-                                        <Col span={6}>
+                                        <Col span={12}>
                                             <Title level={5} className="m-0">{item.quiz.name}</Title>
                                             <p className="m-0">{item.quiz.description}</p>
                                         </Col>
-                                        <Col span={6}>
+                                        <Col span={12}>
                                             <Title level={5} className="m-0">{item.score} / 100</Title>
                                             <Tooltip title={item.createdOn}><p className="m-0">{moment(item.createdOn).fromNow()}</p></Tooltip>
                                         </Col>

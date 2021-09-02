@@ -13,7 +13,7 @@ function QuizCard({ quizType }) {
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
     const [lastRefresh, setLastRefresh] = useState(new Date());
-    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/quizes?quizType=${quizType}`, contextData.lastRefresh);
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/quizes?quizType=${quizType}`, lastRefresh);
 
     const param = {
         setLastRefresh: setLastRefresh,

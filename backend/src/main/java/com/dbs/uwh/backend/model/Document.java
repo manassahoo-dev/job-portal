@@ -47,11 +47,4 @@ public class Document extends BaseEntity {
 	@NotNull
 	@Lob
 	private byte[] data;
-
-	private Long uploadDoc_id;
-	
-	public void setUploadDocId(Long uploadDocId) { this.uploadDoc_id = uploadDocId; } 
-	
-	public void getUploadDocId(Long uploadDocId) { this.uploadDoc_id = uploadDocId; } 
-
 }

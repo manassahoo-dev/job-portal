@@ -19,7 +19,6 @@ import javax.validation.constraints.NotNull;
 import com.dbs.uwh.backend.model.constant.Status;
 import com.dbs.uwh.backend.model.mapping.BatchCounselling;
 import com.dbs.uwh.backend.model.mapping.BatchCourse;
-import com.dbs.uwh.backend.model.mapping.BatchEvent;
 import com.dbs.uwh.backend.model.mapping.BatchQuiz;
 import com.dbs.uwh.backend.model.mapping.BatchSkillSet;
 import com.dbs.uwh.backend.model.mapping.BatchVolunteering;
@@ -68,9 +67,5 @@ public class Batch extends BaseEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<BatchSkillSet> skillSets = new HashSet<>();
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<BatchEvent> events = new HashSet<>();
 
 }
