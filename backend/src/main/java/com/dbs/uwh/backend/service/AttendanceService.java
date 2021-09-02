@@ -130,10 +130,9 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 			attendance.setStudentId(studentId);
 			attendance.setPresent(attendanceRequest.isPresent());
 
-			ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll().withIgnoreCase();
-			Example<Attendance> example = Example.of(attendance, exampleMatcher);
-
-			boolean isExists = attendanceDao.exists(example);
+			boolean isExists = attendanceDao.existsAttendanceByBatchIdAndCourseIdAndStudentIdAndAttendanceDate(
+					attendance.getBatchId(), attendance.getCourseId(), attendance.getStudentId(),
+					attendance.getAttendanceDate());
 			if (!isExists)
 				attendanceDao.save(attendance);
 		}
