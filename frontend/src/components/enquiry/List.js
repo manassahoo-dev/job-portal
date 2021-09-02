@@ -19,7 +19,7 @@ function EnquiryList() {
                     className="p-0 mb-2"
                     title="Enquiry"
                     extra={!contextData.isAddEdit && [
-                        <Button type="primary" block icon={<PlusOutlined />} onClick={() => setContextData({ ...contextData, isAddEdit: true })}> Add Enquiry</Button>,
+                        <Button type="primary" block icon={<PlusOutlined />} onClick={() => setContextData({ ...contextData, isAddEdit: true, selectedItem: {} })}> Add Enquiry</Button>,
                     ]}
                 />
 

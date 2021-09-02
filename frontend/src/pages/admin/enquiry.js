@@ -1,5 +1,4 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Col, PageHeader, Row } from "antd";
+import { Col, PageHeader, Row } from "antd";
 import { useEffect, useState } from "react";
 import EnquiryAddEdit from "../../components/enquiry/AddEdit";
 import EnquiryCard from "../../components/enquiry/Card";
@@ -25,14 +24,7 @@ function Enquiry() {
                     <EnquiryList />
                 </Col>
                 <Col xs={24} sm={12} md={16} lg={16}>
-                    <>
-                        <PageHeader
-                            className="p-0 mb-2"
-                            title={`Enquiry Details  ${contextData.selectedItem?.studentName || ''}`}
-                            extra={[
-                                <Button type="primary" icon={<PlusOutlined />} block onClick={() => setContextData({ ...contextData, isAddEdit: true })}>Register Now</Button>,
-                            ]}
-                        />
+                    <>                        
                         {contextData.isAddEdit ?
                             <EnquiryAddEdit />
                             :
