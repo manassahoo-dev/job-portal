@@ -1,8 +1,9 @@
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Layout, Menu, Space, Switch, Typography } from 'antd';
+import { Button, Layout, Menu, message, Space, Switch, Typography } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import React, { useState } from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
+import { FiLogOut } from 'react-icons/fi';
 import { Link } from "react-router-dom";
 
 const { Text } = Typography;
@@ -23,6 +24,7 @@ const AppHeader = () => {
     };
     const logout = () => {
         sessionStorage.removeItem('user');
+        message.success('Logout successfully')
     }
     function handleMenuClick(e) {
         console.log('click', e);
@@ -48,15 +50,15 @@ const AppHeader = () => {
                 <Space size="large">
                     <Switch checked={isDarkMode} onChange={toggleTheme} />
                     {user ?
-                        <Dropdown overlay={menu} placement="bottomCenter" placement="bottomRight" arrow style={{width: '150px'}}>
-                            <a><Avatar style={{ backgroundColor: '#f56a00' }}>{user?.firstName.charAt(0).toUpperCase()}</Avatar>
-                                <Text className="mx-2">{user?.firstName}&nbsp;{user?.lastName}</Text></a>
-                        </Dropdown>
+                        <a><Avatar style={{ backgroundColor: '#fa7879' }}>{user?.firstName.charAt(0).toUpperCase()}</Avatar>
+                            <Text className="mx-2 fw-bold">{user?.firstName}&nbsp;{user?.lastName}</Text></a>
+                        // <Dropdown overlay={menu} placement="bottomCenter" placement="bottomRight" arrow style={{width: '150px'}}></Dropdown>
                         :
                         <Button type='primary'>
                             <Link to="/login">Login</Link>
                         </Button>
                     }
+                    <Button><Link to="/" className="d-flex align-items-center" onClick={logout}><FiLogOut className="me-2"/>Logout</Link></Button>
                 </Space>
             </div>
         </Header>

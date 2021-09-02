@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 
 import com.dbs.uwh.backend.dao.JobDao;
 import com.dbs.uwh.backend.dao.StudentJobDao;
+import com.dbs.uwh.backend.model.Enquiry;
 import com.dbs.uwh.backend.model.Job;
 import com.dbs.uwh.backend.model.StudentJob;
 import com.dbs.uwh.backend.model.User;
+import com.dbs.uwh.backend.model.constant.Status;
 import com.dbs.uwh.backend.request.StudentJobRequest;
 
 @Service
@@ -31,9 +33,20 @@ public class JobService extends GenericService<Job, Long> {
 		List<Job> jobs = jobDao.findAll();
 		HashMap<String, Integer> jobStats = new HashMap<String, Integer>();
 
+		int completed = 0;
+		int inProgress = 0;
+
+		for (Job job: jobs) {
+			if (job.getStatus() == Status.COMPLETED) {
+				completed++;
+			} else if (job.getStatus() == Status.INPROGRESS) {
+				inProgress++;
+			}
+		}
+
 		jobStats.put("total", jobs.size());
-		jobStats.put("placements", 15);
-		jobStats.put("interviews", 1);
+		jobStats.put("Completed", completed);
+		jobStats.put("InProgress", inProgress);
 		return jobStats;
 	}
 

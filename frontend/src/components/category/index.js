@@ -1,7 +1,7 @@
-import { PlusOutlined, SyncOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import { Button, Card, Empty, List, PageHeader, Tooltip } from "antd";
 import React, { useState } from "react";
-import { FiPlus } from "react-icons/fi";
+import { IoReload } from "react-icons/io5";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
 import AppError from "../utility/AppError";
@@ -23,9 +23,9 @@ function CategoryList({ id, setCategory, groupBy }) {
                     title={isAdd ? <span className="ant-page-header-heading-title text-success">Add Category</span> : <span className="ant-page-header-heading-title text-success">Category</span>}
                     extra={!isAdd && [
                         <Tooltip title="Refresh">
-                            <Button type="link" icon={<SyncOutlined />} onClick={() => setLastRefresh(new Date())} />
+                            <Button type="link" icon={<IoReload />} onClick={() => setLastRefresh(new Date())} />
                         </Tooltip>,
-                        <Button type="primary" icon={<FiPlus />} onClick={() => setIsAdd(true)}>Add</Button>,
+                        <Button type="primary" icon={< PlusOutlined />} onClick={() => setIsAdd(true)}>Add</Button>,
                     ]}
                 />
 
