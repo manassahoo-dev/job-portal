@@ -1,6 +1,5 @@
-import { Card, Col, Divider, Form, Input, InputNumber, List, message, Modal, Row, Select } from 'antd';
+import { Col, Divider, Form, InputNumber, List, message, Modal, Row, Tooltip } from 'antd';
 import Paragraph from 'antd/lib/typography/Paragraph';
-import Text from 'antd/lib/typography/Text';
 import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
 import AppContext from '../../contexts/AppContext';
@@ -8,39 +7,38 @@ import api from '../../services/api';
 import apiService from '../../services/api.service';
 import ApiRequest from '../../services/ApiRequest';
 
-function AddSkill({ isModalVisible, setIsModalVisible, item }) {
+function AddCounselling({ isModalVisible, setIsModalVisible, item }) {
     const { contextData } = useContext(AppContext);
     const [existingStudentIds, setExistingStudentIds] = useState([]);
     const [existingStudents, setExistingStudents] = useState([]);
-    const [selectedStudentId, setselectedStudentId] = useState(0);
     const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/students`, contextData.lastRefresh);
     const [form] = Form.useForm();
-    const { Option } = Select;
 
     const handleOk = () => {
-        console.log(item);
         let values = form.getFieldsValue();
-        console.log(values);
         Object.keys(values).forEach(function (key) {
-            let request = {
-                "batchId": item.id.batchId,
-                "id": {
-                    "quizId": item.id.quizId,
-                    "studentId": key
-                },
-                "quiz": {
-                    "id": item.id.quizId
-                },
-                "student": {
-                    "id": key
-                },
-                "score": values[key]
+            if (values[key]) {
+                let request = {
+                    "batchId": item.id.batchId,
+                    "id": {
+                        "quizId": item.id.quizId,
+                        "studentId": key
+                    },
+                    "quiz": {
+                        "id": item.id.quizId
+                    },
+                    "student": {
+                        "id": key
+                    },
+                    "score": values[key]
+                }
+                saveStudentsByBatchAndQuiz(request);
             }
-            saveStudentsByBatchAndQuiz(request);
             console.log('Key : ' + key + ', Value : ' + values[key])
         })
 
         setIsModalVisible(false);
+        message.success('Student details have been saved successfully');
     };
 
     const handleCancel = () => {
@@ -84,22 +82,8 @@ function AddSkill({ isModalVisible, setIsModalVisible, item }) {
 
     return (
         <>
-            <Modal title="Add Students-Skill Data" visible={isModalVisible} okText="Submit" onOk={handleOk} onCancel={handleCancel}>
-                <Select
-                    style={{ width: 240 }}
-                    placeholder="Select Student"
-                    onChange={(e) => setselectedStudentId(e)}
-                >
-                    {data.map((student) => (
-                        <Option key={student.id}>
-                            <b>{student.firstName}&nbsp;{student.lastName}</b>
-                            <Paragraph className="m-0" type="secondary" ellipsis>
-                                {student.email} / {student.mobile}
-                            </Paragraph>
-                        </Option>
-                    ))}
-                </Select>
-                {existingStudents.includes(data[selectedStudentId]) &&
+            <Modal title="Add Students Data" visible={isModalVisible} okText="Submit" onOk={handleOk} onCancel={handleCancel}>
+                {existingStudents?.length > 0 &&
                     <List
                         size="small"
                         itemLayout="horizontal"
@@ -116,8 +100,8 @@ function AddSkill({ isModalVisible, setIsModalVisible, item }) {
                                                 </Paragraph>
                                             </Col>
                                             <Col span={8}>
-                                                <span className="float-end"><b>{item.score}</b>/ 100</span><br />
-                                                <Text className="float-end">{moment(item.createdOn).fromNow()}</Text>
+                                                <span className="float-end"><b>{item.score}</b> / 100</span><br />
+                                                <Tooltip title={item.createdOn}><p className="float-end">{moment(item.createdOn).fromNow()}</p></Tooltip>
                                             </Col>
                                         </Row>
                                     }
@@ -125,17 +109,15 @@ function AddSkill({ isModalVisible, setIsModalVisible, item }) {
                             </List.Item>
                         )}
                     />}
+                <Divider />
                 <Form
                     form={form}
                     layout="vertical"
                     name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
-
                     {data.map((student, index) =>
                         <>
-                            {existingStudents.includes(data[selectedStudentId]) &&
-                                <Row>
-
-                                    {/* <Col span={16}>
+                            {!existingStudentIds.includes(student.id) && <Row>
+                                <Col span={16}>
                                     <List.Item.Meta
                                         title={<b>{student.firstName}&nbsp;{student.lastName}</b>}
                                         description={<Paragraph className="m-0" type="secondary" ellipsis>
@@ -148,8 +130,8 @@ function AddSkill({ isModalVisible, setIsModalVisible, item }) {
                                     <Form.Item name={student.id}>
                                         <InputNumber min={0} max={100} placeholder="Marks" className="float-end" />
                                     </Form.Item>
-                                </Col> */}
-                                </Row>}
+                                </Col>
+                            </Row>}
                         </>
                     )}
                 </Form>
@@ -157,4 +139,4 @@ function AddSkill({ isModalVisible, setIsModalVisible, item }) {
         </>
     );
 }
-export default AddSkill;
+export default AddCounselling;
