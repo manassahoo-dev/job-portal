@@ -1,5 +1,6 @@
 package com.dbs.uwh.backend.dao;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import com.dbs.uwh.backend.model.Attendance;
 
 @Repository
 public interface AttendanceDao extends GenericDao<Attendance, Long> {
-	
+	boolean existsAttendanceByBatchIdAndCourseIdAndStudentIdAndAttendanceDate(Long batchId, Long courseId, Long studentId, LocalDate attendanceDate);
 	List<Attendance> findByBatchIdAndCourseId(@Param("batch_id") Long batchId,@Param("course_id") Long courseId);
 
 	@Query(value = "select distinct date from attendance WHERE batch_id = ?1 and course_id=?2", nativeQuery = true)
