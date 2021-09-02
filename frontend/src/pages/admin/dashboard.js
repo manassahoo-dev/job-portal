@@ -32,7 +32,6 @@ function AdminDashBoard(params) {
         })
     }, [data])
 
-    console.log('data', data)
     const timeline = (
         <Card style={contentStyle}>
             <Timeline mode='left'>
@@ -61,27 +60,29 @@ function AdminDashBoard(params) {
                 <Row gutter={[16, 16]}>
                     <Statistics />
                     <Col xs={24} sm={24} md={16} lg={18} xl={18}>
-                        <OngoingBatches />
+                        <Card bordered={false} style={contentStyle} title={<Text strong>Ongoing Batches</Text>}>
+                            <OngoingBatches />
+                        </Card>
                     </Col>
                     <Col xs={24} sm={24} md={8} lg={6} xl={6}>
                         {timeline}
                     </Col>
-                    <Col xs={24} md={8}>
+                    <Col xs={24} md={12}>
                         <Card bordered={false} title={<Text strong>Students</Text>}>
                             <Students />
                         </Card>
                     </Col>
-                    <Col xs={24} md={8}>
+                    <Col xs={24} md={12}>
                         <Card bordered={false} title={<Text strong>Courses</Text>}>
                             <Courses />
                         </Card>
                     </Col>
-                    <Col xs={24} md={8}>
+                    <Col xs={24} md={12}>
                         <Card bordered={false} title={<Text strong>Aptitude Tests</Text>}>
                             <Tests quizType="APTITUDE" />
                         </Card>
                     </Col>
-                    <Col xs={24} md={8}>
+                    <Col xs={24} md={12}>
                         <Card bordered={false} title={<Text strong>Exams</Text>}>
                             <Tests quizType="EXAM" />
                         </Card>

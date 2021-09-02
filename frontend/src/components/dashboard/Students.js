@@ -8,7 +8,7 @@ import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
 import toSentenceCase from "../utility/util";
 
-function Students(params) {
+function Students() {
     const { TabPane } = Tabs;
     const contentStyle = {
         height: '500px',

@@ -1,8 +1,9 @@
 import { Button, DatePicker, Dropdown, message, Select, Table, Tabs } from "antd";
 import { Option } from "antd/lib/mentions";
 import Modal from "antd/lib/modal/Modal";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FiEdit2 } from "react-icons/fi";
+import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ApiRequest from "../../services/ApiRequest";
@@ -11,7 +12,9 @@ import toSentenceCase from "../utility/util";
 function Attendance({ batch }) {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${batch?.id}/students`, isModalVisible);
+    const { contextData } = useContext(AppContext);
+
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${batch.id}/students`, isModalVisible);
 
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [courses, setCourses] = useState([]);
@@ -30,16 +33,6 @@ function Attendance({ batch }) {
 
     const showModal = () => {
         setIsModalVisible(true);
-
-        apiService.get(`${api.BATCH}/${batch?.id}/courses`).then((response) => {
-            const course = response.data.map((item, index) => item.course)
-            setCourses(course);
-            console.log(course, "##")
-        }).catch((error) => {
-            message.error(error)
-        })
-        console.log(courses)
-
     };
 
     const rowSelection = {

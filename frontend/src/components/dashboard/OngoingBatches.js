@@ -1,6 +1,6 @@
 import { Card, Space, Table, Tabs } from "antd";
 import Text from "antd/lib/typography/Text";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
@@ -8,10 +8,17 @@ import Attendance from "./Attendance";
 
 function OngoingBatches(params) {
 
-
     const { contextData } = useContext(AppContext);
+    const [selectedBatchId, setSelectedBatchId] = useState(contextData?.initialLoadBatch?.id);
     const { TabPane } = Tabs;
 
+    useEffect(() => {
+        setSelectedBatchId(contextData?.initialLoadBatch?.id)
+    }, [contextData])
+
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${selectedBatchId}/courses`, selectedBatchId);
+    const coursesData = data.map((item) => item.course)
+    console.log('OngoingBatches', coursesData)
     const contentStyle = {
         height: '500px',
         overflow: 'auto',
@@ -52,20 +59,18 @@ function OngoingBatches(params) {
 
     return (
         <>
-            <Card bordered={false} style={contentStyle} title={<Text strong>Ongoing Batches</Text>}>
-                <Tabs type="card" style={contentStyle}>
-                    {contextData?.batches?.map((batch, index) =>
-                        <TabPane tab={batch.name} key={index}>
-                            <Space>
-                                <Text strong italic>Started on </Text>{batch.startDate || '-'} to {batch.endDate || '-'}
-                                <Text strong italic>Students :</Text>{batch.startDate || '-'}
-                            </Space>
-                            <Attendance batch={batch} />
-                            <Table size='small' dataSource={courses} columns={coursesColumns} />
-                        </TabPane>
-                    )}
-                </Tabs>
-            </Card>
+            <Tabs type="card" style={contentStyle} onChange={(e) => setSelectedBatchId(e)}>
+                {contextData?.batches?.map((batch, index) =>
+                    <TabPane tab={batch.name} key={batch.id}>
+                        <Space>
+                            <Text strong italic>Started on </Text>{batch.startDate || '-'} to {batch.endDate || '-'}
+                            <Text strong italic>Students :</Text>{batch.startDate || '-'}
+                        </Space>
+                        <Attendance batch={batch} />
+                        <Table size='small' dataSource={courses} columns={coursesColumns} />
+                    </TabPane>
+                )}
+            </Tabs>
         </>
     )
 }
