@@ -1,5 +1,6 @@
 package com.dbs.uwh.backend.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +29,12 @@ public class AttendanceController extends GenericRestController<Attendance, Long
 
 	}
 
-	/*
-	 * @GetMapping("/allstudentdata/{}") public List<AttendanceResponse>
-	 * getAllStudentsData() { return
-	 * attendanceService.getAllStudentAttendanceData();
-	 * 
-	 * }
-	 */
-
 	@GetMapping(value = "/studentdatabybatchid")
 	public List<AttendanceResponse> findByBatchIdAndCourseId(@RequestParam(required = true) Long batchId,
 			@RequestParam(required = true) Long courseId) {
 		if (batchId != null || courseId != null) {
 			return attendanceService.getStudentAttendanceDataByBatchAndCourse(batchId, courseId);
+
 		} else {
 			System.out.println("No data with these batch Id and Course Id");
 			return null;

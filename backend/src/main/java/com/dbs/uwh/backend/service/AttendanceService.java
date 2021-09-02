@@ -99,32 +99,36 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 
 	public List<AttendanceResponse> getStudentAttendanceDataByBatchAndCourse(Long batchId, Long courseId) {
 		List<AttendanceResponse> attendanceResponses = new ArrayList<>();
-		AttendanceResponse attendanceResponse = new AttendanceResponse();
-
 		int presentCount = 0;
 		int absentCount = 0;
 
 		List<Attendance> studentsDataByDate = attendanceDao.findByBatchIdAndCourseId(batchId, courseId);
-		//findAllByBatchIdAndCourseIdGroupByDate
+
 		if (!CollectionUtils.isEmpty(studentsDataByDate)) {
 
 			for (Attendance attendance : studentsDataByDate) {
+				AttendanceResponse attendanceResponse = new AttendanceResponse();
 				if (!attendance.isPresent()) {
 					absentCount++;
 					attendanceResponse.setAbsentCount(String.valueOf(absentCount));
 					attendanceResponse.setPresentCount(String.valueOf(presentCount));
 					attendanceResponse.setDate(attendance.getAttendanceDate());
+					attendanceResponses.add(attendanceResponse);
 				} else {
 					presentCount++;
 					attendanceResponse.setPresentCount(String.valueOf(presentCount));
 					attendanceResponse.setAbsentCount(String.valueOf(absentCount));
 					attendanceResponse.setDate(attendance.getAttendanceDate());
+					attendanceResponses.add(attendanceResponse);
 				}
-				attendanceResponses.add(attendanceResponse);
 			}
 
 		}
-		return attendanceResponses;
+
+		List<AttendanceResponse> sortedResponse = attendanceResponses.stream()
+				.sorted(Comparator.comparing(AttendanceResponse::getDate).reversed()).collect(Collectors.toList());
+
+		return sortedResponse;
 
 	}
 
