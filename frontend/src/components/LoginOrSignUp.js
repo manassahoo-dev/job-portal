@@ -69,7 +69,7 @@ function LoginOrSignUp(props) {
         >{isOtpSent ? (
             <>
                 <Title level={2} className="text-center m-0">Verification code</Title>
-                <p className="text-center">We have sent the verification code to your mobile</p>
+                    <p className="text-center">We have sent the verification code to your {tabState}</p>
                 <OtpInput
                     value={otp}
                     onChange={(e) => setOTPState(e)}

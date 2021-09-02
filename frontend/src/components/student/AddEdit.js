@@ -30,7 +30,7 @@ function AddEditStudent() {
             }
             apiService.create(api.STUDENT, updatedValues)
                 .then((response) => {
-                    message.success(`${updatedValues.firstName} added SuccessFully`);
+                    message.success(`${updatedValues.firstName} added Successfully`);
                     resetContextData()
                 })
                 .catch((error) => {
@@ -47,7 +47,7 @@ function AddEditStudent() {
             console.log(contextData.selectedItem)
             apiService.create(api.STUDENT, updatedValues)
                 .then((response) => {
-                    message.success(`${updatedValues.firstName} updated SuccessFully`);
+                    message.success(`${updatedValues.firstName} updated Successfully`);
                     resetContextData()
                 })
                 .catch((error) => {
