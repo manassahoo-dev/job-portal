@@ -9,17 +9,19 @@ import lombok.Setter;
 @Setter
 public class AttendanceResponse {
 
-	private String studentName;
-
-	private String batchName;
-
-	private String courseName;
+	/*
+	 * private String studentName;
+	 * 
+	 * private String batchName;
+	 * 
+	 * private String courseName;
+	 */
 
 	private LocalDate date;
 
-	private boolean isPresent;
+	//private boolean isPresent;
 
-	private String stats;
+	//private String stats;
 
 	private String presentCount;
 

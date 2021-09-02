@@ -18,6 +18,7 @@ import com.dbs.uwh.backend.model.Attendance;
 import com.dbs.uwh.backend.model.Batch;
 import com.dbs.uwh.backend.model.Course;
 import com.dbs.uwh.backend.model.Student;
+import com.dbs.uwh.backend.request.AttendanceRequest;
 import com.dbs.uwh.backend.response.AttendanceResponse;
 
 @Service
@@ -36,66 +37,56 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 	CourseDao courseDao;
 
 	public List<AttendanceResponse> getAllStudentAttendanceData() {
-		List<AttendanceResponse> attendanceResponses = new ArrayList<>();
-		AttendanceResponse attendanceResponse = new AttendanceResponse();
-		int isPresentCount = 0;
-		int isAbsent = 0;
-		Long studentId = null;
-		List<Attendance> allStudentsAttendanceData = attendanceDao.findAll();
-
-		if (!CollectionUtils.isEmpty(allStudentsAttendanceData)) {
-
-			for (Attendance studentAttendanceData : allStudentsAttendanceData) {
-
-				studentId = studentAttendanceData.getStudentId();
-
-				Long batchId = studentAttendanceData.getBatchId();
-
-				attendanceResponse.setDate(studentAttendanceData.getAttendanceDate());
-
-				attendanceResponse.setPresent(studentAttendanceData.isPresent());
-
-				Optional<Student> student = studentDao.findById(studentId);
-
-				if (student.isPresent()) {
-					System.out.println("Student Data:: " + student);
-					attendanceResponse.setStudentName(student.get().getFirstName());
-				}
-
-				Optional<Batch> batch = batchDao.findById(batchId);
-
-				if (student.isPresent()) {
-					System.out.println("Batch Data:: " + batch);
-					attendanceResponse.setBatchName(batch.get().getName());
-				}
-
-				Optional<Course> course = courseDao.findById(batchId);
-
-				if (course.isPresent()) {
-					System.out.println("Course Data:: " + course);
-					attendanceResponse.setCourseName(course.get().getName());
-				}
-
-				if (studentAttendanceData.isPresent()) {
-					isPresentCount++;
-					System.out.println("P" + isPresentCount + "A" + isAbsent);
-					attendanceResponse.setStats("P" + isPresentCount + "A" + isAbsent);
-				} else {
-					isAbsent++;
-					attendanceResponse.setStats("P" + isPresentCount + "A" + isAbsent);
-					System.out.println("P" + isPresentCount + "A" + isAbsent);
-				}
-				attendanceResponses.add(attendanceResponse);
-			}
-
-		}
-
-		List<AttendanceResponse> sortedList = attendanceResponses.stream()
-				.sorted(Comparator.comparing(AttendanceResponse::getDate)).collect(Collectors.toList());
-
-		return sortedList;
-
-	}
+		return null;
+		/*
+		 * List<AttendanceResponse> attendanceResponses = new ArrayList<>();
+		 * AttendanceResponse attendanceResponse = new AttendanceResponse(); int
+		 * isPresentCount = 0; int isAbsent = 0; Long studentId = null; List<Attendance>
+		 * allStudentsAttendanceData = attendanceDao.findAll();
+		 * 
+		 * if (!CollectionUtils.isEmpty(allStudentsAttendanceData)) {
+		 * 
+		 * for (Attendance studentAttendanceData : allStudentsAttendanceData) {
+		 * 
+		 * studentId = studentAttendanceData.getStudentId();
+		 * 
+		 * Long batchId = studentAttendanceData.getBatchId();
+		 * 
+		 * attendanceResponse.setDate(studentAttendanceData.getAttendanceDate());
+		 * 
+		 * // attendanceResponse.setPresent(studentAttendanceData.isPresent());
+		 * 
+		 * Optional<Student> student = studentDao.findById(studentId);
+		 * 
+		 * if (student.isPresent()) { System.out.println("Student Data:: " + student);
+		 * attendanceResponse.setStudentName(student.get().getFirstName()); }
+		 * 
+		 * Optional<Batch> batch = batchDao.findById(batchId);
+		 * 
+		 * if (student.isPresent()) { System.out.println("Batch Data:: " + batch);
+		 * attendanceResponse.setBatchName(batch.get().getName()); }
+		 * 
+		 * Optional<Course> course = courseDao.findById(batchId);
+		 * 
+		 * if (course.isPresent()) { System.out.println("Course Data:: " + course);
+		 * attendanceResponse.setCourseName(course.get().getName()); }
+		 * 
+		 * if (studentAttendanceData.isPresent()) { isPresentCount++;
+		 * System.out.println("P" + isPresentCount + "A" + isAbsent);
+		 * attendanceResponse.setStats("P" + isPresentCount + "A" + isAbsent); } else {
+		 * isAbsent++; attendanceResponse.setStats("P" + isPresentCount + "A" +
+		 * isAbsent); System.out.println("P" + isPresentCount + "A" + isAbsent); }
+		 * attendanceResponses.add(attendanceResponse); }
+		 * 
+		 * }
+		 * 
+		 * List<AttendanceResponse> sortedList = attendanceResponses.stream()
+		 * .sorted(Comparator.comparing(AttendanceResponse::getDate)).collect(Collectors
+		 * .toList());
+		 * 
+		 * return sortedList;
+		 * 
+		 */}
 
 	public List<AttendanceResponse> getStudentAttendanceDataByBatchAndCourse(Long batchId, Long courseId) {
 		List<AttendanceResponse> attendanceResponses = new ArrayList<>();
@@ -129,6 +120,20 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 				.sorted(Comparator.comparing(AttendanceResponse::getDate).reversed()).collect(Collectors.toList());
 
 		return sortedResponse;
+
+	}
+
+	public void createAttendanceRecords(AttendanceRequest attendanceRequest) {
+
+		for (Long stId : attendanceRequest.getStudentIds()) {
+			Attendance att = new Attendance();
+			att.setAttendanceDate(attendanceRequest.getDate());
+			att.setBatchId(attendanceRequest.getBatchId());
+			att.setCourseId(attendanceRequest.getCourseId());
+			att.setStudentId(stId);
+			att.setPresent(attendanceRequest.isPresent());
+			attendanceDao.save(att);
+		}
 
 	}
 
