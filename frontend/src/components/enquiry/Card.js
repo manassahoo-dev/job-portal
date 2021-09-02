@@ -35,13 +35,13 @@ function EnquiryCard() {
         />} extra={<Button type="primary" icon={<PlusOutlined />} block onClick={() => setContextData({ ...contextData, isAddEdit: true })}>Edit</Button>}>
 
             <Row gutter={[16, 16]}>
-                <Col xs={24} sm={24} md={11}>
+                <Col xs={24} sm={24} md={13}>
                     <Meta title={<Title level={3} className="mb-4">Personal Details</Title>} />
                     <Row>
                         {fields.map((item, index) =>
                             <Col span={12}>
                                 <Text type="secondary" >{item.name}</Text>
-                                <Title level={4} className="m-0">{data[item.field] || '-'}</Title><br />
+                                <Title level={5} className="m-0">{data[item.field] || '-'}</Title><br />
                             </Col>
                         )}
                     </Row>
@@ -49,12 +49,12 @@ function EnquiryCard() {
                 <Col md={1}>
                     <Divider type="vertical" className="h-100" />
                 </Col>
-                <Col xs={24} sm={24} md={11}>
+                <Col xs={24} sm={24} md={10}>
                     <Meta title={<Title level={3} className="mb-4">Additional Details</Title>} />
                     {data.questions && data.questions.map((qa, index) =>
                         <div>
                             <Text type="secondary" >{qa.question}</Text>
-                            <Title level={4} className="m-0">{qa.answer || '-'}</Title><br />
+                            <Title level={5} className="m-0">{qa.answer || '-'}</Title><br />
                         </div>
                     )}
                 </Col>

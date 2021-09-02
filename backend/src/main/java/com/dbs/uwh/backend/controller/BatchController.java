@@ -21,6 +21,7 @@ import com.dbs.uwh.backend.model.Student;
 import com.dbs.uwh.backend.model.constant.QuizType;
 import com.dbs.uwh.backend.model.mapping.BatchCounselling;
 import com.dbs.uwh.backend.model.mapping.BatchCourse;
+import com.dbs.uwh.backend.model.mapping.BatchEvent;
 import com.dbs.uwh.backend.model.mapping.BatchQuiz;
 import com.dbs.uwh.backend.model.mapping.BatchSkillSet;
 import com.dbs.uwh.backend.request.BatchRequest;
@@ -35,68 +36,84 @@ public class BatchController extends GenericRestController<Batch, Long> {
 
 	@Autowired
 	private BatchService batchService;
-	
+
 	@PostMapping(value = "/update")
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@RequestBody Batch batch) {
 		batchService.updateBatch(batch);
 	}
-	
+
 	@PostMapping("/mapping")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void insertMapping(@RequestBody @Valid BatchRequest request) {
 		batchService.insertMapping(request);
 	}
-	
+
 	@GetMapping("/{id}/courses")
 	public List<BatchCourse> findCourses(@PathVariable("id") Long id) {
 		return batchService.findCoursesByBatchId(id);
 	}
-	
+
 	@GetMapping("/{id}/quizes")
 	public List<BatchQuiz> findQuizes(@PathVariable("id") Long id, @RequestParam(required = false) String quizType) {
 		return batchService.findByQuizQuizTypeAndBatchId(id, QuizType.valueOf(quizType));
 	}
-	
+
 	@GetMapping("/{id}/skillSets")
 	public List<BatchSkillSet> findSkillSets(@PathVariable("id") Long id) {
 		return batchService.findAllSkillSetByBatchId(id);
 	}
-	
+
 	@GetMapping("/{id}/counselling")
 	public List<BatchCounselling> findCounselling(@PathVariable("id") Long id) {
 		return batchService.findAllCounsellingByBatchId(id);
 	}
-	
+
 	@GetMapping("/{id}/students")
 	public List<Student> findStudents(@PathVariable("id") Long id) {
 		return batchService.findAllStudentsByBatchId(id);
 	}
-	
+
+	@GetMapping("/{id}/events")
+	public List<BatchEvent> findEvents(@PathVariable("id") Long id) {
+		return batchService.findAllEventsByBatchId(id);
+	}
+
+	@PostMapping("/events")
+	public BatchEvent saveBatchEvent(@RequestBody @Valid BatchEvent batchEvent) {
+		return batchService.saveBatchEvent(batchEvent);
+	}
+
+	@DeleteMapping(value = "/events")
+	@ResponseStatus(HttpStatus.OK)
+	public void deleteBatchEvent(@RequestBody @Valid BatchEvent batchEvent) {
+		batchService.deleteBatchEvent(batchEvent);
+	}
+
 	@DeleteMapping(value = "/course")
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@RequestBody @Valid BatchCourse batchCourse) {
 		batchService.deleteBatchCourse(batchCourse);
 	}
-	
+
 	@DeleteMapping(value = "/quiz")
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@RequestBody @Valid BatchQuiz batchQuiz) {
 		batchService.deleteBatchQuiz(batchQuiz);
 	}
-	
+
 	@DeleteMapping(value = "/counselling")
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@RequestBody @Valid BatchCounselling batchCounselling) {
 		batchService.deleteBatchCounselling(batchCounselling);
 	}
-	
+
 	@DeleteMapping(value = "/skillSet")
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@RequestBody @Valid BatchSkillSet batchSkillSet) {
 		batchService.deleteBatchSkillSet(batchSkillSet);
 	}
-	
+
 	@DeleteMapping(value = "/student")
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@RequestBody @Valid Student student) {

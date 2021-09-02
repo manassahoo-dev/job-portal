@@ -71,7 +71,7 @@ function EnquiryAddEdit() {
                 validateMessages={ValidationMessage}
             >
                 <Row gutter={[16, 16]}>
-                    <Col xs={24} sm={24} md={11}>
+                    <Col xs={24} sm={24} md={13}>
                         <Meta
                             title={<Title level={3} className="mb-4">Personal Details</Title>}
                         />
@@ -112,7 +112,7 @@ function EnquiryAddEdit() {
                     <Col md={1}>
                         <Divider type="vertical" className="h-100" />
                     </Col>
-                    <Col xs={24} sm={24} md={11}>
+                    <Col xs={24} sm={24} md={10}>
                         <Meta
                             title={<Title level={3} className="mb-4">Additional Details</Title>}
                         />

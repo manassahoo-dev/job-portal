@@ -1,16 +1,21 @@
 
 package com.dbs.uwh.backend.model.mapping;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
-import com.dbs.uwh.backend.model.Batch;
-import com.dbs.uwh.backend.model.Event;
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.dbs.uwh.backend.model.BaseEntity;
+import com.dbs.uwh.backend.model.constant.Status;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,19 +23,23 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class BatchEvent {
+public class BatchEvent extends BaseEntity {
 
-	@EmbeddedId
-	private BatchQuizId id;
+	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-	@MapsId("batchId")
-	private Batch batch;
+	private Long batchId;
 
-	@ManyToOne
-	@MapsId("eventId")
-	private Event event;
+	@NotNull
+	private String name;
 
-	@Column(name = "created_on")
-	private Date createdOn = new Date();
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Status status = Status.NOTSTARTED;
+
+	@Temporal(TemporalType.DATE)
+	private Date eventDate;
+
+	@CreationTimestamp
+	@Column(insertable = true, updatable = false)
+	private Timestamp createdOn;
 }
