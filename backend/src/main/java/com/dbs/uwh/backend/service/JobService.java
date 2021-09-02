@@ -1,7 +1,9 @@
 package com.dbs.uwh.backend.service;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -9,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dbs.uwh.backend.dao.JobDao;
+import com.dbs.uwh.backend.dao.StudentJobDao;
 import com.dbs.uwh.backend.model.Job;
+import com.dbs.uwh.backend.model.StudentJob;
 import com.dbs.uwh.backend.request.StudentJobRequest;
 
 @Service
@@ -17,6 +21,9 @@ public class JobService extends GenericService<Job, Long> {
 
 	@Autowired
 	JobDao jobDao;
+
+	@Autowired
+	StudentJobDao studentJobDao;
 
 	public HashMap<String, Integer> JobStats() {
 
@@ -50,18 +57,35 @@ public class JobService extends GenericService<Job, Long> {
 	}
 
 	public void createStudentJobDetail(StudentJobRequest studentJobRequest) {
-		for (Long StId : studentJobRequest.getStudentIds()) {
-			if (studentJobRequest.getType().equalsIgnoreCase("applied")) {
-				jobDao.saveStudentJobApplied(studentJobRequest.getJobId(), StId);
-			} else if (studentJobRequest.getType().equalsIgnoreCase("interviewed")) {
-				jobDao.saveStudentInterviewed(studentJobRequest.getJobId(), StId);
-			} else if (studentJobRequest.getType().equalsIgnoreCase("placed")) {
-				jobDao.saveStudentJobPlaced(studentJobRequest.getJobId(), StId);
-			}
+		for (Long stId : studentJobRequest.getStudentIds()) {
+
+			Optional<StudentJob> studentJob = studentJobDao.getByStudentIdAndJobId(stId, studentJobRequest.getJobId());
+
+				StudentJob stJob=studentJob.orElseGet(StudentJob::new);
+				if (studentJobRequest.getType().equalsIgnoreCase("applied")) {
+					stJob.setApplied(true);
+					stJob.setAppliedDate(LocalDate.now());
+					studentJobDao.save(stJob);
+				}
+				else if (studentJobRequest.getType().equalsIgnoreCase("interviewed")) {
+					stJob.setApplied(true);
+					stJob.setInterviewed(true);
+					stJob.setInterviewedDate(LocalDate.now());
+					studentJobDao.save(stJob);
+				}
+				else if (studentJobRequest.getType().equalsIgnoreCase("placed")) {
+					stJob.setApplied(true);
+					stJob.setInterviewed(true);
+					stJob.setPlaced(true);
+					stJob.setPlacedDate(LocalDate.now());
+					studentJobDao.save(stJob);
+				}
+			
 		}
 	}
 
 	public List<Long> getJobStudentDetails(Long jobId, String type) {
+
 		if (type.equalsIgnoreCase("applied")) {
 			return jobDao.getStudentJobDetailByJobIdAndJobApplied(jobId);
 		} else if (type.equalsIgnoreCase("interviewed")) {
@@ -72,7 +96,6 @@ public class JobService extends GenericService<Job, Long> {
 			return jobDao.getStudentJobDetailByJobIdAndPlaced(jobId);
 		}
 		return null;
-		
 
 	}
 }
