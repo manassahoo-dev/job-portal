@@ -1,6 +1,5 @@
-import { Card, Col, Divider, Form, InputNumber, List, message, Modal, Row, Tooltip } from 'antd';
+import { Col, Divider, Form, InputNumber, List, message, Modal, Row, Tooltip } from 'antd';
 import Paragraph from 'antd/lib/typography/Paragraph';
-import Text from 'antd/lib/typography/Text';
 import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
 import AppContext from '../../contexts/AppContext';

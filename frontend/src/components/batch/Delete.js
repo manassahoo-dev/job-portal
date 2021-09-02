@@ -1,17 +1,12 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Card, message, Modal } from 'antd';
-import { useContext } from 'react';
+import { Button, message, Modal } from 'antd';
 import { FiTrash } from "react-icons/fi";
-import { useParams } from 'react-router-dom';
-import AppContext from '../../contexts/AppContext';
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 
 const { confirm } = Modal;
-const { Meta } = Card;
 
 function DeleteItem({ param, data, name }) {
-    const { contextData } = useContext(AppContext);
     const showDeleteConfirm = (item) => {
         confirm({
             title: `Are you sure delete this ${name}?`,

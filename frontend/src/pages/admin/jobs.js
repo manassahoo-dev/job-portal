@@ -16,11 +16,11 @@ function Jobs() {
         categoryId: category?.id
     }
 
+    const [contextData, setContextData] = useState(object);
     useEffect(() => {
         setContextData({ ...contextData, categoryId: category?.id })
     }, [category]);
 
-    const [contextData, setContextData] = useState(object);
     return (
         <AppContext.Provider value={{ contextData, setContextData }}>
             <Row gutter={[16, 16]}>

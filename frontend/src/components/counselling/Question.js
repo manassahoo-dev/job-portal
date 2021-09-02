@@ -1,8 +1,6 @@
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Form, Input, Row, Select, Tooltip } from "antd";
+import { Button, Card, Col, Form, Input, Row } from "antd";
 import React from "react";
-
-const { Option } = Select;
 
 function Question(props) {
     return (

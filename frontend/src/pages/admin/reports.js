@@ -1,13 +1,13 @@
+import { CheckCircleTwoTone } from '@ant-design/icons';
 import { Card, Col, Divider, message, Row, Tooltip } from "antd";
 import Paragraph from 'antd/lib/typography/Paragraph';
 import Title from "antd/lib/typography/Title";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { FiMail, FiPhone, FiCheck } from "react-icons/fi";
+import { FiMail, FiPhone } from "react-icons/fi";
 import StudentList from "../../components/report/StudentList";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
-import { SmileTwoTone, HeartTwoTone, CheckCircleTwoTone } from '@ant-design/icons';
 
 function AdminReport() {
 

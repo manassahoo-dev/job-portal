@@ -5,9 +5,8 @@ import AppContext from '../../contexts/AppContext';
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
 const { confirm } = Modal;
-const { Meta } = Card;
 
 function CounsellingCard({ counselling }) {
 

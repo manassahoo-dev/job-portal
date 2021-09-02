@@ -1,6 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, PageHeader, Row } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AddEditStudent from "../../components/student/AddEdit";
 import StudentList from '../../components/student/StudentList';
 import ACTIONTYPES from '../../components/utility/ACTIONTYPES';

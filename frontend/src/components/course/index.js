@@ -1,4 +1,4 @@
-import { Col, Empty } from "antd";
+import { Col } from "antd";
 import { useContext } from "react";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";

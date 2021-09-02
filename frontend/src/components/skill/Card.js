@@ -1,13 +1,12 @@
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
-import { Button, Card, Dropdown, List, Menu, message, Modal, Typography } from "antd";
+import { Card, Dropdown, List, Menu, message, Modal, Typography } from "antd";
 import React, { useContext } from 'react';
 import AppContext from '../../contexts/AppContext';
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
 const { confirm } = Modal;
-const { Meta } = Card;
 
 function SkillSetCard({ skillSet }) {
 

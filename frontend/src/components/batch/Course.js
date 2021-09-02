@@ -1,7 +1,5 @@
-import { Button, Card, List, PageHeader } from 'antd';
-import Paragraph from 'antd/lib/typography/Paragraph';
+import { Button, Card, PageHeader } from 'antd';
 import React, { useContext, useState } from "react";
-import { FiTrash, FiPlus } from "react-icons/fi";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";

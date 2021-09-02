@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import API from "../services/api";
 import apiService from '../services/api.service';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 function LoginOrSignUp(props) {
 
     const [form] = Form.useForm();

@@ -3,7 +3,7 @@ import { Table } from "ant-table-extensions";
 import { Button, Card, Col, message, Row, Space, Tooltip } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import confirm from 'antd/lib/modal/confirm';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../../contexts/AppContext';
 import api from '../../services/api';
@@ -17,16 +17,6 @@ function StudentList() {
     const history = useHistory()
     const { contextData, setContextData } = useContext(AppContext);
     const { data, error, loading } = ApiRequest('GET', api.STUDENT, contextData);
-    const [isProfileView, setIsProfileView] = useState(false);
-
-    const hideModal = () => {
-        setIsProfileView(false)
-    };
-    const profileView = (record) => {
-        console.log(record)
-        setIsProfileView(true)
-    }
-
 
     const StudentView = (record) => {
         console.log(record)

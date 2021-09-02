@@ -4,7 +4,7 @@ import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ApiRequest from "../../services/ApiRequest";
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
 function AddItem({ param, name }) {
 
     const { data, error, loading } = ApiRequest('GET', param.path, param.isAdd);

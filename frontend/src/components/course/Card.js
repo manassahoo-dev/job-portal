@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
-import { Button, Card, Dropdown, Menu, message, Rate } from "antd";
+import { Card, Dropdown, Menu, message } from "antd";
 import Meta from 'antd/lib/card/Meta';
 import confirm from 'antd/lib/modal/confirm';
 import Text from 'antd/lib/typography/Text';
@@ -7,7 +7,6 @@ import { useContext } from 'react';
 import AppContext from '../../contexts/AppContext';
 import api from '../../services/api';
 import apiService from '../../services/api.service';
-
 
 function CourseCard({ course }) {
 

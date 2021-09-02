@@ -1,16 +1,5 @@
-import { Form, Input, Button, Space, Select } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Option } from 'antd/lib/mentions';
-
-const sights = {
-    Beijing: ['Tiananmen', 'Great Wall'],
-    Shanghai: ['Oriental Pearl', 'The Bund'],
-};
-const areas = [
-    { label: 'Beijing', value: 'Beijing' },
-    { label: 'Shanghai', value: 'Shanghai' },
-];
-
+import { Button, Form, Input, Space } from 'antd';
 
 function Questions(params) {
     return (

@@ -1,13 +1,12 @@
-import { Badge, Button, Card, Empty, List, PageHeader } from "antd"
-import { useContext, useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Card, Empty, List, PageHeader } from "antd";
+import Text from "antd/lib/typography/Text";
+import { useContext } from "react";
+import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
-import AppError from "../utility/AppError"
-import AppSpin from "../utility/AppSpin"
-import { PlusOutlined } from "@ant-design/icons";
-import AppContext from "../../contexts/AppContext";
-import EnquiryAddEdit from "./AddEdit";
-import Text from "antd/lib/typography/Text";
+import AppError from "../utility/AppError";
+import AppSpin from "../utility/AppSpin";
 
 function EnquiryCategories(params) {
 

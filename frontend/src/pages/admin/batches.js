@@ -1,11 +1,10 @@
 
-import { Col, Row, Typography } from 'antd';
+import { Col, Row } from 'antd';
 import React, { useEffect, useState } from "react";
 import BatchList from '../../components/batch';
 import BatchDetails from '../../components/batch/BatchDetails';
 import AppContext from "../../contexts/AppContext";
 
-const { Title, Text, Link } = Typography;
 function Batches() {
 
     const [batch, setBatch] = useState(null);

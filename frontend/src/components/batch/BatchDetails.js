@@ -15,7 +15,7 @@ import api from '../../services/api';
 import apiService from '../../services/api.service';
 import ValidationMessage from '../utility/ValidationMessage';
 const { Option } = Select;
-const { Title, Text, Link } = Typography;
+const { Text } = Typography;
 
 function BatchDetails({ batch }) {
 

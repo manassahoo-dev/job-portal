@@ -1,5 +1,6 @@
 package com.dbs.uwh.backend.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -56,8 +57,7 @@ public class Student extends User {
 
 	private int interview;
 
-	@Temporal(TemporalType.DATE)
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)

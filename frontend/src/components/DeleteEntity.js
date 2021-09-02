@@ -1,8 +1,6 @@
 import { DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Button, Card, message, Modal, Tooltip } from 'antd';
-import api from '../services/api';
 import ApiService from "../services/api.service";
-import ApiRequest from '../services/ApiRequest';
 import ACTIONTYPES from './utility/ACTIONTYPES';
 
 const { confirm } = Modal;

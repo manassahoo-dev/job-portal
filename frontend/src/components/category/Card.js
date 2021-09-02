@@ -1,23 +1,9 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Badge, List, Menu, Typography } from "antd";
+import { Badge, List, Typography } from "antd";
 import React from "react";
 
-const { Text, Link } = Typography;
+const { Text } = Typography;
 
 function CategoryCard({ id, item, setCategory }) {
-
-    const handleMenuClick = (e) => {
-        console.log('click', e.key);
-    }
-
-    const actions = (<Menu onClick={handleMenuClick}>
-        <Menu.Item key="edit" icon={<EditOutlined />}>
-            Edit
-        </Menu.Item>
-        <Menu.Item danger key="delete" icon={<DeleteOutlined />} >
-            Delete
-        </Menu.Item>
-    </Menu>);
 
     return (
         <List.Item
