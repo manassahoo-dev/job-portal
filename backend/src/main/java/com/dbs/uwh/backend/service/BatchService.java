@@ -1,6 +1,5 @@
 package com.dbs.uwh.backend.service;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.dbs.uwh.backend.dao.BatchCounsellingDao;
 import com.dbs.uwh.backend.dao.BatchCourseDao;
 import com.dbs.uwh.backend.dao.BatchDao;
+import com.dbs.uwh.backend.dao.BatchEventDao;
 import com.dbs.uwh.backend.dao.BatchQuizDao;
 import com.dbs.uwh.backend.dao.BatchSkillSetDao;
 import com.dbs.uwh.backend.dao.StudentDao;
@@ -20,6 +20,7 @@ import com.dbs.uwh.backend.model.constant.QuizType;
 import com.dbs.uwh.backend.model.constant.Status;
 import com.dbs.uwh.backend.model.mapping.BatchCounselling;
 import com.dbs.uwh.backend.model.mapping.BatchCourse;
+import com.dbs.uwh.backend.model.mapping.BatchEvent;
 import com.dbs.uwh.backend.model.mapping.BatchQuiz;
 import com.dbs.uwh.backend.model.mapping.BatchSkillSet;
 import com.dbs.uwh.backend.request.BatchRequest;
@@ -38,7 +39,8 @@ public class BatchService extends GenericService<Batch, Long> {
 	BatchSkillSetDao batchSkillSetDao;
 	@Autowired
 	BatchCounsellingDao batchCounsellingDao;
-
+	@Autowired
+	BatchEventDao batchEventDao;
 	@Autowired
 	private StudentDao studentDao;
 
@@ -55,8 +57,6 @@ public class BatchService extends GenericService<Batch, Long> {
 	public HashMap<String, Integer> BatchStats() {
 		HashMap<String, Integer> batchStats = new HashMap<String, Integer>();
 
-		Date date = new Date();
-
 		int completed = 0;
 		int inProgress = 0;
 
@@ -65,7 +65,7 @@ public class BatchService extends GenericService<Batch, Long> {
 		for (Batch batch : batches) {
 			if (batch.getStatus() == Status.COMPLETED) {
 				completed++;
-			} else if(batch.getStatus() == Status.INPROGRESS){
+			} else if (batch.getStatus() == Status.INPROGRESS) {
 				inProgress++;
 			}
 
@@ -150,7 +150,7 @@ public class BatchService extends GenericService<Batch, Long> {
 	public void deleteBatchSkillSet(BatchSkillSet batchSkillSet) {
 		batchSkillSetDao.delete(batchSkillSet);
 	}
-	
+
 	public void deleteBatchStudent(Student student) {
 		batchDao.deleteBatchStudent(student.getId());
 	}
@@ -179,4 +179,15 @@ public class BatchService extends GenericService<Batch, Long> {
 		return studentDao.findByBatchId(id);
 	}
 
+	public List<BatchEvent> findAllEventsByBatchId(Long id) {
+		return batchEventDao.findByBatchId(id);
+	}
+
+	public BatchEvent saveBatchEvent(BatchEvent batchEvent) {
+		return batchEventDao.save(batchEvent);
+	}
+
+	public void deleteBatchEvent(BatchEvent batchEvent) {
+		batchEventDao.delete(batchEvent);
+	}
 }

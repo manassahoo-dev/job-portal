@@ -41,7 +41,7 @@ function StudentCard() {
                         renderItem={item => (
                             <List.Item className="px-0" actions={[<DeleteItem param={param} data={item} name={name} />]}>
                                 <List.Item.Meta
-                                    title={<b>{item.firstName}&nbsp; {item.lastName}</b>}
+                                    title={<b>{item.firstName}&nbsp;{item.lastName}</b>}
                                     description={<Paragraph className="m-0" type="secondary" ellipsis>
                                         {item.email}
                                     </Paragraph>}

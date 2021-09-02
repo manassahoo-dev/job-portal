@@ -14,6 +14,7 @@ import AppContext from '../../contexts/AppContext';
 import api from '../../services/api';
 import apiService from '../../services/api.service';
 import ValidationMessage from '../utility/ValidationMessage';
+import EventCard from './Event';
 const { Option } = Select;
 const { Text } = Typography;
 
@@ -25,8 +26,8 @@ function BatchDetails({ batch, setBatch }) {
 
     let formValue = {
         ...batch,
-        startDate: moment(batch.startDate, "YYYY-MM-DD"),
-        endDate: moment(batch.endDate, "YYYY-MM-DD"),
+        startDate: batch.startDate && moment(batch.startDate, "YYYY-MM-DD"),
+        endDate: batch.endDate && moment(batch.endDate, "YYYY-MM-DD"),
     }
 
     form.setFieldsValue(formValue);
@@ -120,6 +121,7 @@ function BatchDetails({ batch, setBatch }) {
             <Col xs={24} sm={12}>
                 <CourseCard />
                 <StudentCard />
+                <EventCard />
             </Col>
             <Col xs={24} sm={12}>
                 <QuizCard quizType="APTITUDE" />

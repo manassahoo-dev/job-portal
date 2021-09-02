@@ -1,6 +1,8 @@
 
 package com.dbs.uwh.backend.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,11 +27,9 @@ public class FileUploadController extends GenericRestController<Document, Long> 
 	@Autowired
 	DatabaseFileService fileService;
 
-	@PostMapping("/profilepic")
-	public Document fileUpload(@RequestParam("file") MultipartFile file,Long stId) {
-
-		return fileService.uploadFile(file,stId);
-
+	@PostMapping("/profile-picture")
+	public Document fileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+		return fileService.uploadFile(file);
 	}
 
 	

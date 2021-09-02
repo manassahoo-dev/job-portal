@@ -24,7 +24,7 @@ function AdminDashBoard(params) {
     const [contextData, setContextData] = useState(null);
 
     useEffect(() => {
-        let item = data.filter((item) => item.status === "INPROGRESS");
+        let item = data.filter((item) => item.status !== "NOTSTARTED");
         setContextData({
             ...contextData,
             batches: item,

@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
+import BatchStatus from "../batch/BatchStatus";
 import Attendance from "./Attendance";
 
 function OngoingBatches(params) {
@@ -61,7 +62,10 @@ function OngoingBatches(params) {
         <>
             <Tabs type="card" style={contentStyle} onChange={(e) => setSelectedBatchId(e)}>
                 {contextData?.batches?.map((batch, index) =>
-                    <TabPane tab={batch.name} key={batch.id}>
+                    <TabPane tab={<>
+                        <BatchStatus status={batch.status} />
+                        {batch.name}
+                    </>} key={batch.id}>
                         <Space>
                             <Text strong italic>Started on </Text>{batch.startDate || '-'} to {batch.endDate || '-'}
                             <Text strong italic>Students :</Text>{batch.startDate || '-'}

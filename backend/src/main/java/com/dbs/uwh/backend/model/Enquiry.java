@@ -1,15 +1,21 @@
 package com.dbs.uwh.backend.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.dbs.uwh.backend.model.constant.Gender;
+import com.dbs.uwh.backend.model.constant.Status;
 import com.sun.istack.NotNull;
 
 import lombok.Getter;
@@ -28,8 +34,7 @@ public class Enquiry extends BaseEntity {
 	@NotNull
 	private String studentName;
 
-	@Temporal(TemporalType.DATE)
-	private Date dob;
+	private LocalDate dob;
 
 	private String mailId;
 
@@ -38,19 +43,21 @@ public class Enquiry extends BaseEntity {
 	private String studentFatherName;
 
 	private String idProof;
-
 	private String idNumber;
 
-	@Temporal(TemporalType.DATE)
-	private Date date;
+	@CreationTimestamp
+	@Column(insertable = true, updatable = false)
+	private Timestamp createdOn;
 
 	private Long phoneNumber;
 	private Long aadhaarNumber;
 
-	private String state;
+	private String address;
 	private String skills;
-
-	private Long pinCode;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Status status = Status.INPROGRESS;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "enq_id")
