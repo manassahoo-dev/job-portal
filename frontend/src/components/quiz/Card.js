@@ -75,7 +75,7 @@ function QuizCard({ quiz }) {
                             avatar={<Text type="success">{index + 1}</Text>}
                             title={<Text strong>{question.text}</Text>}
                             description={question.answers.map((answer, index) =>
-                                <Text type={answer.correct ? "success" : ""}>{options[index]}) {answer.text}<br/></Text>)}
+                                <Text className="me-3" type={answer.correct ? "success" : ""}>{options[index]}) {answer.text}</Text>)}
                         />
                     </List.Item>
                 )}

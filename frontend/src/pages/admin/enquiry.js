@@ -1,12 +1,11 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Col, PageHeader, Row } from "antd";
+import { Col, PageHeader, Row } from "antd";
 import { useEffect, useState } from "react";
 import EnquiryAddEdit from "../../components/enquiry/AddEdit";
 import EnquiryCard from "../../components/enquiry/Card";
-import EnquiryCategories from "../../components/enquiry/Category";
+import EnquiryList from "../../components/enquiry/List";
 import AppContext from "../../contexts/AppContext";
 
-function Enquiry(params) {
+function Enquiry() {
 
     const object = {
         selectedItem: {},
@@ -22,17 +21,10 @@ function Enquiry(params) {
         <AppContext.Provider value={{ contextData, setContextData }}>
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8}>
-                    <EnquiryCategories />
+                    <EnquiryList />
                 </Col>
                 <Col xs={24} sm={12} md={16} lg={16}>
-                    <>
-                        <PageHeader
-                            className="p-0 mb-2"
-                            title={`Enquiry Details  ${contextData.selectedItem?.studentName || ''}`}
-                            extra={[
-                                <Button type="primary" icon={<PlusOutlined />} block onClick={() => setContextData({ ...contextData, isAddEdit: true })}>Register Now</Button>,
-                            ]}
-                        />
+                    <>                        
                         {contextData.isAddEdit ?
                             <EnquiryAddEdit />
                             :

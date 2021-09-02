@@ -10,5 +10,6 @@ import com.dbs.uwh.backend.model.mapping.StudentQuiz;
 @Repository
 public interface StudentQuizDao  extends JpaRepository<StudentQuiz, Long> {
 	public List<StudentQuiz> findByBatchIdAndQuizId(Long batchId, Long quizId);
+	public List<StudentQuiz> findByBatchId(Long batchId);
 	public List<StudentQuiz> findByStudentId(Long studentId);
 }

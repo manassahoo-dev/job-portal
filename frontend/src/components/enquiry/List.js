@@ -8,7 +8,7 @@ import ApiRequest from "../../services/ApiRequest";
 import AppError from "../utility/AppError";
 import AppSpin from "../utility/AppSpin";
 
-function EnquiryCategories(params) {
+function EnquiryList() {
 
     const { contextData, setContextData } = useContext(AppContext);
     const { data, error, loading } = ApiRequest('GET', api.ENQUIRY, contextData);
@@ -19,7 +19,7 @@ function EnquiryCategories(params) {
                     className="p-0 mb-2"
                     title="Enquiry"
                     extra={!contextData.isAddEdit && [
-                        <Button type="primary" block icon={<PlusOutlined />} onClick={() => setContextData({ ...contextData, isAddEdit: true })}> Add Enquiry</Button>,
+                        <Button type="primary" block icon={<PlusOutlined />} onClick={() => setContextData({ ...contextData, isAddEdit: true, selectedItem: {} })}> Add Enquiry</Button>,
                     ]}
                 />
 
@@ -61,4 +61,4 @@ function EnquiryCategories(params) {
         </AppSpin>
     )
 }
-export default EnquiryCategories
+export default EnquiryList

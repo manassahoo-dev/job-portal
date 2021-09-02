@@ -1,7 +1,8 @@
-import { Button, Card, Col, DatePicker, Form, Input, message, Row, Select } from "antd";
+import { Button, Card, Col, DatePicker, Divider, Form, Input, message, Row, Select } from "antd";
 import Meta from 'antd/lib/card/Meta';
 import { Option } from "antd/lib/mentions";
-import Text from 'antd/lib/typography/Text';
+import Title from "antd/lib/typography/Title";
+import moment from "moment";
 import { useContext } from 'react';
 import AppContext from '../../contexts/AppContext';
 import api from '../../services/api';
@@ -9,16 +10,20 @@ import apiService from '../../services/api.service';
 import ValidationMessage from '../utility/ValidationMessage';
 import Questions from './Questions';
 
-
 function EnquiryAddEdit() {
-
 
     const [form] = Form.useForm();
     const { contextData, setContextData } = useContext(AppContext);
-    form.setFieldsValue(contextData?.selectedItem);
+    
+    let formValue = {
+        ...contextData?.selectedItem,
+        dob: contextData?.selectedItem?.dob && moment(contextData?.selectedItem?.dob, "YYYY-MM-DD"),
+    }
+
+    form.setFieldsValue(formValue);
 
     const onFinish = (values) => {
-        console.log('selectedItem', contextData.selectedItem.id)
+        console.log('selectedItem', values)
         const updatedValues = {
             ...values,
             id: contextData.selectedItem?.id,
@@ -29,7 +34,7 @@ function EnquiryAddEdit() {
     const create = (values) => {
         apiService.create(api.ENQUIRY, values)
             .then((response) => {
-                message.success('Enquiry added successfully');
+                message.success(`Enquiry ${contextData?.selectedItem?.id ? 'updated' : 'added'} successfully`);
                 form.resetFields();
                 resetContextData()
             })
@@ -57,7 +62,7 @@ function EnquiryAddEdit() {
     };
 
     return (
-        <Card hoverable>
+        <Card>
             <Form
                 layout="vertical"
                 form={form}
@@ -66,9 +71,9 @@ function EnquiryAddEdit() {
                 validateMessages={ValidationMessage}
             >
                 <Row gutter={[16, 16]}>
-                    <Col xs={24} sm={24} md={12} lg={12}>
+                    <Col xs={24} sm={24} md={11}>
                         <Meta
-                            title={<Text>Personal Details</Text>}
+                            title={<Title level={3} className="mb-4">Personal Details</Title>}
                         />
                         <Row gutter={[16, 16]}>
                             <Col xs={24} sm={24} md={12} lg={12} >
@@ -84,13 +89,13 @@ function EnquiryAddEdit() {
                                 </Select>
                                 </Form.Item>
                                 <Form.Item label="Email Id" name="mailId"><Input allowClear /></Form.Item>
-                                <Form.Item label="Skills" name="state"><Input allowClear /></Form.Item>
+                                <Form.Item label="Skills" name="skills"><Input allowClear /></Form.Item>
                                 <Form.Item label="State" name="state"><Input allowClear /></Form.Item>
 
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={12}>
                                 <Form.Item label="DOB" name="dob">
-                                    <DatePicker format='DD/MM/YYYY' onChange={e => form.setFieldsValue({ dateOfBirth: e })} />
+                                    <DatePicker />
                                 </Form.Item>
                                 <Form.Item label="Mobile Number" name="phoneNumber" rules={[{ required: true }, { pattern: new RegExp("^\\d{10}$"), message: 'Please enter a valid Mobile' }]}><Input allowClear /></Form.Item>
                                 <Form.Item label="Aadhaar Number" name="aadhaarNumber"
@@ -104,11 +109,12 @@ function EnquiryAddEdit() {
                             </Col>
                         </Row>
                     </Col>
-                    {/* <Divider type="vertical" /> */}
-
-                    <Col xs={24} sm={24} md={12} lg={12}>
+                    <Col md={1}>
+                        <Divider type="vertical" className="h-100" />
+                    </Col>
+                    <Col xs={24} sm={24} md={11}>
                         <Meta
-                            title={<Text>Other Details</Text>}
+                            title={<Title level={3} className="mb-4">Additional Details</Title>}
                         />
 
                         <Form.Item label='Question'>
@@ -119,7 +125,7 @@ function EnquiryAddEdit() {
                                 <Form.Item><Button type="default" htmlType="reset" block onClick={onCancel}>Cancel</Button></Form.Item>
                             </Col>
                             <Col lg={12}>
-                                <Form.Item><Button type="primary" htmlType="submit" block>Done</Button></Form.Item>
+                                <Form.Item><Button type="primary" htmlType="submit" block>{contextData?.selectedItem?.id ? 'Update' : 'Add'}</Button></Form.Item>
                             </Col>
                         </Row>
 

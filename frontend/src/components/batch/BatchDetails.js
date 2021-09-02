@@ -17,7 +17,7 @@ import ValidationMessage from '../utility/ValidationMessage';
 const { Option } = Select;
 const { Text } = Typography;
 
-function BatchDetails({ batch }) {
+function BatchDetails({ batch, setBatch }) {
 
     const [isEdit, setIsEdit] = useState(false);
     const [form] = Form.useForm();
@@ -35,6 +35,10 @@ function BatchDetails({ batch }) {
         console.log('Success:', values);
         apiService.updateBatch(`${api.BATCH}/update`, values)
             .then((response) => {
+                let startDate = moment(values.startDate).format("YYYY-MM-DD");
+                let endDate = moment(values.endDate).format("YYYY-MM-DD");
+
+                setBatch({ ...batch, name: values.name, status: values.status, startDate, endDate});
                 message.success('Batch updated successfully');
                 setContextData({ ...contextData, lastRefresh: new Date() })
                 form.resetFields();

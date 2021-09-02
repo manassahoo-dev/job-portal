@@ -13,7 +13,7 @@ function QuizCard({ quizType }) {
     const { contextData } = useContext(AppContext);
     const [isAdd, setIsAdd] = useState(false);
     const [lastRefresh, setLastRefresh] = useState(new Date());
-    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/quizes?quizType=${quizType}`, lastRefresh);
+    const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/quizes?quizType=${quizType}`, contextData.lastRefresh);
 
     const param = {
         setLastRefresh: setLastRefresh,
@@ -30,8 +30,8 @@ function QuizCard({ quizType }) {
                 <PageHeader
                     className="p-0 mb-1"
                     onBack={isAdd ? () => setIsAdd(false) : ""}
-                    title={isAdd ? <span class="ant-page-header-heading-title text-success">Add {toSentenceCase(quizType)}</span> : 
-                        <span class="ant-page-header-heading-title text-success">{toSentenceCase(quizType)}</span>}
+                    title={isAdd ? <span className="ant-page-header-heading-title text-success">Add {toSentenceCase(quizType)}</span> : 
+                        <span className="ant-page-header-heading-title text-success">{toSentenceCase(quizType)}</span>}
                     extra={!isAdd && <Button type="link" onClick={() => setIsAdd(true)}>Add</Button>}
                 />
                 {isAdd ? <AddItem param={param} name={name} /> : <ListItem param={param} data={data} name={name} />}
