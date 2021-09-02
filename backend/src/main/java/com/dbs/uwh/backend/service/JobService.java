@@ -14,6 +14,7 @@ import com.dbs.uwh.backend.dao.JobDao;
 import com.dbs.uwh.backend.dao.StudentJobDao;
 import com.dbs.uwh.backend.model.Job;
 import com.dbs.uwh.backend.model.StudentJob;
+import com.dbs.uwh.backend.model.User;
 import com.dbs.uwh.backend.request.StudentJobRequest;
 
 @Service
@@ -61,26 +62,29 @@ public class JobService extends GenericService<Job, Long> {
 
 			Optional<StudentJob> studentJob = studentJobDao.getByStudentIdAndJobId(stId, studentJobRequest.getJobId());
 
-				StudentJob stJob=studentJob.orElseGet(StudentJob::new);
-				if (studentJobRequest.getType().equalsIgnoreCase("applied")) {
-					stJob.setApplied(true);
-					stJob.setAppliedDate(LocalDate.now());
-					studentJobDao.save(stJob);
-				}
-				else if (studentJobRequest.getType().equalsIgnoreCase("interviewed")) {
-					stJob.setApplied(true);
-					stJob.setInterviewed(true);
-					stJob.setInterviewedDate(LocalDate.now());
-					studentJobDao.save(stJob);
-				}
-				else if (studentJobRequest.getType().equalsIgnoreCase("placed")) {
-					stJob.setApplied(true);
-					stJob.setInterviewed(true);
-					stJob.setPlaced(true);
-					stJob.setPlacedDate(LocalDate.now());
-					studentJobDao.save(stJob);
-				}
-			
+			StudentJob stJob = studentJob.orElseGet(StudentJob::new);
+			Job job = new Job();
+			job.setId(studentJobRequest.getJobId());
+
+			User user = new User();
+			user.setId(stId);
+
+			stJob.setJob(job);
+			stJob.setStudent(user);
+			if (studentJobRequest.getType().equalsIgnoreCase("applied")) {
+				stJob.setApplied(true);
+				stJob.setAppliedDate(LocalDate.now());
+			} else if (studentJobRequest.getType().equalsIgnoreCase("interviewed")) {
+				stJob.setApplied(true);
+				stJob.setInterviewed(true);
+				stJob.setInterviewedDate(LocalDate.now());
+			} else if (studentJobRequest.getType().equalsIgnoreCase("placed")) {
+				stJob.setApplied(true);
+				stJob.setInterviewed(true);
+				stJob.setPlaced(true);
+				stJob.setPlacedDate(LocalDate.now());
+			}
+			studentJobDao.save(stJob);
 		}
 	}
 

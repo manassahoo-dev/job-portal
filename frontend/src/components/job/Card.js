@@ -1,12 +1,11 @@
 import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, MoreOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Dropdown, Menu, message, Modal, Popover, Row, Space, Typography } from "antd";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FiBriefcase, FiDollarSign, FiMapPin } from "react-icons/fi";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 import JobCategory from './JobCategory';
-import StudentList from './Student';
 
 const { confirm } = Modal;
 const { Meta } = Card;
@@ -23,22 +22,23 @@ function JobCard({ job }) {
 
     }
 
-    apiService.get(`${api.JOB}/jobstudentbyjobidandtype/${job?.id}?type=Applied`).then((response) => {
-        setApplied(response.data.length)
-    }).catch((response) => {
-        message.error(response.error)
-    })
-    apiService.get(`${api.JOB}/jobstudentbyjobidandtype/${job?.id}?type=Interviewed`).then((response) => {
-        setInterviewed(response.data.length)
-    }).catch((response) => {
-        message.error(response.error)
-    })
-    apiService.get(`${api.JOB}/jobstudentbyjobidandtype/${job?.id}?type=Placed`).then((response) => {
-        setPlaced(response.data.length)
-    }).catch((response) => {
-        message.error(response.error)
-    })
-
+    useEffect(() => {
+        apiService.get(`${api.JOB}/jobstudentbyjobidandtype/${job?.id}?type=Applied`).then((response) => {
+            setApplied(response.data.length)
+        }).catch((response) => {
+            message.error(response.error)
+        })
+        apiService.get(`${api.JOB}/jobstudentbyjobidandtype/${job?.id}?type=Interviewed`).then((response) => {
+            setInterviewed(response.data.length)
+        }).catch((response) => {
+            message.error(response.error)
+        })
+        apiService.get(`${api.JOB}/jobstudentbyjobidandtype/${job?.id}?type=Placed`).then((response) => {
+            setPlaced(response.data.length)
+        }).catch((response) => {
+            message.error(response.error)
+        })
+    }, [contextData.lastRefresh]);
 
 
     const showConfirmDelete = () => {
@@ -124,7 +124,7 @@ function JobCard({ job }) {
                 </Row>
             } />
             {basicContent}
-            <br /><Text className="mt-4">  {job.jobDescription}</Text>
+            <Text className="mt-4">  {job.jobDescription}</Text><br />
             <Space>
                 <Text strong>Applied - </Text>{applied}
                 <Text strong>InterViews - </Text>{interviewed}

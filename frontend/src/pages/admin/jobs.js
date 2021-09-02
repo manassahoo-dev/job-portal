@@ -13,7 +13,8 @@ function Jobs() {
     const object = {
         selectedItem: null,
         isAddEdit: false,
-        categoryId: category?.id
+        categoryId: category?.id,
+        lastRefresh: new Date()
     }
 
     const [contextData, setContextData] = useState(object);
