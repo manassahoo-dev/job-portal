@@ -26,7 +26,7 @@ public class Attendance extends BaseEntity {
 	private Long batchId;
 
 	private Long courseId;
-
+	
 	private Long studentId;
 
 	@Transient
