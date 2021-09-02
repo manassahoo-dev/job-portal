@@ -1,5 +1,6 @@
 import { Button, Card, Col, DatePicker, Divider, Form, Input, message, Row, Select } from "antd";
 import Meta from 'antd/lib/card/Meta';
+import TextArea from "antd/lib/input/TextArea";
 import { Option } from "antd/lib/mentions";
 import Title from "antd/lib/typography/Title";
 import moment from "moment";
@@ -85,13 +86,12 @@ function EnquiryAddEdit() {
                                 >
                                     <Option value="M">Male</Option>
                                     <Option value="F">Female</Option>
-                                    <Option value="O">Other</Option>
                                 </Select>
                                 </Form.Item>
                                 <Form.Item label="Email Id" name="mailId"><Input allowClear /></Form.Item>
                                 <Form.Item label="Skills" name="skills"><Input allowClear /></Form.Item>
-                                <Form.Item label="State" name="state"><Input allowClear /></Form.Item>
-
+                                <Form.Item label="Address" name="address"><TextArea rows={3} /></Form.Item>
+                                <Form.Item label="Student Type" name="studentType"><Input allowClear /></Form.Item>
                             </Col>
                             <Col xs={24} sm={24} md={12} lg={12}>
                                 <Form.Item label="DOB" name="dob">
@@ -103,9 +103,15 @@ function EnquiryAddEdit() {
                                 >
                                     <Input allowClear />
                                 </Form.Item>
-                                <Form.Item label="Highest Qualification" name="pincode"><Input allowClear /></Form.Item>
-                                <Form.Item label="Pincode" name="pinCode"><Input allowClear /></Form.Item>
-
+                                <Form.Item label="ID Proof" name="idProof"><Input allowClear /></Form.Item>
+                                <Form.Item label="ID Number" name="idNumber"><Input allowClear /></Form.Item>
+                                <Form.Item label="Father's Name" name="studentFatherName"><Input allowClear /></Form.Item>
+                                <Form.Item name="status" label="Status" rules={[{ required: true }]}>
+                                    <Select placeholder="Status">
+                                        <Option value="INPROGRESS">In Progress</Option>
+                                        <Option value="COMPLETED">Completed</Option>
+                                    </Select>
+                                </Form.Item>
                             </Col>
                         </Row>
                     </Col>

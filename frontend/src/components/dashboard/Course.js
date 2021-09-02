@@ -7,6 +7,7 @@ import { FiClock, FiMail, FiPhone } from "react-icons/fi";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
+import BatchStatus from "../batch/BatchStatus";
 import toSentenceCase from "../utility/util";
 
 function Courses(params) {
@@ -44,7 +45,10 @@ function Courses(params) {
     return (
         <Tabs type="card" style={contentStyle} onChange={(e) => setSelectedBatchId(e)}>
             {contextData?.batches?.map((batch, index) =>
-                <TabPane tab={batch.name} key={batch.id}>
+                <TabPane tab={<>
+                    <BatchStatus status={batch.status} />
+                    {batch.name}
+                </>} key={batch.id}>
                     <Table size='small' dataSource={data} columns={columns} />
                 </TabPane>
             )}

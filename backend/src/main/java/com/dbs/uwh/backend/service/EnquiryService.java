@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dbs.uwh.backend.dao.EnquiryDao;
 import com.dbs.uwh.backend.model.Enquiry;
+import com.dbs.uwh.backend.model.constant.Status;
 
 @Service
 public class EnquiryService extends GenericService<Enquiry, Long> {
@@ -19,10 +20,21 @@ public class EnquiryService extends GenericService<Enquiry, Long> {
 
 		List<Enquiry> enquiries = enquiryDao.findAll();
 		HashMap<String, Integer> enquiryStats = new HashMap<String, Integer>();
-		int n = 1;
+
+		int completed = 0;
+		int inProgress = 0;
+
+		for (Enquiry enquiry : enquiries) {
+			if (enquiry.getStatus() == Status.COMPLETED) {
+				completed++;
+			} else if (enquiry.getStatus() == Status.INPROGRESS) {
+				inProgress++;
+			}
+		}
+
 		enquiryStats.put("total", enquiries.size());
-		enquiryStats.put("completed", n);
-		enquiryStats.put("inProgress", enquiries.size() - n);
+		enquiryStats.put("completed", completed);
+		enquiryStats.put("inProgress", inProgress);
 		return enquiryStats;
 	}
 }

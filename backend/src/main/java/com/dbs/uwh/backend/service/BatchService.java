@@ -31,12 +31,18 @@ public class BatchService extends GenericService<Batch, Long> {
 	@Autowired
 	BatchDao batchDao;
 
-	@Autowired 	BatchCourseDao batchCourseDao;
-	@Autowired	BatchQuizDao batchQuizDao;
-	@Autowired	BatchSkillSetDao batchSkillSetDao;
-	@Autowired	BatchCounsellingDao batchCounsellingDao;
-	@Autowired	BatchEventDao batchEventDao;
-	@Autowired	private StudentDao studentDao;
+	@Autowired
+	BatchCourseDao batchCourseDao;
+	@Autowired
+	BatchQuizDao batchQuizDao;
+	@Autowired
+	BatchSkillSetDao batchSkillSetDao;
+	@Autowired
+	BatchCounsellingDao batchCounsellingDao;
+	@Autowired
+	BatchEventDao batchEventDao;
+	@Autowired
+	private StudentDao studentDao;
 
 	public void updateBatch(Batch batch) {
 		Batch dbBatch = batchDao.findById(batch.getId()).get();
@@ -59,7 +65,7 @@ public class BatchService extends GenericService<Batch, Long> {
 		for (Batch batch : batches) {
 			if (batch.getStatus() == Status.COMPLETED) {
 				completed++;
-			} else if(batch.getStatus() == Status.INPROGRESS){
+			} else if (batch.getStatus() == Status.INPROGRESS) {
 				inProgress++;
 			}
 
@@ -144,7 +150,7 @@ public class BatchService extends GenericService<Batch, Long> {
 	public void deleteBatchSkillSet(BatchSkillSet batchSkillSet) {
 		batchSkillSetDao.delete(batchSkillSet);
 	}
-	
+
 	public void deleteBatchStudent(Student student) {
 		batchDao.deleteBatchStudent(student.getId());
 	}
@@ -172,18 +178,16 @@ public class BatchService extends GenericService<Batch, Long> {
 	public List<Student> findAllStudentsByBatchId(Long id) {
 		return studentDao.findByBatchId(id);
 	}
-	
+
 	public List<BatchEvent> findAllEventsByBatchId(Long id) {
 		return batchEventDao.findByBatchId(id);
 	}
-	
+
 	public BatchEvent saveBatchEvent(BatchEvent batchEvent) {
 		return batchEventDao.save(batchEvent);
 	}
-	
+
 	public void deleteBatchEvent(BatchEvent batchEvent) {
 		batchEventDao.delete(batchEvent);
 	}
-	
-
 }

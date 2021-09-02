@@ -5,6 +5,7 @@ import { useContext } from "react";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
+import BatchStatus from "../batch/BatchStatus";
 import AppError from "../utility/AppError";
 import AppSpin from "../utility/AppSpin";
 
@@ -40,6 +41,7 @@ function EnquiryList() {
                                             className={item.id === contextData.selectedItem?.id ? "custom-card active" : "custom-card"}
                                             onClick={() => { setContextData({ ...contextData, selectedItem: item }) }}
                                         >
+                                            <BatchStatus status={item.status}/>
                                             <List.Item.Meta
                                                 title={<Text><b>{item.studentName}</b></Text>}
                                             />

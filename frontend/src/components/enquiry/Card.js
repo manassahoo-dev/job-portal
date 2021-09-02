@@ -26,6 +26,7 @@ function EnquiryCard() {
         { name: 'Student Father Name', field: 'studentFatherName' },
         { name: 'ID Proof', field: 'idProof' },
         { name: 'ID Number', field: 'idNumber' },
+        { name: 'Status', field: 'status' },
     ];
 
     return (

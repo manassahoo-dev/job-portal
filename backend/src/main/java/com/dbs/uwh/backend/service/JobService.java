@@ -28,12 +28,12 @@ public class JobService extends GenericService<Job, Long> {
 	public HashMap<String, Integer> JobStats() {
 
 		List<Job> jobs = jobDao.findAll();
-		HashMap<String, Integer> studentStats = new HashMap<String, Integer>();
+		HashMap<String, Integer> jobStats = new HashMap<String, Integer>();
 
-		studentStats.put("total", jobs.size());
-		studentStats.put("placements", 15);
-		studentStats.put("interviews", 1);
-		return studentStats;
+		jobStats.put("total", jobs.size());
+		jobStats.put("placements", 15);
+		jobStats.put("interviews", 1);
+		return jobStats;
 	}
 
 	public List<Job> findByCategoryId(Long categoryId) {

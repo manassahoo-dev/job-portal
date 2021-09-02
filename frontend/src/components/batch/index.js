@@ -11,26 +11,28 @@ import ValidationMessage from "../utility/ValidationMessage";
 import BatchStatus from "./BatchStatus";
 
 function BatchList({ setBatch }) {
-
+    
+    const { contextData, setContextData } = useContext(AppContext);
+    const [form] = Form.useForm();
+    const [isAddBatch, setIsAddBatch] = useState(false);
+    const { data, error, loading } = ApiRequest('GET', api.BATCH, contextData.lastRefresh);
+    
     const onFinish = (values) => {
         apiService.create(api.BATCH, values)
             .then((response) => {
+                message.success('New Batch created successfully.');
                 setIsAddBatch(false);
+                form.resetFields();
+                setContextData({ ...contextData, lastRefresh: new Date() })
             })
             .catch((error) => {
-                message.error(error.response.message);
+                message.error(error.response.data.message);
             });;
     };
 
     const onFinishFailed = (errorInfo) => {
         console.error(errorInfo);
     };
-
-    const { contextData } = useContext(AppContext);
-    const [form] = Form.useForm();
-    const [isAddBatch, setIsAddBatch] = useState(false);
-    const { data, error, loading } = ApiRequest('GET', api.BATCH, contextData.lastRefresh);
-
     return (
         <AppSpin loading={loading}>
             <Card>
@@ -71,7 +73,7 @@ function BatchList({ setBatch }) {
                                             <BatchStatus status={item.status}/>
                                             <List.Item.Meta
                                                 title={<Button className="p-0" type="link" size="small" >{item.name}</Button>}
-                                                description={`${moment(item.startDate).format("Do MMM YY")} - ${moment(item.endDate).format("Do MMM YY")}`}
+                                                description={item.status !== 'NOTSTARTED' && `${moment(item.startDate).format("Do MMM YY")} - ${moment(item.endDate).format("Do MMM YY")}`}
                                             />
                                         </List.Item>
                                     )}
