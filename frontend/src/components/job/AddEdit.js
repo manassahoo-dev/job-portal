@@ -66,11 +66,11 @@ function JobAddEdit(params) {
             >
                 <Row gutter={[16, 0]}>
                     <Col xs={24} md={12} lg={12}>
-                        <Form.Item label="Enter Job Name" name='jobTitle' rules={[{ required: true }]}>
-                            <Input placeholder="Job Sub-Category Name" />
+                        <Form.Item label="Job Title" name='jobTitle' rules={[{ required: true }]}>
+                            <Input placeholder="Enter Job Title" />
                         </Form.Item>
 
-                        <Form.Item label="Select Location" name='jobLocation' rules={[{ required: true }]}>
+                        <Form.Item label="Location" name='jobLocation' rules={[{ required: true }]}>
                             <Input placeholder="Enter Location" />
                         </Form.Item>
 
