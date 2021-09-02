@@ -11,5 +11,5 @@ export default {
     JOB: '/jobs',
     ENQUIRY: '/enquiry',
     FILEUPLOAD: '/upload',
-    PROFILEUPLOAD: '/upload/profilepic',
+    PROFILEUPLOAD: '/upload/profile-picture',
 }

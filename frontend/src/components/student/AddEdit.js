@@ -1,14 +1,14 @@
-import { UploadOutlined } from '@ant-design/icons';
-import { Button, Card, Col, DatePicker, Form, Input, message, Row, Select, Space, Upload } from "antd";
+import { Button, Calendar, Card, Col, DatePicker, Form, Input, message, Row, Select, Space, Upload } from "antd"
 import { Option } from "antd/lib/mentions";
-import * as moment from "moment";
 import { useContext } from "react";
 import AppContext from "../../contexts/AppContext";
 import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ACTIONTYPES from "../utility/ACTIONTYPES";
 import ValidationMessage from "../utility/ValidationMessage";
+import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 
+import * as moment from "moment";
 
 function AddEditStudent() {
 
@@ -26,6 +26,7 @@ function AddEditStudent() {
             const updatedValues = {
                 ...values,
                 role: "JOB_SEEKER",
+                profilePic: values.file && values.file[0].response
             }
             apiService.create(api.STUDENT, updatedValues)
                 .then((response) => {
@@ -41,6 +42,7 @@ function AddEditStudent() {
                 ...contextData.selectedItem,
                 ...values,
                 role: "JOB_SEEKER",
+                profilePic: values.file && values.file[0].response
             }
             console.log(contextData.selectedItem)
             apiService.create(api.STUDENT, updatedValues)
@@ -140,7 +142,7 @@ function AddEditStudent() {
                     valuePropName="file"
                     getValueFromEvent={normFile}
                 >
-                    <Upload name="file" action={api.PROFILEUPLOAD} listType="picture">
+                    <Upload name="file" action={api.PROFILEUPLOAD} listType="picture" maxCount={1}>
                         <Button icon={<UploadOutlined />}>Click to upload</Button>
                     </Upload>
                 </Form.Item>

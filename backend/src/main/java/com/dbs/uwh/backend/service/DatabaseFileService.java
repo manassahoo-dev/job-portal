@@ -9,9 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dbs.uwh.backend.dao.DocumentDao;
-import com.dbs.uwh.backend.dao.StudentDao;
 import com.dbs.uwh.backend.model.Document;
-import com.dbs.uwh.backend.model.Student;
 
 @Service
 public class DatabaseFileService extends GenericService<Document, Long> {
@@ -19,32 +17,11 @@ public class DatabaseFileService extends GenericService<Document, Long> {
 	@Autowired
 	private DocumentDao documentDao;
 
-	@Autowired
-	private StudentDao studentDao;
-
-	public Document uploadFile(MultipartFile file, Long stId) {
-
+	public Document uploadFile(MultipartFile file) throws IOException {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
-		Document profilePic = null;
-		try {
-			Optional<Student> student = studentDao.findById(stId);
-
-			if (student.isPresent()) {
-
-				profilePic = Document.builder().documentType(file.getContentType()).documentName(fileName)
-						.data(file.getBytes()).uploadDoc_id(stId).build();
-
-				return documentDao.save(profilePic);
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		return profilePic;
-
+		Document profilePicture = Document.builder().documentType(file.getContentType()).documentName(fileName)
+				.data(file.getBytes()).build();
+		return documentDao.save(profilePicture);
 	}
 
 	public byte[] getProfilePicUploaded(Long stId) {

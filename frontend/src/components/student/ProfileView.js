@@ -28,7 +28,6 @@ function ProfileView({ record }) {
                 footer={null}
             >
                 <div className="card-center">
-                    {/* <img alt="profile" className="profile-picture" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/> */}
                     <Avatar size={128} icon={<UserOutlined />} className="m-auto my-2" />
                     <hr />
                     <Title className="m-auto" level={2}>{toSentenceCase(record.firstName) + ' ' + toSentenceCase(record.lastName || '')}</Title>
