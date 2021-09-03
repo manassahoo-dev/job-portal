@@ -202,6 +202,10 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 				attendanceDao.save(attendance);
 		}
 	}
+	
+	public List<Attendance> findAllByBatchIdAndCourseIdAndDate(Long batchId, Long courseId, LocalDate date) {
+		return attendanceDao.findAllByBatchIdAndCourseIdAndDate(batchId, courseId, date);
+	}
 
 	public List<AttendanceResponse> getDetailsBybatchCourseDate(Long batchId, Long courseId, LocalDate date) {
 		List<Attendance> studentsDataByDate = attendanceDao.findAllByBatchIdAndCourseIdAndDate(batchId, courseId, date);
