@@ -4,8 +4,8 @@ import api from "../../services/api";
 import ApiRequest from "../../services/ApiRequest";
 
 function StudentList({ selectedRowKeys, setSelectedRowKeys }) {
-
-    const { data, error, loading } = ApiRequest('GET', api.STUDENT, selectedRowKeys);
+    const [lastRefresh, setLastRefresh] = useState(new Date());
+    const { data, error, loading } = ApiRequest('GET', api.STUDENT, lastRefresh);
 
     const columns = [
         {

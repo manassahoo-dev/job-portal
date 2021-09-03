@@ -4,7 +4,7 @@ import api from "../../services/api";
 import apiService from "../../services/api.service";
 import ValidationMessage from "../utility/ValidationMessage";
 
-function CategoryAdd({ setIsAdd }) {
+function CategoryAdd({ setIsAdd, setLastRefresh }) {
 
     const [form] = Form.useForm();
 
@@ -13,6 +13,7 @@ function CategoryAdd({ setIsAdd }) {
             .then((response) => {
                 message.success('Category added successfully');
                 setIsAdd(false);
+                setLastRefresh(new Date());
                 form.resetFields();
             })
             .catch((error) => {

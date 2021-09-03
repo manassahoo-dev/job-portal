@@ -57,7 +57,7 @@ function AdminDashBoard(params) {
         <>
             <AppContext.Provider value={{ contextData, setContextData }}>
 
-                <Row gutter={[16, 16]}>
+                <Row gutter={[4, 8]}>
                     <Statistics />
                     <Col xs={24} sm={24} md={16} lg={18} xl={18}>
                         <Card bordered={false} style={contentStyle} title={<Text strong>Ongoing Batches</Text>}>

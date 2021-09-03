@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dbs.uwh.backend.model.Job;
-import com.dbs.uwh.backend.model.StudentJob;
 import com.dbs.uwh.backend.request.StudentJobRequest;
 import com.dbs.uwh.backend.service.JobService;
 

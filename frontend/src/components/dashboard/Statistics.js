@@ -1,5 +1,4 @@
-import { Card, Col, Row, Statistic } from "antd";
-import Text from "antd/lib/typography/Text";
+import { Card, Col, Divider, Row, Statistic } from "antd";
 import Title from "antd/lib/typography/Title";
 import { FiBarChart2, FiBookOpen, FiBriefcase, FiCheckSquare, FiSend, FiUser } from "react-icons/fi";
 import { useHistory } from "react-router-dom";
@@ -19,17 +18,18 @@ function Statistics(params) {
         display: 'flex',
         justifyContent: 'space-around',
         alignItems: 'center',
-        fontSize: '2rem',
-        color: '#bfbfbf'
+        fontSize: '4rem',
+        color: '#bfbfbf',
+        opacity: 0.4
     }
 
     const statItems = [
         { name: 'student', icon: <FiUser />, category1: 'male', category2: 'female', path: '/admin/students' },
         { name: 'batch', icon: <FiBarChart2 />, category1: 'Completed', category2: 'InProgress', path: '/admin/batches' },
+        { name: 'job', icon: <FiBriefcase />, category1: 'Completed', category2: 'InProgress', path: '/admin/jobs' },
+        { name: 'enquiry', icon: <FiSend />, category1: 'completed', category2: 'inProgress', path: '/admin/enquiry' },
         { name: 'course', icon: <FiBookOpen />, category1: 'reserve', category2: 'active', path: '/admin/courses' },
         { name: 'aptitude', icon: <FiCheckSquare />, category1: 'attempted', category2: 'success', path: '/admin/aptitudes' },
-        { name: 'job', icon: <FiBriefcase />, category1: 'interviews', category2: 'placements', path: '/admin/jobs' },
-        { name: 'enquiry', icon: <FiSend />, category1: 'completed', category2: 'inProgress', path: '/admin/enquiry' },
     ]
 
     return (
@@ -38,13 +38,16 @@ function Statistics(params) {
                 <Col xs={24} sm={12} md={8} lg={4}>
                     <Card hoverable onClick={() => handleClick(item.path)}>
                         <Row>
-                            <Col span={18} className="mb-4">
-                                <Title level={3} className="m-0" type="success">{toSentenceCase(item.name)}</Title>
-                                <Text>Total {toSentenceCase(item.name)} {data[item.name]?.total}</Text>
+                            <Col span={18}>
+                                <Title className="m-0" type="success">{data[item.name]?.total || 0}</Title>
+                                <Title level={4} className="m-0 fw-normal" type="secondary">{toSentenceCase(item.name)}</Title>
                             </Col>
-                            <Col span={6} className="mb-4">
+                            <Col span={6}>
                                 <span style={avatar}>{item.icon}</span>
                             </Col>
+                        </Row>
+                        <Row>
+                            <Divider className="my-2" />
                             <Col span={12}>
                                 <Statistic title={toSentenceCase(item.category1)} value={data[item.name]?.[item.category1]} />
                             </Col>

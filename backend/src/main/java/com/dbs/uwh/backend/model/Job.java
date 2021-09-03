@@ -6,9 +6,12 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import com.dbs.uwh.backend.model.constant.Status;
 import com.dbs.uwh.backend.model.mapping.JobCategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
@@ -25,6 +28,10 @@ public class Job extends BaseEntity {
 
 	@NotNull
 	private String jobTitle;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Status status = Status.NOTSTARTED;
 	
 	@NotNull
 	@Column

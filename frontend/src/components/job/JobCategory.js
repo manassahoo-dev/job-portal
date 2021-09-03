@@ -11,7 +11,7 @@ function JobCategory({ job }) {
     const [isVisible, setIsVisible] = useState(false)
     const [tabState, setTabState] = useState("Applied");
     const [selectedRowKeys, setSelectedRowKeys] = useState([])
-    const { contextData } = useContext(AppContext)
+    const { contextData, setContextData } = useContext(AppContext)
     const { TabPane } = Tabs;
     const tabs = ["Applied", "Interviewed", "Placed"]
 
@@ -22,7 +22,8 @@ function JobCategory({ job }) {
             type: tabState,
         }
         apiService.create(`${api.JOB}/jobstudentdata`, param).then((response) => {
-            console.log(response)
+            console.log(response);
+            setContextData({ ...contextData, lastRefresh: new Date() })
         })
         setTabState("Applied");
         setSelectedRowKeys([])
