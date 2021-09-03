@@ -43,7 +43,7 @@ public class AttendanceController extends GenericRestController<Attendance, Long
 		attendanceService.createAttendanceRecords(attendanceRequest);
 	}
 
-	@GetMapping(value = "/studentdatabybatchid")
+	@GetMapping(value = "/by-batch-and-course")
 	public List<AttendanceResponse> findByBatchIdAndCourseId(@RequestParam(required = true) Long batchId,
 			@RequestParam(required = true) Long courseId) {
 		if (batchId != null || courseId != null) {
@@ -57,7 +57,7 @@ public class AttendanceController extends GenericRestController<Attendance, Long
 	}
 
 	
-	@GetMapping(value = "/studentdatabybatchidanddate")
+	@GetMapping(value = "/by-batch-and-course-and-date")
 	public List<AttendanceResponse> findByBatchIdAndCourseId(@RequestParam(required = true) Long batchId,
 			@RequestParam(required = true) Long courseId,@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate date) {
 		if (batchId != null || courseId != null) {
