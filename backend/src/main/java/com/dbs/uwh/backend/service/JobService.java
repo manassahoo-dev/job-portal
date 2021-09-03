@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.dbs.uwh.backend.dao.JobDao;
 import com.dbs.uwh.backend.dao.StudentJobDao;
-import com.dbs.uwh.backend.model.Enquiry;
 import com.dbs.uwh.backend.model.Job;
 import com.dbs.uwh.backend.model.StudentJob;
 import com.dbs.uwh.backend.model.User;
