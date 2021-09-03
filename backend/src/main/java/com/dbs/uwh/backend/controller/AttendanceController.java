@@ -48,9 +48,7 @@ public class AttendanceController extends GenericRestController<Attendance, Long
 			@RequestParam(required = true) Long courseId) {
 		if (batchId != null || courseId != null) {
 			return attendanceService.getStudentAttendanceDataByBatchAndCourse(batchId, courseId);
-
 		} else {
-			System.out.println("No data with these batch Id and Course Id");
 			return null;
 		}
 
@@ -58,13 +56,11 @@ public class AttendanceController extends GenericRestController<Attendance, Long
 
 	
 	@GetMapping(value = "/by-batch-and-course-and-date")
-	public List<AttendanceResponse> findByBatchIdAndCourseId(@RequestParam(required = true) Long batchId,
+	public List<AttendanceResponse> findByBatchIdCourseIdAndDate(@RequestParam(required = true) Long batchId,
 			@RequestParam(required = true) Long courseId,@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate date) {
 		if (batchId != null || courseId != null) {
 			return attendanceService.getDetailsBybatchCourseDate(batchId, courseId,date);
-
 		} else {
-			System.out.println("No data with these batch Id and Course Id");
 			return null;
 		}
 
