@@ -19,7 +19,7 @@ function OngoingBatches(params) {
 
     const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${selectedBatchId}/courses`, selectedBatchId);
     const coursesData = data.map((item) => item.course)
-    console.log('OngoingBatches', coursesData)
+
     const contentStyle = {
         height: '500px',
         overflow: 'auto',
@@ -70,7 +70,7 @@ function OngoingBatches(params) {
                             <Text strong italic>Started on </Text>{batch.startDate || '-'} to {batch.endDate || '-'}
                             <Text strong italic>Students :</Text>{batch.startDate || '-'}
                         </Space>
-                        <Attendance batch={batch} />
+                        <Attendance courseData={coursesData} batch={batch} />
                         <Table size='small' dataSource={courses} columns={coursesColumns} />
                     </TabPane>
                 )}

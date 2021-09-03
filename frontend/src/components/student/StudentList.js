@@ -10,6 +10,7 @@ import api from '../../services/api';
 import apiService from '../../services/api.service';
 import ApiRequest from '../../services/ApiRequest';
 import ACTIONTYPES from '../utility/ACTIONTYPES';
+import toSentenceCase from '../utility/util';
 import ProfileView from './ProfileView';
 
 function StudentList() {
@@ -58,7 +59,7 @@ function StudentList() {
             formatter: (_fieldValue, record) => {
                 return record?.firstName + " " + record?.lastName;
             },
-            render: (text, record) => <b>{`${record.firstName} ${record?.lastName || ''}`}</b>,
+            render: (text, record) => <b>{`${toSentenceCase(record.firstName)} ${toSentenceCase(record?.lastName || '')}`}</b>,
         }, {
             title: 'Batch',
             dataIndex: 'batchName',
@@ -158,11 +159,12 @@ function StudentList() {
                                     type: "primary",
                                     icon: <FileExcelOutlined />,
                                     children: <span>Export to CSV</span>,
-                                }, }}
+                                },
+                            }}
                             searchable searchableProps={{
                                 inputProps: {
                                     placeholder: "Search Student",
-                                    style: { width: '500px', border: '1px solid #4a73ff'},
+                                    style: { width: '500px', border: '1px solid #4a73ff' },
                                 },
                             }}
                             dataSource={data} size="small" rowKey="id"
