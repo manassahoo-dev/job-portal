@@ -66,5 +66,13 @@ public class AttendanceController extends GenericRestController<Attendance, Long
 
 	}
 	
+	@GetMapping(value = "/student-list-by-batch-and-course-and-date")
+	public List<Attendance> findAllByBatchIdAndCourseIdAndDate(@RequestParam(required = true) Long batchId,
+			@RequestParam(required = true) Long courseId,@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate date) {
+			return attendanceService.findAllByBatchIdAndCourseIdAndDate(batchId, courseId,date);
+	}
+	
+	
+	
 	
 }
