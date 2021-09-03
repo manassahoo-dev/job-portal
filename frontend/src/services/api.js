@@ -12,4 +12,5 @@ export default {
     ENQUIRY: '/enquiry',
     FILEUPLOAD: '/upload',
     PROFILEUPLOAD: '/upload/profile-picture',
+    ATTENDANCE: '/attendance',
 }
