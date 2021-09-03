@@ -1,6 +1,8 @@
 package com.dbs.uwh.backend.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -84,11 +86,11 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 		 * 
 		 */}
 
-	public List<AttendanceResponse> getStudentAttendanceDataByBatchAndCourse(Long batchId, Long courseId) {
+	public List<AttendanceResponse> getStudentAttendanceDataByBatchAndCourse_old(Long batchId, Long courseId) {
 		List<AttendanceResponse> attendanceResponses = new ArrayList<>();
 		int presentCount = 0;
 		int absentCount = 0;
-
+		LocalDate previousDate = null;
 		List<Attendance> studentsDataByDate = attendanceDao.findByBatchIdAndCourseId(batchId, courseId);
 
 		if (!CollectionUtils.isEmpty(studentsDataByDate)) {
@@ -96,26 +98,91 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 			for (Attendance attendance : studentsDataByDate) {
 				AttendanceResponse attendanceResponse = new AttendanceResponse();
 				if (!attendance.isPresent()) {
-					absentCount++;
-					attendanceResponse.setAbsentCount(String.valueOf(absentCount));
-					attendanceResponse.setPresentCount(String.valueOf(presentCount));
-					attendanceResponse.setDate(attendance.getAttendanceDate());
-					attendanceResponses.add(attendanceResponse);
+
+					if (null == previousDate) {
+						previousDate = attendance.getAttendanceDate();
+					}
+
+					if (previousDate.equals(attendance.getAttendanceDate()) && previousDate != null) {
+						absentCount++;
+						attendanceResponse.setAbsentCount(String.valueOf(absentCount));
+						attendanceResponse.setPresentCount(String.valueOf(presentCount));
+						attendanceResponse.setDate(attendance.getAttendanceDate());
+					} else {
+						absentCount++;
+					}
+
 				} else {
-					presentCount++;
-					attendanceResponse.setPresentCount(String.valueOf(presentCount));
-					attendanceResponse.setAbsentCount(String.valueOf(absentCount));
-					attendanceResponse.setDate(attendance.getAttendanceDate());
-					attendanceResponses.add(attendanceResponse);
+					if (null == previousDate) {
+						previousDate = attendance.getAttendanceDate();
+					}
+					if (previousDate.equals(attendance.getAttendanceDate()) && previousDate != null) {
+						presentCount++;
+						attendanceResponse.setAbsentCount(String.valueOf(absentCount));
+						attendanceResponse.setPresentCount(String.valueOf(presentCount));
+						attendanceResponse.setDate(attendance.getAttendanceDate());
+					} else {
+						presentCount++;
+					}
+
 				}
+
+				attendanceResponses.add(attendanceResponse);
 			}
 
 		}
+		Collections.sort(attendanceResponses, Comparator.comparing(AttendanceResponse::getDate));
 
 		List<AttendanceResponse> sortedResponse = attendanceResponses.stream()
 				.sorted(Comparator.comparing(AttendanceResponse::getDate).reversed()).collect(Collectors.toList());
 
 		return sortedResponse;
+
+	}
+
+	public List<AttendanceResponse> getStudentAttendanceDataByBatchAndCourse(Long batchId, Long courseId) {
+		List<AttendanceResponse> attendanceResponses = new ArrayList<>();
+
+		List<Attendance> studentsDataByDate = attendanceDao.findAllByBatchIdAndCourseIdGroupByAttendanceDate(batchId,
+				courseId);
+
+		if (studentsDataByDate.size() > 0) {
+			for (int i = 0; i < studentsDataByDate.size(); i++) {
+				AttendanceResponse resp = new AttendanceResponse();
+				int presentCount = 0;
+				int absentCount = 0;
+				List<Attendance> allStudentsDataOnSpecificDate = attendanceDao.findAllByBatchIdAndCourseIdAndDate(
+						batchId, courseId, studentsDataByDate.get(i).getAttendanceDate());
+				if (allStudentsDataOnSpecificDate.size() > 0) {
+
+					System.out.println(studentsDataByDate.get(i).getAttendanceDate());
+					System.out.println(studentsDataByDate.get(i).isPresent());
+					System.out.println(studentsDataByDate.get(i).getBatchId());
+					System.out.println(studentsDataByDate.get(i).getCourseId());
+
+					for (int j = 0; j < allStudentsDataOnSpecificDate.size(); j++) {
+						System.out.println(allStudentsDataOnSpecificDate.get(j).isPresent());
+						System.out.println(allStudentsDataOnSpecificDate.get(j).getBatchId());
+						System.out.println(allStudentsDataOnSpecificDate.get(j).getCourseId());
+						System.out.println(allStudentsDataOnSpecificDate.get(j).getAttendanceDate());
+
+						if (allStudentsDataOnSpecificDate.get(j).isPresent()) {
+							presentCount++;
+						} else {
+							absentCount++;
+						}
+						resp.setAbsentCount(String.valueOf(absentCount));
+						resp.setPresentCount(String.valueOf(presentCount));
+						resp.setDate(studentsDataByDate.get(i).getAttendanceDate());
+
+					}
+				}
+				attendanceResponses.add(resp);
+			}
+
+		}
+
+		return attendanceResponses;
 
 	}
 
@@ -134,6 +201,33 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 			if (!isExists)
 				attendanceDao.save(attendance);
 		}
+	}
+
+	public List<AttendanceResponse> getDetailsBybatchCourseDate(Long batchId, Long courseId, LocalDate date) {
+		List<Attendance> studentsDataByDate = attendanceDao.findAllByBatchIdAndCourseIdAndDate(batchId, courseId, date);
+		int pCount = 0;
+		int aCount = 0;
+		System.out.println(studentsDataByDate);
+		List<AttendanceResponse> attResponse = new ArrayList<>();
+		for (int i = 0; i < studentsDataByDate.size(); i++) {
+			studentsDataByDate.get(i).getAttendanceDate();
+			studentsDataByDate.get(i).isPresent();
+
+			System.out.println("resp::" + studentsDataByDate.get(i).getAttendanceDate());
+			System.out.println(studentsDataByDate.get(i).isPresent());
+			if (studentsDataByDate.get(i).isPresent()) {
+				pCount++;
+			} else {
+				aCount++;
+			}
+
+		}
+		AttendanceResponse att = new AttendanceResponse();
+		att.setDate(date);
+		att.setAbsentCount(String.valueOf(aCount));
+		att.setPresentCount(String.valueOf(pCount));
+		attResponse.add(att);
+		return attResponse;
 	}
 
 }
