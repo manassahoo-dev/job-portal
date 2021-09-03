@@ -44,7 +44,7 @@ public class AttendanceController extends GenericRestController<Attendance, Long
 	}
 
 	@GetMapping(value = "/by-batch-and-course")
-	public List<AttendanceResponse> findByBatchIdAndCourseId(@RequestParam(required = true) Long batchId,
+	public List<Object> findByBatchIdAndCourseId(@RequestParam(required = true) Long batchId,
 			@RequestParam(required = true) Long courseId) {
 		if (batchId != null || courseId != null) {
 			return attendanceService.getStudentAttendanceDataByBatchAndCourse(batchId, courseId);

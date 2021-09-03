@@ -140,49 +140,15 @@ public class AttendanceService extends GenericService<Attendance, Long> {
 
 	}
 
-	public List<AttendanceResponse> getStudentAttendanceDataByBatchAndCourse(Long batchId, Long courseId) {
+	public List<Object> getStudentAttendanceDataByBatchAndCourse(Long batchId, Long courseId) {
 		List<AttendanceResponse> attendanceResponses = new ArrayList<>();
 
-		List<Attendance> studentsDataByDate = attendanceDao.findAllByBatchIdAndCourseIdGroupByAttendanceDate(batchId,
+		List<Object> studentsDataByDate = attendanceDao.findAllByBatchIdAndCourseIdGroupByAttendanceDate(batchId,
 				courseId);
 
-		if (studentsDataByDate.size() > 0) {
-			for (int i = 0; i < studentsDataByDate.size(); i++) {
-				AttendanceResponse resp = new AttendanceResponse();
-				int presentCount = 0;
-				int absentCount = 0;
-				List<Attendance> allStudentsDataOnSpecificDate = attendanceDao.findAllByBatchIdAndCourseIdAndDate(
-						batchId, courseId, studentsDataByDate.get(i).getAttendanceDate());
-				if (allStudentsDataOnSpecificDate.size() > 0) {
+		if (studentsDataByDate.size() > 0) {}
 
-					System.out.println(studentsDataByDate.get(i).getAttendanceDate());
-					System.out.println(studentsDataByDate.get(i).isPresent());
-					System.out.println(studentsDataByDate.get(i).getBatchId());
-					System.out.println(studentsDataByDate.get(i).getCourseId());
-
-					for (int j = 0; j < allStudentsDataOnSpecificDate.size(); j++) {
-						System.out.println(allStudentsDataOnSpecificDate.get(j).isPresent());
-						System.out.println(allStudentsDataOnSpecificDate.get(j).getBatchId());
-						System.out.println(allStudentsDataOnSpecificDate.get(j).getCourseId());
-						System.out.println(allStudentsDataOnSpecificDate.get(j).getAttendanceDate());
-
-						if (allStudentsDataOnSpecificDate.get(j).isPresent()) {
-							presentCount++;
-						} else {
-							absentCount++;
-						}
-						resp.setAbsentCount(String.valueOf(absentCount));
-						resp.setPresentCount(String.valueOf(presentCount));
-						resp.setDate(studentsDataByDate.get(i).getAttendanceDate());
-
-					}
-				}
-				attendanceResponses.add(resp);
-			}
-
-		}
-
-		return attendanceResponses;
+		return studentsDataByDate;
 
 	}
 

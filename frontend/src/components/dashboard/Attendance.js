@@ -44,10 +44,12 @@ function Attendance({ batch, courseData }) {
         }
     };
     const handleOk = () => {
+        const values = form.getFieldsValue();
+        console.log(form.getFieldsValue());
         const Obj = {
             batchId: batch.id,
-            courseId: selectedCourseId,
-            date: moment(selectedDate).format("YYYY-MM-DD"),
+            courseId: values.courseId,
+            date: moment(values.courseDate).format("YYYY-MM-DD"),
             present: true,
             studentIds: selectedRowKeys,
         }
@@ -99,8 +101,8 @@ function Attendance({ batch, courseData }) {
                     onFinishFailed={onFinishFailed}
                     validateMessages={ValidationMessage}
                 >
-                    <Row gutter={[16, 16]}>
-                        <Col xs={12} md={12} lg={8} >
+                    <Row gutter={[16]}>
+                        <Col span={12}>
                             <Form.Item label="Select Course" name="courseId" rules={[{ required: true, message: "Course is required" }]}>
                                 <Select
                                     placeholder="Select Course"
@@ -113,14 +115,12 @@ function Attendance({ batch, courseData }) {
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col xs={12} md={12} lg={8} >
-
+                        <Col span={8}>
                             <Form.Item label="Select Date" name="courseDate" rules={[{ required: true, message: "Date is required" }]}>
                                 <DatePicker format='DD/MM/YYYY' />
                             </Form.Item>
                         </Col>
-                        <Col xs={12} md={12} lg={8} >
-                            <br />
+                        <Col span={4}>
                             <Button htmlType="submit">Search</Button>
                         </Col>
                     </Row>
