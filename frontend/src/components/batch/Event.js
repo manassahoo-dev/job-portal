@@ -24,6 +24,8 @@ function EventCard() {
     const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${contextData.batch?.id}/events`, lastRefresh);
 
     const onFinish = (values) => {
+        values.batchId = contextData.batch?.id
+        console.log(values);
         apiService.post(`${api.BATCH}/events`, values)
             .then(response => {
                 setIsAdd(false);
