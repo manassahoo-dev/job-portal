@@ -12,12 +12,20 @@ import com.dbs.uwh.backend.model.Attendance;
 
 @Repository
 public interface AttendanceDao extends GenericDao<Attendance, Long> {
-	boolean existsAttendanceByBatchIdAndCourseIdAndStudentIdAndAttendanceDate(Long batchId, Long courseId, Long studentId, LocalDate attendanceDate);
-	List<Attendance> findByBatchIdAndCourseId(@Param("batch_id") Long batchId,@Param("course_id") Long courseId);
+	boolean existsAttendanceByBatchIdAndCourseIdAndStudentIdAndAttendanceDate(Long batchId, Long courseId,
+			Long studentId, LocalDate attendanceDate);
+
+	List<Attendance> findByBatchIdAndCourseId(@Param("batch_id") Long batchId, @Param("course_id") Long courseId);
 
 	@Query(value = "select distinct date from attendance WHERE batch_id = ?1 and course_id=?2", nativeQuery = true)
 	public List<Date> findBatchIdAndCourseIdDistinctDates(Long batchId, Long courseId);
-	
-	@Query(value = "select * from attendance WHERE batch_id = ?1 and course_id=?2  group by attendance_date",nativeQuery=true)
+
+	@Query(value = "select * from attendance WHERE batch_id = ?1 and course_id=?2  group by attendance_date", nativeQuery = true)
 	public List<Attendance> findAllByBatchIdAndCourseIdGroupByDate(Long batchId, Long courseId);
+
+	@Query(value = "select * from attendance WHERE batch_id = ?1 and course_id=?2  and attendance_date=?3", nativeQuery = true)
+	public List<Attendance> findAllByBatchIdAndCourseIdAndDate(Long batchId, Long courseId, LocalDate date);
+
+	@Query(value = "SELECT * FROM attendance WHERE batch_id = ?1 AND course_id = ?2 GROUP BY attendance_date ORDER BY attendance_date", nativeQuery = true)
+	public List<Attendance> findAllByBatchIdAndCourseIdGroupByAttendanceDate(Long batchId, Long courseId);
 }
