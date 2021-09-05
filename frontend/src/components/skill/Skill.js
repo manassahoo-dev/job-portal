@@ -9,7 +9,7 @@ function Skill(props) {
         <Form.List name="skills">
             {(fields, { add, remove }) => {
                 return (
-                    <Card size="small" title="Questions" extra={<Button type="link" onClick={() => { add(); }}><PlusOutlined /> Add skill</Button>} >
+                    <Card size="small" title="Skills" extra={<Button type="link" onClick={() => { add(); }}><PlusOutlined /> Add skill</Button>} >
                         {fields.length > 0 && fields.map((field, index) => (
                             <Row >
                                 <Col flex="auto">

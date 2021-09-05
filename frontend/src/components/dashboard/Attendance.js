@@ -91,7 +91,7 @@ function Attendance({ batch, courseData }) {
 
     return (
         <>
-            <Button type="link" icon={<FiEdit2 />} className="float-end" onClick={() => showModal()} >Update</Button>
+            <Button className="float-end" onClick={() => showModal()} >Update Attendance</Button>
 
             <Modal title="Attendance" visible={isModalVisible} onOk={handleOk} okText="Update Attendance" onCancel={handleCancel}>
                 <Form
@@ -121,7 +121,7 @@ function Attendance({ batch, courseData }) {
                             </Form.Item>
                         </Col>
                         <Col span={4}>
-                            <Button htmlType="submit">Search</Button>
+                            <Button htmlType="submit" style={{ marginTop: '30px'}}>Search</Button>
                         </Col>
                     </Row>
 

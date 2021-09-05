@@ -20,16 +20,16 @@ function OngoingBatches(params) {
         setSelectedBatchId(contextData?.initialLoadBatch?.id)
         getStudents();
     }, [contextData])
-    
+
     const getStudents = () => {
         apiService.get(`${api.BATCH}/${selectedBatchId}/students`)
-        .then(response => {
-            setStudents(response.data);
-        }).catch(e => {
-            // message.error(e.response.statusText);
-        });
+            .then(response => {
+                setStudents(response.data);
+            }).catch(e => {
+                // message.error(e.response.statusText);
+            });
     }
-    
+
     const { data, error, loading } = ApiRequest('GET', `${api.BATCH}/${selectedBatchId}/courses`, selectedBatchId);
     const coursesData = data.map((item) => item.course)
 
@@ -46,10 +46,12 @@ function OngoingBatches(params) {
                         <BatchStatus status={batch.status} />
                         {batch.name}
                     </>} key={batch.id}>
-                        <Space>
-                            <Text strong italic>Started on </Text>{batch.startDate || '-'} to {batch.endDate || '-'}
-                        </Space>
-                        <Attendance courseData={coursesData} batch={batch} />
+                        <div>
+                            <Space>
+                                <Text strong>From </Text>{batch.startDate || '-'} to {batch.endDate || '-'}
+                            </Space>
+                            <Attendance courseData={coursesData} batch={batch} />
+                        </div>
                         <Row>
                             {coursesData.map((course) =>
                                 <Col span={6}>
